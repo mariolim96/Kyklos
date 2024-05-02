@@ -25,11 +25,11 @@ dataSources:
           handler: handleGreetingChange
       file: ./src/mapping.ts
   - kind: ethereum/contract
-    name: CarbonProjects_Implementation
+    name: CarbonProjects
     network: localhost
     source:
       abi: CarbonProjects
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -39,7 +39,7 @@ dataSources:
         - User
       abis:
         - name: CarbonProjects
-          file: ./abis/localhost_CarbonProjects_Implementation.json
+          file: ./abis/localhost_CarbonProjects.json
       eventHandlers:
         - event: ProjectMinted(address,uint256)
           handler: handleProjectMinted

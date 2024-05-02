@@ -6,8 +6,8 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
   31337: {
-    CarbonProjects_Implementation: {
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    CarbonProjects: {
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       abi: [
         {
           inputs: [],
@@ -1318,10 +1318,47 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {},
+      inheritedFunctions: {
+        addNewProject: "contracts/interfaces/ICarbonProjects.sol",
+        approve: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        balanceOf: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        getApproved: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        getProjectDataByTokenId: "contracts/interfaces/ICarbonProjects.sol",
+        isApprovedForAll: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        isValidProjectTokenId: "contracts/interfaces/ICarbonProjects.sol",
+        ownerOf: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        safeTransferFrom: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        setApprovalForAll: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        supportsInterface: "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        transferFrom: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        baseURI: "contracts/storages/CarbonProjectsStorage.sol",
+        contractRegistry: "contracts/storages/CarbonProjectsStorage.sol",
+        pidToTokenId: "contracts/storages/CarbonProjectsStorage.sol",
+        projectData: "contracts/storages/CarbonProjectsStorage.sol",
+        projectIds: "contracts/storages/CarbonProjectsStorage.sol",
+        projectTokenCounter: "contracts/storages/CarbonProjectsStorage.sol",
+        totalSupply: "contracts/storages/CarbonProjectsStorage.sol",
+        validProjectTokenIds: "contracts/storages/CarbonProjectsStorage.sol",
+        name: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        symbol: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        tokenURI: "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
+        owner: "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        renounceOwnership: "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        transferOwnership: "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        paused: "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
+        DEFAULT_ADMIN_ROLE: "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        getRoleAdmin: "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        grantRole: "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        hasRole: "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        renounceRole: "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        revokeRole: "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        proxiableUUID: "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+        upgradeTo: "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+        upgradeToAndCall: "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+      },
     },
-    CarbonProjects_Proxy: {
-      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+    CarbonProjectsP: {
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
           inputs: [],
@@ -2635,7 +2672,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     Registry_Implementation: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
       abi: [
         {
           inputs: [],
@@ -3280,7 +3317,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     Registry_Proxy: {
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [],

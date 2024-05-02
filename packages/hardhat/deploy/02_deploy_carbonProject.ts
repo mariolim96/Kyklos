@@ -53,8 +53,8 @@ const deployYourContractContract: DeployFunction = async function (hre: HardhatR
     ...artifacts,
   };
 
-  await hre.deployments.save("CarbonProjects_Proxy", proxyDeployment);
-  await hre.deployments.save("CarbonProjects_Implementation", implementationDeployment);
+  await hre.deployments.save("CarbonProjectsP", proxyDeployment);
+  await hre.deployments.save("CarbonProjects", implementationDeployment);
 
   if (chainId !== "31337") {
     log("Verifying Proxy on ", chainId);

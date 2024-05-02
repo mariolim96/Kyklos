@@ -16,7 +16,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const kyklosContractRegistry = await hre.ethers.getContractFactory("KyklosContractRegistry");
   kyklosContractRegistry.attach(registryAddress) as KyklosContractRegistry;
 
-  const carbonProjectsAddress = (await hre.deployments.get("CarbonProjects_Proxy")).address;
+  const carbonProjectsAddress = (await hre.deployments.get("CarbonProjectsP")).address;
   const carbonProjects = await hre.ethers.getContractFactory("CarbonProjects");
   const carbonProjectsFactory = carbonProjects.attach(carbonProjectsAddress) as CarbonProjects;
   //   //   set carbon projects address in registry

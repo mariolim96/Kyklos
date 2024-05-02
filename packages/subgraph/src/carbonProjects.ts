@@ -1,5 +1,6 @@
-import { CarbonProjects, ProjectMinted as ProjectMintedEvent } from '../generated/CarbonProject/CarbonProjects';
+import { log } from '@graphprotocol/graph-ts';
 import { Project, User } from '../generated/schema';
+import { CarbonProjects, ProjectMinted } from '../generated/CarbonProjects/CarbonProjects';
 
 function addUser(userId: string): void {
   let user = User.load(userId);
@@ -9,7 +10,7 @@ function addUser(userId: string): void {
   user.save();
 }
 
-export function handleProjectMinted(event: ProjectMintedEvent): void {
+export function handleProjectMinted(event: ProjectMinted): void {
   let project = new Project(`${event.params.tokenId}`);
   const currentCarbonProjects = CarbonProjects.bind(event.address);
   const projectData = currentCarbonProjects.try_getProjectDataByTokenId(event.params.tokenId);
@@ -29,7 +30,6 @@ export function handleProjectMinted(event: ProjectMintedEvent): void {
     project.emissionType = projectData.value.emissionType;
     project.uri = projectData.value.uri;
     project.save();
-    // addProjectToUser(`${event.params.receiver.toHexString()}`, `${event.params.tokenId}`, false);
-    // addProjectToUser(`${event.block.author.toHexString()}`, `${event.params.tokenId}`, true);
   }
+  log.info('Project Minted: {}', [`${event.params.tokenId}`]);
 }
