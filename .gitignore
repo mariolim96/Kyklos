@@ -23,6 +23,10 @@ node_modules
 dist
 
 # subgraph
+packages/subgraph/build/*
+packages/subgraph/generated/*
+packages/subgraph/graph-node/*
 subgraph/build/*
 subgraph/generated/*
-subgraph/graph-node/data/*
+subgraph/graph-node/*
+

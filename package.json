@@ -7,6 +7,12 @@
       "packages/hardhat",
       "packages/nextjs",
       "packages/subgraph"
+    ],
+    "nohoist": [
+      "**/hardhat/**",
+      "/hardhat/**",
+      "**/graph/**",
+      "/graph/**"
     ]
   },
   "scripts": {
@@ -41,7 +47,9 @@
     "local-create": "yarn workspace @se-2/subgraph local-create",
     "local-ship": "yarn workspace @se-2/subgraph local-ship",
     "abi-copy": "yarn workspace @se-2/subgraph abi-copy",
-    "codegen": "yarn workspace @se-2/subgraph codegen"
+    "codegen": "yarn workspace @se-2/subgraph codegen",
+    "build": "yarn workspace @se-2/subgraph build",
+    "predeploy": "yarn workspace @se-2/subgraph predeploy"
   },
   "packageManager": "yarn@3.2.3",
   "devDependencies": {
