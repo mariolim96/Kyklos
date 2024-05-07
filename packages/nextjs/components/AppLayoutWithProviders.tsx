@@ -15,7 +15,7 @@ import { useNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
 import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 
-const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
+export const ScaffoldEthAppLayout = ({ children }: { children: React.ReactNode }) => {
   const price = useNativeCurrencyPrice();
   const setNativeCurrencyPrice = useGlobalState(state => state.setNativeCurrencyPrice);
 
@@ -37,6 +37,16 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+export const KyklosLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <>
+      <div className="flex flex-col min-h-screen">
+        <main className="relative flex flex-col flex-1">{children}</main>
+      </div>
+    </>
+  );
+};
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -45,10 +55,13 @@ export const queryClient = new QueryClient({
   },
 });
 
-export const ScaffoldEthAppWithProviders = ({ children }: { children: React.ReactNode }) => {
+export const AppLayoutWithProviders = ({ children }: { children: React.ReactNode }) => {
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === "dark";
   const [mounted, setMounted] = useState(false);
+  // getting the current url path
+  //   const path = window.location.pathname;
+  //   console.log('path:', path);
 
   useEffect(() => {
     setMounted(true);
@@ -69,7 +82,7 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
             avatar={BlockieAvatar}
             theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
           >
-            <ScaffoldEthApp>{children}</ScaffoldEthApp>
+            {children}
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

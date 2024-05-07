@@ -6,8 +6,8 @@ export const metadata = getMetadata({
   description: "Block Explorer created with 🏗 Scaffold-ETH 2",
 });
 
-const BlockExplorerLayout = ({ children }: { children: React.ReactNode }) => {
+const DebugLayout = ({ children }: { children: React.ReactNode }) => {
   return <ScaffoldEthAppLayout>{children}</ScaffoldEthAppLayout>;
 };
 
-export default BlockExplorerLayout;
+export default DebugLayout;
