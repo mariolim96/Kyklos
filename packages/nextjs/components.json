@@ -11,7 +11,7 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "components",
-    "utils": "utils/utils"
+    "components": "components/kyklos",
+    "utils": "~~/utils/utils"
   }
 }

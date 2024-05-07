@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Inter as FontSans } from "next/font/google";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -14,6 +15,7 @@ import { ProgressBar } from "~~/components/scaffold-eth/ProgressBar";
 import { useNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
 import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
+import { cn } from "~~/utils/utils";
 
 export const ScaffoldEthAppLayout = ({ children }: { children: React.ReactNode }) => {
   const price = useNativeCurrencyPrice();
@@ -27,9 +29,9 @@ export const ScaffoldEthAppLayout = ({ children }: { children: React.ReactNode }
 
   return (
     <>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-[oklch(var(--b2))]">
         <Header />
-        <main className="relative flex flex-col flex-1">{children}</main>
+        <main className={"relative flex flex-col flex-1"}>{children}</main>
         <Footer />
       </div>
       <Toaster />
@@ -37,11 +39,16 @@ export const ScaffoldEthAppLayout = ({ children }: { children: React.ReactNode }
   );
 };
 
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
 export const KyklosLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <main className="relative flex flex-col flex-1">{children}</main>
+        <main className={cn("relative flex flex-col flex-1", fontSans.variable)}>{children}</main>
       </div>
     </>
   );
