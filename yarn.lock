@@ -2757,6 +2757,7 @@ __metadata:
     "@radix-ui/react-slot": ^1.0.2
     "@rainbow-me/rainbowkit": ^2.0.2
     "@tanstack/react-query": ^5.28.6
+    "@tanstack/react-table": ^8.16.0
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/node": ^17.0.35
     "@types/nprogress": ^0
@@ -2786,6 +2787,7 @@ __metadata:
     react-copy-to-clipboard: ^5.1.0
     react-dom: ^18.2.0
     react-hot-toast: ^2.4.0
+    react-icons: ^5.2.1
     tailwind-merge: ^2.3.0
     tailwindcss: ^3.4.3
     tailwindcss-animate: ^1.0.7
@@ -3131,6 +3133,25 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
   checksum: a920991b62b2bd7f91f8a8a4377a7f50c28c60979535dad33f45d15aa865d481956724493341e8343ca71dbaf00e9ed7cefb782d5460a7447ce39125a66f869f
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-table@npm:^8.16.0":
+  version: 8.16.0
+  resolution: "@tanstack/react-table@npm:8.16.0"
+  dependencies:
+    "@tanstack/table-core": 8.16.0
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 9a80668ba7531b49425d3c08fe34fbd4bbcdf936fbca120114d2d090013242c3ea1b573c1381719289600bc866f2ded9e3e13c7c4923285d2cf4eee1c1d489e7
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:8.16.0":
+  version: 8.16.0
+  resolution: "@tanstack/table-core@npm:8.16.0"
+  checksum: c2c33c542c60788eb90806feb8f1f0340aa565ef9bb031bc5562d43598394a4089d61007f55ed6ab1fa16bbe93228cb2673b564ecf90b416bf463f42a56f3d85
   languageName: node
   linkType: hard
 
@@ -14412,6 +14433,15 @@ __metadata:
     react-native:
       optional: true
   checksum: 2f68ccd24daf72ddd2d11a526fb3c2b66c11ea4fcd2e24ac7aed42bf57ec7bffa7455ad1dc93679968ff629e9b1896465cdf6d1a61c29b92138ef88098e8dcba
+  languageName: node
+  linkType: hard
+
+"react-icons@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "react-icons@npm:5.2.1"
+  peerDependencies:
+    react: "*"
+  checksum: f084ea7409a3986c03b7805d0787d8526e2c988439a39f485cc526ec1b2eb6ec78e7b69345478151ce94bca8522737c6569203c8ab8b8ff08542b496f954bdfb
   languageName: node
   linkType: hard
 

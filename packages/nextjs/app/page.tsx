@@ -1,19 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import { Button } from "~~/components/kyklos/ui/button";
 
 const Home: NextPage = () => {
-  const { address } = useAccount();
+  const router = useRouter();
+  router.push("/homepage");
 
-  return (
-    <>
-      {address?.toString()}
-
-      <Button>button</Button>
-    </>
-  );
+  return <></>;
 };
 
 export default Home;

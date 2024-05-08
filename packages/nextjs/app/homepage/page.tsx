@@ -7,7 +7,7 @@ export const metadata = getMetadata({
 });
 
 const HomePage: NextPage = () => {
-  return <div className="bg-slate-800 w-52 h-56"> homeee</div>;
+  return <div className="bg-slate-800"> homeee</div>;
 };
 
 export default HomePage;

@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { Inter as FontSans } from "next/font/google";
+import { Layout } from "./kyklos/templates/layout";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useTheme } from "next-themes";
 import { Toaster } from "react-hot-toast";
@@ -47,9 +48,9 @@ const fontSans = FontSans({
 export const KyklosLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div className="flex flex-col min-h-screen">
-        <main className={cn("relative flex flex-col flex-1", fontSans.variable)}>{children}</main>
-      </div>
+      <main className={cn("relative", fontSans.variable)}>
+        <Layout>{children}</Layout>
+      </main>
     </>
   );
 };
@@ -64,17 +65,16 @@ export const queryClient = new QueryClient({
 
 export const AppLayoutWithProviders = ({ children }: { children: React.ReactNode }) => {
   const { resolvedTheme } = useTheme();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isDarkMode = resolvedTheme === "dark";
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [mounted, setMounted] = useState(false);
-  // getting the current url path
-  //   const path = window.location.pathname;
-  //   console.log('path:', path);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
+  const subgraphUri = "http://localhost:8000/subgraphs/name/kyklos";
   const apolloClient = new ApolloClient({
     uri: subgraphUri,
     cache: new InMemoryCache(),
@@ -85,10 +85,7 @@ export const AppLayoutWithProviders = ({ children }: { children: React.ReactNode
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <ProgressBar />
-          <RainbowKitProvider
-            avatar={BlockieAvatar}
-            theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
-          >
+          <RainbowKitProvider avatar={BlockieAvatar} theme={lightTheme()}>
             {children}
           </RainbowKitProvider>
         </QueryClientProvider>
