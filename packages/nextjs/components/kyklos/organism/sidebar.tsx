@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import SidebarTab from "../molecules/sidebarTab";
 import { AiOutlineProject } from "react-icons/ai";
 import { BsBoxArrowInDown } from "react-icons/bs";
-import { CgArrowsExchangeAlt } from "react-icons/cg";
 import { HiArrowSmRight } from "react-icons/hi";
 import { MdOutlineInsights } from "react-icons/md";
 import { TbHexagons } from "react-icons/tb";
@@ -25,11 +24,11 @@ type Props = {
 const Sidebar = (props: Props) => {
   const {
     menu = [
-      { title: "OverView", src: <MdOutlineInsights className={"w-6 h-6"} />, href: "/overview" },
-      { title: "Projects", src: <AiOutlineProject className={"w-6 h-6"} />, href: "/projects" },
-      { title: "Retirements", src: <BsBoxArrowInDown className={"w-6 h-6"} />, href: "/retirements" },
-      { title: "Pools", src: <TbHexagons className={"w-6 h-6"} />, href: "/pools" },
-      { title: "Exchange ", src: <CgArrowsExchangeAlt className={"w-6 h-6"} />, href: "/exchange" },
+      { title: "OverView", src: <MdOutlineInsights className={"w-6 h-6"} />, href: "/homepage/overview" },
+      { title: "Projects", src: <AiOutlineProject className={"w-6 h-6"} />, href: "/homepage/projects" },
+      { title: "Retirements", src: <BsBoxArrowInDown className={"w-6 h-6"} />, href: "/homepage/retirements" },
+      { title: "Pools", src: <TbHexagons className={"w-6 h-6"} />, href: "/homepage/pools" },
+      //   { title: "Exchange ", src: <CgArrowsExchangeAlt className={"w-6 h-6"} />, href: "/homepage/exchange" },
       // { title: 'Setting', src: 'Setting' },
     ],
   } = props;
@@ -44,7 +43,7 @@ const Sidebar = (props: Props) => {
 
   return (
     <div
-      className={cn("relative h-screen  p-5 pt-8  shadow-md shadow-primary duration-300", {
+      className={cn("relative h-screen  p-5 pt-8 border-r-2 border-secondary shadow-lg shadow-secondary duration-300", {
         "w-72": open,
         "w-20": !open,
       })}
@@ -77,7 +76,7 @@ const Sidebar = (props: Props) => {
           })}
         />
         <h1
-          className={cn("origin-right text-2xl font-medium duration-200 ease-in-out", {
+          className={cn("origin-right text-2xl text-primary duration-200 ease-in-out font-semibold", {
             "scale-0": !open,
           })}
         >
