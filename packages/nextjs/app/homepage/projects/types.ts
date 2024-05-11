@@ -31,7 +31,7 @@ interface Project {
   standard: string;
   storageMethod: string;
   timestamp: string; // Assuming the timestamp is a string representation of a Unix timestamp
-  tx: null; // Assuming all are null, otherwise need to define what `tx` type could be if not always null
+  tx: any; // Assuming all are null, otherwise need to define what `tx` type could be if not always null
   uri: string;
   owner: User;
 }

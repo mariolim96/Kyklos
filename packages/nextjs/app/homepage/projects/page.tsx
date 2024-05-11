@@ -12,7 +12,7 @@ import {
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
 import type { NextPage } from "next";
-import ListVisualizer from "~~/components/kyklos/molecules/listVisualizer";
+import ListVisualizer from "~~/components/kyklos/organism/listVisualizer";
 import { Button } from "~~/components/kyklos/ui/button";
 import { Checkbox } from "~~/components/kyklos/ui/checkbox";
 
@@ -81,7 +81,11 @@ export const columns: ColumnDef<Payment>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-    filterType: "number",
+    filterFn: "arrIncludesAll",
+
+    // meta: {
+    //     DropdownMenu
+    // }
   },
   {
     accessorKey: "status",
@@ -147,7 +151,7 @@ const HomePage: NextPage = () => {
   return (
     <div className="p-4">
       <GetProjects></GetProjects>
-      <ListVisualizer columns={columns} data={data}></ListVisualizer>
+      <ListVisualizer columns={columns} data={[...data, ...data]}></ListVisualizer>
     </div>
   );
 };

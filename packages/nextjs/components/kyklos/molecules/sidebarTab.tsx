@@ -20,14 +20,14 @@ const SidebarTab = (props: Props) => {
       }}
       role="button"
       className={cn(
-        "mt-2 flex cursor-pointer items-center gap-x-4 whitespace-nowrap rounded-md p-2 pl-[5px] text-lg hover:bg-secondary transition-bg-color shadow-lg shadow-secondary duration-300 border-2 border-muted text-muted-foreground ease-in-out",
+        "mt-2 flex cursor-pointer items-center gap-x-4 whitespace-nowrap rounded-md p-2 pl-[5px] text-lg hover:bg-secondary transition-bg-color shadow-lg shadow-base-2 duration-300  text-base-content-4 ease-in-out",
         {
-          "bg-secondary shadow-": index === selected,
+          "bg-secondary shadow-md shadow-red text-secondary-foreground": index === selected,
         },
       )}
     >
       <div>{item.src}</div>
-      <h1 className={cn("origin-left duration-200 ease-in-out font-semibold", { "scale-0": !open })}>{item.title}</h1>
+      <h1 className={cn("origin-left duration-200 ease-in-out font-semibold ", { "scale-0": !open })}>{item.title}</h1>
     </div>
   );
 };

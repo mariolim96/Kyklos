@@ -15,6 +15,8 @@ import {
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 import type { NextPage } from "next";
+import { DropdownMenuCheckboxes } from "~~/components/kyklos/molecules/checkboxMenu";
+import StatusCard from "~~/components/kyklos/molecules/statusCard";
 import { Button } from "~~/components/kyklos/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/kyklos/ui/card";
 import { Checkbox } from "~~/components/kyklos/ui/checkbox";
@@ -270,6 +272,15 @@ export function DataTableDemo() {
 
 const Home: NextPage = () => {
   //   const router = useRouter();
+  const [menuItems, setMenuItems] = React.useState([
+    { label: "Status Bar", checked: true },
+    { label: "Activity Bar", checked: false, disabled: true },
+    { label: "Panel", checked: false },
+  ]);
+
+  const handleItemChange = (label: string, checked: boolean) => {
+    setMenuItems(prevItems => prevItems.map(item => (item.label === label ? { ...item, checked } : item)));
+  };
   //   router.push("/homepage");
 
   return (
@@ -315,6 +326,9 @@ const Home: NextPage = () => {
         </label>
       </div>
       <DataTableDemo />
+      <DropdownMenuCheckboxes items={menuItems} name={"hello"} onItemChange={handleItemChange} />
+
+      <StatusCard title="Payments" header={<Button variant="outline">View all</Button>} />
     </>
   );
 };

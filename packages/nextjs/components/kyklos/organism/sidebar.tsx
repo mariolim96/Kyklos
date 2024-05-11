@@ -43,14 +43,17 @@ const Sidebar = (props: Props) => {
 
   return (
     <div
-      className={cn("relative h-screen  p-5 pt-8 border-r-2 border-secondary shadow-lg shadow-secondary duration-300", {
-        "w-72": open,
-        "w-20": !open,
-      })}
+      className={cn(
+        " relative h-screen  p-5 pt-8 border-r-2 border-base shadow-lg shadow-base-2 duration-300 bg-base",
+        {
+          "w-72": open,
+          "w-20": !open,
+        },
+      )}
     >
       <HiArrowSmRight
         className={cn(
-          "absolute -right-2.5 top-10 h-5 w-5 bg-primary border-1 border-primary  rounded  cursor-pointer",
+          "absolute -right-2.5 top-10 h-5 w-5 bg-secondary border-1 border-primary  rounded  cursor-pointer",
           {
             "rotate-180": !open,
           },
@@ -58,7 +61,7 @@ const Sidebar = (props: Props) => {
         onClick={() => setOpen(!open)}
       />
       <div
-        className="flex items-center gap-x-4"
+        className="flex items-center gap-x-4 "
         onClick={() => navigate.push("/")}
         role="button"
         tabIndex={0}

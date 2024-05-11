@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ProjectTableData, ProjectsData } from "../types";
 import { gql, useQuery } from "@apollo/client";
 import { ColumnDef } from "@tanstack/react-table";
-import ListVisualizer from "~~/components/kyklos/molecules/listVisualizer";
+import ListVisualizer, { checkFilter } from "~~/components/kyklos/organism/listVisualizer";
 
 const GetProjects = () => {
   const GET_PROJECTS = gql`
@@ -34,18 +34,22 @@ const GetProjects = () => {
     {
       header: "Project ID",
       accessorKey: "projectId",
+      filterFn: checkFilter,
     },
     {
       header: "Region",
       accessorKey: "region",
+      filterFn: checkFilter,
     },
     {
       header: "Standard",
       accessorKey: "standard",
+      filterFn: checkFilter,
     },
     {
       header: "Category",
       accessorKey: "category",
+      filterFn: checkFilter,
     },
   ];
 
@@ -53,7 +57,7 @@ const GetProjects = () => {
 
   return (
     <Suspense fallback="loading">
-      <ListVisualizer columns={columns} data={rows}></ListVisualizer>
+      <ListVisualizer columns={columns} data={[...rows,...rows]}></ListVisualizer>
     </Suspense>
   );
 };

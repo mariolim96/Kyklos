@@ -30,65 +30,86 @@ p {
   @apply shadow-none;
 }
 @layer base {
-    :root {
-        --background: 0 0% 100%; /* hsl(0, 0%, 100%) */
-        --foreground: 240 10% 3.9%; /* hsl(240, 10%, 3.9%) */
-        --card: 0 0% 100%; /* hsl(0, 0%, 100%) */
-        --card-foreground: 240 10% 3.9%; /* hsl(240, 10%, 3.9%) */
-        --popover: 0 0% 100%; /* hsl(0, 0%, 100%) */
-        --popover-foreground: 240 10% 3.9%; /* hsl(240, 10%, 3.9%) */
-        --primary: 142.1 76.2% 36.3%; /* hsl(142.1, 76.2%, 36.3%) */
-        --primary-foreground: 355.7 100% 97.3%; /* hsl(355.7, 100%, 97.3%) */
-        --secondary: 240 4.8% 95.9%; /* hsl(240, 4.8%, 95.9%) */
-        --secondary-foreground: 240 5.9% 10%; /* hsl(240, 5.9%, 10%) */
-        --muted: 240 4.8% 95.9%; /* hsl(240, 4.8%, 95.9%) */
-        --muted-foreground: 240 3.8% 46.1%; /* hsl(240, 3.8%, 46.1%) */
-        --accent: 240 4.8% 95.9%; /* hsl(240, 4.8%, 95.9%) */
-        --accent-foreground: 240 5.9% 10%; /* hsl(240, 5.9%, 10%) */
-        --destructive: 0 84.2% 60.2%; /* hsl(0, 84.2%, 60.2%) */
-        --destructive-foreground: 0 0% 98%; /* hsl(0, 0%, 98%) */
-        --border: 240 5.9% 90%; /* hsl(240, 5.9%, 90%) */
-        --input: 240 5.9% 90%; /* hsl(240, 5.9%, 90%) */
-        --ring: 142.1 76.2% 36.3%; /* hsl(142.1, 76.2%, 36.3%) */
-        --radius: 0.5rem; /* 8px */
-      }
+  :root {
+    --background: 120, 2%, 85%; /* hsl(120, 2%, 85%) */
+    --foreground: 136, 32%, 27%; /* hsl(136, 32%, 27%) */
+    --card: 120, 2%, 82%; /* hsl(120, 2%, 82%) */
+    --card-foreground: 120, 2%, 1%; /* hsl(120, 2%, 1%) */
+    --popover: 120, 2%, 82%; /* hsl(120, 2%, 82%) */
+    --popover-foreground: 120, 2%, 1%; /* hsl(120, 2%, 1%) */
+    --primary: 135, 40%, 27%; /* hsl(135, 40%, 27%) */
+    --primary-foreground: 135, 40%, 100%; /* hsl(135, 40%, 100%) */
+    --secondary:  90, 60%, 43%; /* hsl(90, 60%, 43%) */
+    --secondary-foreground: 0, 0%, 100%; /* hsl(0, 0%, 100%) */
+    --muted: 240 4.8% 95.9%; /* hsl(240, 4.8%, 95.9%) */
+    --muted-foreground: 240 3.8% 46.1%; /* hsl(240, 3.8%, 46.1%) */
+    --accent:  46, 98%, 51%; /* hsl(46, 98%, 51%) */
+    --accent-foreground: 240 5.9% 10%; /* hsl(240, 5.9%, 10%) */
+    --destructive: 0 84.2% 60.2%; /* hsl(0, 84.2%, 60.2%) */
+    --destructive-foreground: 0 0% 98%; /* hsl(0, 0%, 98%) */
+    --border:120, 2%, 80.2%; /* hsl(120, 2%, 80.2%) */
+    --input: 240 5.9% 90%; /* hsl(240, 5.9%, 90%) */
+    --ring: 92, 57%, 43%; /* hsl(92, 57%, 43%) */
+    --radius: 0.5rem; /* 8px */
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%; /* hsl(0, 62.8%, 30.6%) */
-    --destructive-foreground: 210 40% 98%; /* hsl(210, 40%, 98%) */
-
-    --border: 217.2 32.6% 17.5%; /* hsl(217.2, 32.6%, 17.5%) */
-    --input: 217.2 32.6% 17.5%; /* hsl(217.2, 32.6%, 17.5%) */
-    --ring: 212.7 26.8% 83.9%; /* hsl(212.7, 26.8%, 83.9%) */
+    --base: 0, 0%, 95%; /* hsl(0, 0%, 95%) */
+    --base-focus: 0, 0, 90%; /* hsl(0, 0%, 90%) */
+    --base-2: 120, 2%, 85%; /* hsl(120, 2%, 85%) */
+    --base-2-focus: 120, 2%, 81%; /* hsl(120, 2%, 81%) */
+    --base-content: 120, 2%, 1%; /* hsl(120, 2%, 1%) */
+    --base-content-2: 120, 2%, 12%; /* hsl(120, 2%, 12%) */
+    --base-content-3: 120, 2%, 34%; /* hsl(120, 2%, 34%) */
+    --base-content-4: 136, 32%, 27%; /* hsl(136, 32%, 27%) */
+    --overlay: 120, 2%, 82%; /* hsl(120, 2%, 82%) */
+    --overlay-focus: 120, 2%, 64%; /* hsl(120, 2%, 64%) */
+    --overlay-2: 120, 2%, 75%; /* hsl(120, 2%, 75%) */
+    --overlay-2-focus: 120, 2%, 64%; /* hsl(120, 2%, 64%) */
+    --overlay-content: 120, 2%, 1%; /* hsl(120, 2%, 1%) */
+    --overlay-content-2: 120, 2%, 12%; /* hsl(120, 2%, 12%) */
+    --overlay-content-3: 120, 2%, 23%; /* hsl(120, 2%, 23%) */
+    --line: 120, 2%, 80.2%; /* hsl(120, 2%, 80.2%) */
+    --line-focus: 120, 2%, 65.2%; /* hsl(120, 2%, 65.2%) */
+    --input: 120, 2%, 92.3%; /* hsl(120, 2%, 92.3%) */
+    --input-focus: 120, 2%, 92.3%; /* hsl(120, 2%, 92.3%) */
+    --input-content: 120, 2%, 7.3%; /* hsl(120, 2%, 7.3%) */
+    --input-content-2: 120, 2%, 29.3%; /* hsl(120, 2%, 29.3%) */
+    --primary: 135, 40%, 27%; /* hsl(135, 40%, 27%) */
+    --primary-focus: 135, 40%, 21.5%; /* hsl(135, 40%, 21.5%) */
+    --primary-subtle: 135, 40%, 54.5%; /* hsl(135, 40%, 54.5%) */
+    --primary-content: 135, 40%, 100%; /* hsl(135, 40%, 100%) */
+    --primary-subtle-content: 135, 40%, 0%; /* hsl(135, 40%, 0%) */
+    --secondary: 90, 60%, 43%; /* hsl(90, 60%, 43%) */
+    --secondary-focus: 90, 60%, 37.5%; /* hsl(90, 60%, 37.5%) */
+    --secondary-subtle: 90, 60%, 70.5%; /* hsl(90, 60%, 70.5%) */
+    --secondary-subtle-content: 90, 60%, 0%; /* hsl(90, 60%, 0%) */
+    --secondary-content: 90, 60%, 0%; /* hsl(90, 60%, 0%) */
+    --info: 258, 40%, 76%; /* hsl(258, 40%, 76%) */
+    --info-focus: 258, 40%, 70.5%; /* hsl(258, 40%, 70.5%) */
+    --info-subtle: 258, 40%, 51%; /* hsl(258, 40%, 51%) */
+    --info-subtle-content: 258, 40%, 100%; /* hsl(258, 40%, 100%) */
+    --info-content: 258, 40%, 0%; /* hsl(258, 40%, 0%) */
+    --danger: 0, 75%, 42%; /* hsl(0, 75%, 42%) */
+    --danger-focus: 0, 75%, 36.5%; /* hsl(0, 75%, 36.5%) */
+    --danger-subtle: 0, 75%, 69.5%; /* hsl(0, 75%, 69.5%) */
+    --danger-subtle-content: 0, 75%, 0%; /* hsl(0, 75%, 0%) */
+    --danger-content: 0, 75%, 100%; /* hsl(0, 75%, 100%) */
+    --success: 52, 92%, 54%; /* hsl(52, 92%, 54%) */
+    --success-focus: 52, 92%, 48.5%; /* hsl(52, 92%, 48.5%) */
+    --success-subtle: 52, 92%, 29%; /* hsl(52, 92%, 29%) */
+    --success-subtle-content: 52, 92%, 100%; /* hsl(52, 92%, 100%) */
+    --success-content-2: 52, 92%, 0%; /* hsl(52, 92%, 0%) */
+    --success-content: 136, 32%, 27%; /* hsl(136, 32%, 27%) */
+    --warning: 41, 95%, 53%; /* hsl(41, 95%, 53%) */
+    --warning-focus: 41, 95%, 47.5%; /* hsl(41, 95%, 47.5%) */
+    --warning-subtle: 41, 95%, 28%; /* hsl(41, 95%, 28%) */
+    --warning-subtle-content: 41, 95%, 100%; /* hsl(41, 95%, 100%) */
+    --warning-content: 41, 95%, 0%; /* hsl(41, 95%, 0%) */
   }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[hsl(var(--base))] text-foreground;
   }
 }
+
