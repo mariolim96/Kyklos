@@ -12,7 +12,6 @@ import { WagmiProvider } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
-import { ProgressBar } from "~~/components/scaffold-eth/ProgressBar";
 import { useNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
 import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
@@ -84,9 +83,8 @@ export const AppLayoutWithProviders = ({ children }: { children: React.ReactNode
     <ApolloProvider client={apolloClient}>
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
-          <ProgressBar />
           <RainbowKitProvider avatar={BlockieAvatar} theme={lightTheme()}>
-            {children}
+            <div className="bg-base-2">{children}</div>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

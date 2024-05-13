@@ -99,9 +99,9 @@ module.exports = {
           2: "hsl(var(--base-2))",
           "2-focus": "hsl(var(--base-2-focus))",
           content: "hsl(var(--base-content))",
-          "content-2": "hsl(var(--base-2-content))",
-          "content-3": "hsl(var(--base-3-content))",
-          "content-4": "hsl(var(--base-4-content))",
+          "content-2": "hsl(var(--base-content-2))",
+          "content-3": "hsl(var(--base-content-3))",
+          "content-4": "hsl(var(--base-content-4))",
         },
         overlay: {
           DEFAULT: "hsl(var(--overlay))",

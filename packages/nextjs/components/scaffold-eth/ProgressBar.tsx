@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import NProgress from "nprogress";
 
 type PushStateInput = [data: any, unused: string, url?: string | URL | null | undefined];
 
 export function ProgressBar() {
   const height = "3px";
-  const color = "#2299dd";
+  const color = "#2F5C3B";
 
   const styles = (
     <style>
@@ -67,6 +68,16 @@ export function ProgressBar() {
       },
     });
   });
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    NProgress.configure({
+      showSpinner: false,
+      trickleSpeed: 100,
+    });
+    NProgress.done();
+  }, [pathname, searchParams]);
 
   return styles;
 }

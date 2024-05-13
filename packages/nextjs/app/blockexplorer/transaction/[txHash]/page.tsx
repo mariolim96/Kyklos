@@ -6,6 +6,7 @@ import type { NextPage } from "next";
 import { Hash, Transaction, TransactionReceipt, formatEther, formatUnits } from "viem";
 import { hardhat } from "viem/chains";
 import { usePublicClient } from "wagmi";
+import Loader from "~~/components/kyklos/ui/loader";
 import { Address } from "~~/components/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { decodeTransactionData, getFunctionDetails } from "~~/utils/scaffold-eth";
@@ -144,7 +145,7 @@ const TransactionPage: NextPage<PageProps> = ({ params }: PageProps) => {
           </table>
         </div>
       ) : (
-        <p className="text-2xl text-base-content">Loading...</p>
+        <Loader />
       )}
     </div>
   );

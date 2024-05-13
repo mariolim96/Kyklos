@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { DropdownMenuCheckboxes } from "../molecules/checkboxMenu";
+import { Input } from "../ui/input";
+import Loader from "../ui/loader";
+import { Separator } from "../ui/separator";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import {
   Column,
   ColumnDef,
@@ -20,6 +21,10 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { CiBoxList } from "react-icons/ci";
+import { PiSquaresFourLight } from "react-icons/pi";
+import { useNavigate } from "~~/hooks/kyklos/useNavigate";
+import { cn } from "~~/utils/utils";
 
 // Define generic props
 interface ListVisualizerProps<T> {
@@ -33,6 +38,7 @@ function ListVisualizer<T>({ data, columns, isLoading }: ListVisualizerProps<T>)
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const navigate = useNavigate();
 
   const table = useReactTable<T>({
     data,
@@ -57,62 +63,9 @@ function ListVisualizer<T>({ data, columns, isLoading }: ListVisualizerProps<T>)
     debugColumns: false,
   });
 
-  //   const t = (
-  //         <Table>
-  //           <TableHeader className="h-12">
-  //             {table.getHeaderGroups().map(headerGroup => (
-  //               <TableRow key={headerGroup.id}>
-  //                 {headerGroup.headers.map(header => (
-  //                   <TableHead key={header.id}>
-  //                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-  //                   </TableHead>
-  //                 ))}
-  //               </TableRow>
-  //             ))}
-  //           </TableHeader>
-  //           <TableBody>
-  //             {table.getRowModel().rows.length ? (
-  //               table.getRowModel().rows.map(row => (
-  //                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="h-24">
-  //                   {row.getVisibleCells().map(cell => (
-  //                     <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-  //                   ))}
-  //                 </TableRow>
-  //               ))
-  //             ) : (
-  //               <TableRow>
-  //                 <TableCell colSpan={columns.length} className="h-24 text-center">
-  //                   {isLoading ? "loading" : "No results"}
-  //                 </TableCell>
-  //               </TableRow>
-  //             )}
-  //           </TableBody>
-  //         </Table>
-  //       </div>
-  //       <div className="flex items-center justify-end space-x-2 py-4">
-  //         <div className="flex-1 text-sm text-muted-foreground">
-  //           {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-  //           selected.
-  //         </div>
-  //         <div className="space-x-2">
-  //           <Button
-  //             variant="outline"
-  //             size="sm"
-  //             onClick={() => table.previousPage()}
-  //             disabled={!table.getCanPreviousPage()}
-  //           >
-  //             Previous
-  //           </Button>
-  //           <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-  //             Next
-  //           </Button>
-  //         </div>
-  //       </div>
-  //     // </div>
-  //   );
   const tableRenderer = table.getHeaderGroups().map(headerGroup => (
     <>
-      <div className="flex items-center gap-4 flex-wrap bg-muted">
+      <div className="flex items-center gap-4 flex-wrap bg-muted h-16 p-2 border-t-2 rounded-t-md">
         <div className="flex-grow">
           <div className="flex items-center gap-x-2 gap-y-4 flex-wrap">
             {headerGroup.headers.map(header => (
@@ -120,8 +73,12 @@ function ListVisualizer<T>({ data, columns, isLoading }: ListVisualizerProps<T>)
             ))}
           </div>
         </div>
+        <div className="flex">
+          <CiBoxList className="w-[20px]  h-[20px] font-bold " />
+          <PiSquaresFourLight className="w-[20px]  h-[20px] " />
+        </div>
       </div>
-
+      <Separator />
       <Table>
         <TableHeader className="h-12">
           {table.getHeaderGroups().map(headerGroup => (
@@ -136,17 +93,36 @@ function ListVisualizer<T>({ data, columns, isLoading }: ListVisualizerProps<T>)
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.length ? (
-            table.getRowModel().rows.map(row => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="h-24">
+            table.getRowModel().rows.map((row, i) => (
+              <TableRow
+                key={row.id}
+                className={cn(
+                  "h-24 cursor-pointer p-0",
+                  table.getRowModel().rows.length === i
+                    ? "[&_td:last-child]:rounded-b-md [&_td:first-child]:rounded-b-md"
+                    : "",
+                )}
+                data-state={row.getIsSelected() && "selected"}
+              >
                 {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  <TableCell
+                    className="p-0 text-lg font-medium text-base-content"
+                    onClick={() => {
+                      console.log(row);
+                      navigate.push(`projects/project/${(row.original as any)?.id}`);
+                    }}
+                    key={cell.id}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
                 ))}
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                {isLoading ? "loading" : "No results"}
+            //  add border to the last row and cursor pointer
+            <TableRow className="[&_td:last-child]:rounded-b-md [&_td:first-child]:rounded-b-md  ">
+              <TableCell colSpan={columns.length} className="h-40 w-full text-center  ">
+                {!isLoading ? <Loader className="" /> : "No results"}
               </TableCell>
             </TableRow>
           )}
@@ -154,7 +130,7 @@ function ListVisualizer<T>({ data, columns, isLoading }: ListVisualizerProps<T>)
       </Table>
     </>
   ));
-  return <div className="relative w-full overflow-auto shadow-lg shadow-muted m-4">{tableRenderer}</div>;
+  return <div className="relative  overflow-auto shadow-lg shadow-content-2 m-4 rounded-md">{tableRenderer}</div>;
 }
 function Filter({ column }: { column: Column<any, unknown> }) {
   const { filterVariant } = column.columnDef.meta ?? {};

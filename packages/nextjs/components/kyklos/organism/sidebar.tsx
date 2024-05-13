@@ -53,7 +53,7 @@ const Sidebar = (props: Props) => {
     >
       <HiArrowSmRight
         className={cn(
-          "absolute -right-2.5 top-10 h-5 w-5 bg-secondary border-1 border-primary  rounded  cursor-pointer",
+          "absolute -right-2.5 top-10 h-5 w-5 bg-secondary border-1 border-primary  rounded  cursor-pointer z-50",
           {
             "rotate-180": !open,
           },

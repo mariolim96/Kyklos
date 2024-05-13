@@ -20,7 +20,7 @@ const SidebarTab = (props: Props) => {
       }}
       role="button"
       className={cn(
-        "mt-2 flex cursor-pointer items-center gap-x-4 whitespace-nowrap rounded-md p-2 pl-[5px] text-lg hover:bg-secondary transition-bg-color shadow-lg shadow-base-2 duration-300  text-base-content-4 ease-in-out",
+        "mt-2 flex cursor-pointer items-center gap-x-4 whitespace-nowrap rounded-md p-2 pl-[7px] text-lg hover:bg-secondary transition-bg-color shadow-lg shadow-base-2 duration-300  text-base-content-4 ease-in-out",
         {
           "bg-secondary shadow-md shadow-red text-secondary-foreground": index === selected,
         },

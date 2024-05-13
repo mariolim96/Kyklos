@@ -19,7 +19,7 @@
 //         }
 //     }
 // ]
-interface Project {
+export interface Project {
   __typename: "Project";
   id: string;
   category: string;
