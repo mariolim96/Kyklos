@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Inter as FontSans } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { Layout } from "./kyklos/templates/layout";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
@@ -39,15 +39,16 @@ export const ScaffoldEthAppLayout = ({ children }: { children: React.ReactNode }
   );
 };
 
-const fontSans = FontSans({
+const font = Montserrat({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const KyklosLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <main className={cn("relative", fontSans.variable)}>
+      <main className={cn("relative", font.variable)}>
         <Layout>{children}</Layout>
       </main>
     </>

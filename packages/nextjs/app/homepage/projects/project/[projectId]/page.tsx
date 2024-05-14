@@ -32,8 +32,8 @@ export default function Page({ params }: { params: { projectId: string } }) {
 
   console.log("{ loading, error, data }:", { loading, error, data });
   return (
-    <div className="flex p-4 gap-6">
-      <div className="flex flex-col gap-6">
+    <div className="flex  p-4 gap-6">
+      <div className="flex  flex-col gap-6">
         <div className="flex-grow-2 bg-base shadow-lg shadow-overlay-2 rounded-md  w-[60%]  ">
           <div className=" h-70 w-full relative ml-2 mt-2">
             <img
@@ -63,36 +63,45 @@ export default function Page({ params }: { params: { projectId: string } }) {
             <StepperDemo />
           </div>
         </div>
-        <div className="flex-grow-2 bg-base shadow-lg shadow-overlay-2 rounded-md  w-[60%] p-10 ">
+        {/*  */}
+        <div className="flex-grow-2 bg-base shadow-lg shadow-overlay-2 rounded-md  w-[60%] p-10">
           <Text element="h1" as="h1" className=" mb-8">
             Project Details
           </Text>
-          <div className="flex flex-wrap">
-            <div className="w-1/2 ">
-              <Text element="h4" as="h4">
-                Project ID
-              </Text>
-              <Text element="p" as="p">
-                {project?.id}
-              </Text>
-            </div>
-            <div className="w-1/2">
-              <Text element="h4" as="h4">
-                Method
-              </Text>
-              <Text element="p" as="p">
-                {project?.method}
-              </Text>
-            </div>
-          </div>
-          <div className="flex flex-wrap">
-            <div className="w-1/2">
-              <Text element="h4" as="h4">
-                Category
-              </Text>
-              <Text element="p" as="p">
-                {project?.category}
-              </Text>
+          <div>
+            <div className="flex flex-wrap ">
+              <div className="w-1/2 mb-4">
+                <Text element="h4" as="h4" className="">
+                  Project ID
+                </Text>
+                <Text element="h6" as="h6" className="text-base-content-3">
+                  {project?.projectId}
+                </Text>
+              </div>
+              <div className="w-1/2">
+                <Text element="h4" as="h4">
+                  Methodology
+                </Text>
+                <Text element="h6" as="h6" className="text-base-content-3">
+                  {project?.method}
+                </Text>
+              </div>
+              <div className="w-1/2 ">
+                <Text element="h4" as="h4">
+                  Category
+                </Text>
+                <Text element="h6" as="h6">
+                  {project?.category}
+                </Text>
+              </div>
+              <div className="w-1/2 ">
+                <Text element="h4" as="h4">
+                  Project location
+                </Text>
+                <Text element="h6" as="h6">
+                  {project?.region}
+                </Text>
+              </div>
             </div>
           </div>
         </div>
@@ -100,4 +109,32 @@ export default function Page({ params }: { params: { projectId: string } }) {
       <div className="flex-grow-1 min-w-30">buy</div>
     </div>
   );
+}
+{
+  /* <div className="flex-grow-2 bg-base shadow-lg shadow-overlay-2 rounded-md  w-[60%] p-10 ">
+          <Text element="h1" as="h1" className=" mb-8">
+            Project Details
+          </Text>
+          <div className="flex flex-wrap">
+            <div className="w-1/2 mb-4">
+              <Text element="h4" as="h4" className="">
+                Project ID
+              </Text>
+              <Text element="h6" as="h6" className="text-base-content-3 border-b-2 border-black">
+                {project?.projectId}
+              </Text>
+            </div>
+            <div className="w-1/2">
+              <Text element="h4" as="h4">
+                Methodology
+              </Text>
+              <Text element="h6" as="h6" className="text-base-content-3 border-b-2 border-black">
+                {project?.method}
+              </Text>
+            </div>
+          </div>
+          <div className="flex flex-wrap">
+            
+          </div>
+        </div> */
 }
