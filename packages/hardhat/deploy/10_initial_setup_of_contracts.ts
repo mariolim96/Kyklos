@@ -20,6 +20,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const carbonProjectsAddress = (await hre.deployments.get("CarbonProjectsP")).address;
   const carbonProjects = await hre.ethers.getContractFactory("CarbonProjects");
   const carbonProjectsFactory = carbonProjects.attach(carbonProjectsAddress) as CarbonProjects;
+
   const CarbonProjectVintagesAddress = (await hre.deployments.get("CarbonProjectVintagesP")).address;
   const CarbonProjectVintages = await hre.ethers.getContractFactory("CarbonProjectVintages");
   const carbonProjectVintagesFactory = CarbonProjectVintages.attach(
@@ -28,6 +29,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
 
   //   //   set carbon projects address in registry
   await carbonProjectsFactory.setKyklosContractRegistry(registryAddress);
+  await carbonProjectVintagesFactory.setKyklosContractRegistry(registryAddress);
   // Set Registry address
   await kyklosContractRegistryFactory.setCarbonProjectVintagesAddress(CarbonProjectVintagesAddress);
   await kyklosContractRegistryFactory.setCarbonProjectsAddress(carbonProjectsAddress);
@@ -63,7 +65,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     registry: "test registry",
     totalVintageQuantity: ethers.parseEther("0.3"),
   };
-  const transaction = await carbonProjectsFactory.addNewProject(
+  let transaction = await carbonProjectsFactory.addNewProject(
     deployer,
     project.projectId,
     project.standard,
@@ -78,7 +80,8 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   );
   await transaction.wait();
   console.log("Project added successfully");
-  carbonProjectVintagesFactory.addNewVintage(deployer, vintage);
+  transaction = await carbonProjectVintagesFactory.addNewVintage(deployer, vintage);
+  await transaction.wait();
   console.log("Vintage added successfully");
 };
 

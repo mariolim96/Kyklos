@@ -1,46 +1,52 @@
-specVersion: 0.0.4
-description: Greetings
-repository: https://github.com/scaffold-eth/se-2/packages/subgraph/
+specVersion: 0.0.5
 schema:
-  file: ./src/schema.graphql
+  file: ./schema.graphql
 dataSources:
-  - kind: ethereum/contract
-    name: YourContract
-    network: localhost
-    source:
-      abi: YourContract
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Greeting
-        - Sender
-      abis:
-        - name: YourContract
-          file: ./abis/localhost_YourContract.json
-      eventHandlers:
-        - event: GreetingChange(indexed address,string,bool,uint256)
-          handler: handleGreetingChange
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
+  - kind: ethereum
     name: CarbonProjects
     network: localhost
     source:
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
       abi: CarbonProjects
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Project
         - User
+        - ProjectVintage
       abis:
         - name: CarbonProjects
           file: ./abis/localhost_CarbonProjects.json
       eventHandlers:
+        - event: ProjectIdUpdated(uint256)
+          handler: handleProjectIdUpdated
         - event: ProjectMinted(address,uint256)
           handler: handleProjectMinted
-      file: ./src/carbonProjects.ts
+        - event: ProjectUpdated(uint256)
+          handler: handleProjectUpdated
+      file: ./src/carbon-projects.ts
+  - kind: ethereum
+    name: CarbonProjectVintages
+    network: localhost
+    source:
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+      abi: CarbonProjectVintages
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Project
+        - User
+        - ProjectVintage
+      abis:
+        - name: CarbonProjectVintages
+          file: ./abis/localhost_CarbonProjectVintages.json
+      eventHandlers:
+        - event: ProjectVintageMinted(address,uint256,uint256,uint64)
+          handler: handleProjectVintageMinted
+        - event: ProjectVintageUpdated(uint256)
+          handler: handleProjectVintageUpdated
+      file: ./src/carbon-project-vintages.ts

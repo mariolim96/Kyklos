@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 "use client";
 
 import * as React from "react";
@@ -7,10 +6,6 @@ import { Collapsible, CollapsibleContent } from "./collapsible";
 import { cva } from "class-variance-authority";
 import { CheckIcon, Loader2, LucideIcon, X } from "lucide-react";
 import { cn } from "~~/utils/utils";
-
-/* eslint-disable @typescript-eslint/no-empty-function */
-
-// <---------- CONTEXT ---------->
 
 interface StepperContextValue extends StepperProps {
   clickable?: boolean;
@@ -34,10 +29,10 @@ const StepperContext = React.createContext<
   steps: [],
   activeStep: 0,
   initialStep: 0,
-  nextStep: () => {},
-  prevStep: () => {},
-  resetSteps: () => {},
-  setStep: () => {},
+  nextStep: () => null,
+  prevStep: () => null,
+  resetSteps: () => null,
+  setStep: () => null,
 });
 
 type StepperContextProviderProps = {
@@ -104,8 +99,7 @@ function useStepper() {
     throw new Error("useStepper must be used within a StepperProvider");
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { children, className, ...rest } = context;
+  const { children: _children, className: _classname, ...rest } = context;
 
   const isLastStep = context.activeStep === context.steps.length - 1;
   const hasCompletedAllSteps = context.activeStep === context.steps.length;
@@ -765,7 +759,7 @@ const StepButtonContainer = ({
 
 // <---------- STEP ICON ---------->
 
-type IconType = LucideIcon | React.ComponentType<any> | "defaultIcon" | undefined;
+type IconType = LucideIcon | React.ComponentType<any> | undefined;
 
 const iconVariants = cva("", {
   variants: {
@@ -811,10 +805,7 @@ const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>((props, ref) =>
 
   const ErrorIcon = React.useMemo(() => (CustomErrorIcon ? CustomErrorIcon : null), [CustomErrorIcon]);
 
-  const Check = React.useMemo(
-    () => (CustomCheckIcon ? (CustomIcon === "defaultIcon" ? Icon : CustomIcon) : CheckIcon),
-    [CustomCheckIcon, CustomIcon, Icon],
-  );
+  const Check = React.useMemo(() => (CustomCheckIcon ? CustomCheckIcon : CheckIcon), [CustomCheckIcon]);
 
   return React.useMemo(() => {
     if (isCompletedStep) {

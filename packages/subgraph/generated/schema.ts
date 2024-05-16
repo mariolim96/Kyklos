@@ -384,6 +384,14 @@ export class Project extends Entity {
     this.set("projectId", Value.fromString(value));
   }
 
+  get vintages(): ProjectVintageLoader {
+    return new ProjectVintageLoader(
+      "Project",
+      this.get("id")!.toString(),
+      "vintages"
+    );
+  }
+
   get standard(): string {
     let value = this.get("standard");
     if (!value || value.kind == ValueKind.NULL) {
@@ -489,6 +497,234 @@ export class Project extends Entity {
   }
 }
 
+export class ProjectVintage extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save ProjectVintage entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type ProjectVintage must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("ProjectVintage", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): ProjectVintage | null {
+    return changetype<ProjectVintage | null>(
+      store.get_in_block("ProjectVintage", id)
+    );
+  }
+
+  static load(id: string): ProjectVintage | null {
+    return changetype<ProjectVintage | null>(store.get("ProjectVintage", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get creator(): string {
+    let value = this.get("creator");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set creator(value: string) {
+    this.set("creator", Value.fromString(value));
+  }
+
+  get owner(): string {
+    let value = this.get("owner");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set owner(value: string) {
+    this.set("owner", Value.fromString(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get tx(): string {
+    let value = this.get("tx");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set tx(value: string) {
+    this.set("tx", Value.fromString(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get startTime(): BigInt {
+    let value = this.get("startTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set startTime(value: BigInt) {
+    this.set("startTime", Value.fromBigInt(value));
+  }
+
+  get endTime(): BigInt {
+    let value = this.get("endTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set endTime(value: BigInt) {
+    this.set("endTime", Value.fromBigInt(value));
+  }
+
+  get project(): string | null {
+    let value = this.get("project");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set project(value: string | null) {
+    if (!value) {
+      this.unset("project");
+    } else {
+      this.set("project", Value.fromString(<string>value));
+    }
+  }
+
+  get totalVintageQuantity(): BigInt {
+    let value = this.get("totalVintageQuantity");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set totalVintageQuantity(value: BigInt) {
+    this.set("totalVintageQuantity", Value.fromBigInt(value));
+  }
+
+  get isCorsiaCompliant(): boolean {
+    let value = this.get("isCorsiaCompliant");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set isCorsiaCompliant(value: boolean) {
+    this.set("isCorsiaCompliant", Value.fromBoolean(value));
+  }
+
+  get isCCCompliant(): boolean {
+    let value = this.get("isCCCompliant");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set isCCCompliant(value: boolean) {
+    this.set("isCCCompliant", Value.fromBoolean(value));
+  }
+
+  get coBenefits(): string {
+    let value = this.get("coBenefits");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set coBenefits(value: string) {
+    this.set("coBenefits", Value.fromString(value));
+  }
+
+  get corresAdjustment(): string {
+    let value = this.get("corresAdjustment");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set corresAdjustment(value: string) {
+    this.set("corresAdjustment", Value.fromString(value));
+  }
+
+  get additionalCertification(): string {
+    let value = this.get("additionalCertification");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set additionalCertification(value: string) {
+    this.set("additionalCertification", Value.fromString(value));
+  }
+}
+
 export class GreetingLoader extends Entity {
   _entity: string;
   _field: string;
@@ -522,5 +758,23 @@ export class ProjectLoader extends Entity {
   load(): Project[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
     return changetype<Project[]>(value);
+  }
+}
+
+export class ProjectVintageLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): ProjectVintage[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<ProjectVintage[]>(value);
   }
 }

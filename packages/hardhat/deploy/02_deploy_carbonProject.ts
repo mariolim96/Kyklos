@@ -23,7 +23,7 @@ const deployYourContractContract: DeployFunction = async function (hre: HardhatR
   const { log } = hre.deployments;
 
   const chainId = await hre.getChainId();
-
+  //   const opt: DeployProxyOptions = {};
   // Get contract factory for Registry
   const CarbonProjects = await hre.ethers.getContractFactory("CarbonProjects");
   const carbonProjectsProxy = await hre.upgrades.deployProxy(CarbonProjects, {
@@ -56,10 +56,17 @@ const deployYourContractContract: DeployFunction = async function (hre: HardhatR
   await hre.deployments.save("CarbonProjectsP", proxyDeployment);
   await hre.deployments.save("CarbonProjects", implementationDeployment);
 
-  if (chainId !== "31337") {
-    log("Verifying Proxy on ", chainId);
-    await verify(proxyAddress, []);
-    log("Proxy verified on Etherscan.");
+  try {
+    if (chainId !== "31337") {
+      log("Verifying Proxy on Etherscan..." + chainId);
+      console.log("Verify implementation", implementationAddress);
+      await verify(implementationAddress, []);
+      console.log("Verify proxy", proxyAddress);
+      await verify(proxyAddress, []);
+      log("Proxy verified on Etherscan.");
+    }
+  } catch (error) {
+    log("Error verifying contract on Etherscan: ", error);
   }
 };
 

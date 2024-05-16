@@ -4,22 +4,42 @@
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     },
     "Registry_Implementation": {
-      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     },
     "Registry_Proxy": {
-      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     },
     "CarbonProjects": {
-      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
     },
     "CarbonProjectsP": {
-      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
     },
     "CarbonProjectVintages": {
-      "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
     },
     "CarbonProjectVintagesP": {
-      "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+    }
+  },
+  "sepolia": {
+    "CarbonProjects": {
+      "address": "0x8cf9C6c006DD0FEc4eb1D01E7cc5d1362EE11728"
+    },
+    "CarbonProjectsP": {
+      "address": "0x55300fcE72d9183744f9c3dd4CcbD7cf301a7397"
+    },
+    "CarbonProjectVintages": {
+      "address": "0xD8B5B57C69D06b8Eb70A7ec959F08eD720341cFA"
+    },
+    "CarbonProjectVintagesP": {
+      "address": "0x28005fcB4D73229247e2Db3a71f6601bB938B043"
+    },
+    "Registry_Implementation": {
+      "address": "0x876Cd2b50Ff76F9cDb48144Eb769bd85DbE59c76"
+    },
+    "Registry_Proxy": {
+      "address": "0xddCA968c8a23e739641154b92a1e32109dA2E156"
     }
   }
 }

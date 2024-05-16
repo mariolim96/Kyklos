@@ -9,7 +9,7 @@ const steps = [
 function StepperDemo() {
   return (
     <div className="flex w-full flex-col gap-4">
-      <Stepper initialStep={1} steps={steps} variant="circle-alt" checkIcon={"defaultIcon"}>
+      <Stepper initialStep={1} steps={steps} variant="circle-alt">
         {steps.map(stepProps => {
           return <Step key={stepProps.label} {...stepProps}></Step>;
         })}

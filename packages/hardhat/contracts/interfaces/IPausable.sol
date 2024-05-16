@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 Toucan Labs
+
 //
 // SPDX-License-Identifier: UNLICENSED
 
