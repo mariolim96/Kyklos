@@ -1,32 +1,34 @@
 {
-    "name": "@se-2/subgraph",
-    "version": "0.0.1",
-    "type": "module",
-    "scripts": {
-        "abi-copy": "node --loader ts-node/esm --experimental-specifier-resolution=node scripts/abi_copy.ts",
-        "codegen": "graph codegen",
-        "build": "graph build",
-        "predeploy": "yarn abi-copy && yarn codegen && yarn build",
-        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ GITHUB_USERNAME/your-contract",
-        "local-create": "graph create --node http://localhost:8020/ kyklos",
-        "local-remove": "graph remove --node http://localhost:8020/ kyklos",
-        "local-deploy": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kyklos",
-        "local-ship": "yarn abi-copy && yarn codegen && yarn build && yarn local-deploy",
-        "test": "graph test",
-        "run-node": "cd graph-node && docker-compose up",
-        "stop-node": "cd graph-node && docker-compose down",
-        "clean-node": "rm -rf graph-node/data/",
-        "clean-generated-files": "rm -rf generated/ && rm -rf abis && rm -rf network.json"
-    },
-    "dependencies": {
-        "@graphprotocol/graph-cli": "^0.55.0",
-        "@graphprotocol/graph-ts": "^0.31.0",
-        "ts-node": "^10.9.1",
-        "typescript": "^5.0.4"
-    },
-    "devDependencies": {
-        "@types/chalk": "^2.2.0",
-        "@types/node": "^20.11.17",
-        "matchstick-as": "^0.6.0"
-    }
+  "name": "@se-2/subgraph",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "abi-copy": "node --loader ts-node/esm --experimental-specifier-resolution=node scripts/abi_copy.ts",
+    "address-copy": "node scripts/address_copy.ts",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "predeploy": "yarn abi-copy && yarn codegen && yarn build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ GITHUB_USERNAME/your-contract",
+    "local-create": "graph create --node http://localhost:8020/ kyklos",
+    "local-remove": "graph remove --node http://localhost:8020/ kyklos",
+    "local-deploy": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kyklos",
+    "local-ship": "yarn abi-copy && yarn codegen && yarn build && yarn local-deploy",
+    "test": "graph test",
+    "run-node": "cd graph-node && docker-compose up",
+    "stop-node": "cd graph-node && docker-compose down",
+    "clean-node": "rm -rf graph-node/data/",
+    "clean-generated-files": "rm -rf generated/ && rm -rf abis && rm -rf network.json"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.55.0",
+    "@graphprotocol/graph-ts": "^0.31.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^20.11.17",
+    "js-yaml": "^4.1.0",
+    "matchstick-as": "^0.6.0"
+  }
 }

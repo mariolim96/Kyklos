@@ -22,3 +22,11 @@ struct VintageData {
     string uri;
     string registry;
 }
+
+// a struct to managing token created for each project vintage
+struct ProjectVintageToken {
+    uint256 tokenId;
+    uint256 projectVintageTokenId;
+    uint256 amount;
+    bool isLegacy;
+}

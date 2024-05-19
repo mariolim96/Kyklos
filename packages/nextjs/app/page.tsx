@@ -101,9 +101,10 @@ const steps = [
 ] satisfies StepItem[];
 
 function StepperDemo() {
+  const { activeStep } = useStepper();
   return (
     <div className="flex w-full flex-col gap-4">
-      <Stepper initialStep={0} steps={steps} variant="circle-alt">
+      <Stepper initialStep={0} steps={steps} variant="circle-alt" checkIcon={steps[activeStep].icon}>
         {steps.map((stepProps, index) => {
           return (
             <Step key={stepProps.label} {...stepProps}>

@@ -3643,6 +3643,7 @@ __metadata:
     "@graphprotocol/graph-ts": ^0.31.0
     "@types/chalk": ^2.2.0
     "@types/node": ^20.11.17
+    js-yaml: ^4.1.0
     matchstick-as: ^0.6.0
     ts-node: ^10.9.1
     typescript: ^5.0.4

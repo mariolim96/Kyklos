@@ -114,4 +114,8 @@ library Errors {
 	string public constant TCO2_NON_MATCHING_NFT = "49";
 	// The TCO2 Quantity in batch is higher than total vintages
 	string public constant TCO2_QTY_HIGHER = "50";
+	// The caller is not a verifier or batch owner
+	string public constant COB_NOT_VERIFIER_OR_BATCH_OWNER = "51";
+	// The quantity provided is invalid
+	string public constant COB_INVALID_QUANTITY = "52";
 }
