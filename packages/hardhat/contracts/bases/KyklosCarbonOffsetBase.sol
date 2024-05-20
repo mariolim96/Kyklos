@@ -13,6 +13,7 @@ import "../interfaces/IRetirementCertificates.sol";
 import "../interfaces/IKyklosCarbonOffsetsFactory.sol";
 import "../interfaces/IKyklosContractRegistry.sol";
 import "../storages/KyklosCarbonOffsetsStorage.sol";
+import "../interfaces/ICarbonOffsetBatches.sol";
 
 /// @notice Base contract for any specific contract implementation of the TCO2 tokens (ERC20)
 abstract contract KyklosCarbonOffsetsBase is
