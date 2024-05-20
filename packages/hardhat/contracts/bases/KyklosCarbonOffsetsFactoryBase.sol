@@ -18,6 +18,7 @@ import "../libraries/ProjectVintageUtils.sol";
 import "../libraries/Strings.sol";
 import "../libraries/Modifiers.sol";
 import "../storages/KyklosCarbonOffsetsFactoryStorage.sol";
+import "hardhat/console.sol";
 
 /// @notice This TCO2 factory base should be used for any logic specific implementation
 abstract contract KyklosCarbonOffsetsFactoryBase is
@@ -57,23 +58,20 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 	}
 
 	function __KyklosCarbonOffsetsFactoryBase_init(
+        address defaultAdmin,
 		address[] calldata accounts,
 		bytes32[] calldata roles
 	) internal {
 		require(accounts.length == roles.length, "Array length mismatch");
-
 		__Context_init_unchained();
 		__Ownable_init_unchained();
 		__Pausable_init_unchained();
 		__UUPSUpgradeable_init_unchained();
 		__AccessControl_init_unchained();
-
-		bool hasDefaultAdmin = false;
+		_grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
 		for (uint256 i = 0; i < accounts.length; ++i) {
 			_grantRole(roles[i], accounts[i]);
-			if (roles[i] == DEFAULT_ADMIN_ROLE) hasDefaultAdmin = true;
 		}
-		require(hasDefaultAdmin, "No admin specified");
 	}
 
 	// ----------------------------------------

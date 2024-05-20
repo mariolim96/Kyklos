@@ -27,7 +27,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
         onlyFactoryOwner
     {
         // address batchNFT = IKyklosContractRegistry(contractRegistry)
-        //     .carbonOffsetBatchesAddress();
+        //     .VintageStatusAddress();
 
         // // Fetch and burn amount of the NFT to be defractionalized
         // (
@@ -55,7 +55,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
         uint256 tokenId,
         bytes calldata /* data */
     ) external virtual override whenNotPaused returns (bytes4) {
-        // msg.sender is the CarbonOffsetBatches contract
+        // msg.sender is the VintageStatus contract
         require(
             checkWhiteListed(msg.sender),
             Errors.TCO2_BATCH_NOT_WHITELISTED
@@ -128,7 +128,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
             uint256 vintageTokenId,
             uint256 quantity,
             BatchStatus status
-        ) = ICarbonOffsetBatches(cob).getBatchNFTData(tokenId);
+        ) = IVintageStatus(cob).getBatchNFTData(tokenId);
         return (vintageTokenId, _batchAmountToTCO2Amount(quantity), status);
     }
 
@@ -140,7 +140,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
         return batchAmount * 10**decimals();
     }
 
-    /// @dev Internal helper to check if CarbonOffsetBatches is whitelisted (official)
+    /// @dev Internal helper to check if VintageStatus is whitelisted (official)
     function checkWhiteListed(address collection)
         internal
         view
@@ -150,7 +150,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
         if (
             collection ==
             IKyklosContractRegistry(contractRegistry)
-                .carbonOffsetBatchesAddress()
+                .VintageStatusAddress()
         ) {
             return true;
         } else {

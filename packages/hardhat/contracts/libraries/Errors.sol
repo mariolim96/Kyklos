@@ -9,7 +9,7 @@ pragma solidity 0.8.14;
  * https://github.com/aave/protocol-v2/blob/5df59ec74a0c635d877dc1c5ee4a165d41488352/contracts/protocol/libraries/helpers/Errors.sol
  * Error messages prefix glossary:
  *  - CP = CarbonPool
- *  - COB = CarbonOffsetBatches
+ *  - COB = VintageStatus
  */
 library Errors {
 	// User is not authorized

@@ -6,14 +6,13 @@
 pragma solidity 0.8.14;
 
 abstract contract KyklosContractRegistryStorageV1 {
-    address internal _carbonOffsetBatchesAddress;
+    address internal _VintageStatusAddress;
     address internal _carbonProjectsAddress;
     address internal _carbonProjectVintagesAddress;
     //slither-disable-next-line uninitialized-state,constable-states
     address internal _retirementCertificatesAddress;
     mapping(address => bool) public projectVintageERC20Registry;
     mapping(string => address) public kyklosCarbonOffsetFactories;
-    address internal _kyklosCarbonOffsetsEscrowAddress;
     string[] internal standardRegistries;
 }
 

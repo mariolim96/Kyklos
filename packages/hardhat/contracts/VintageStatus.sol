@@ -20,7 +20,7 @@ import "./libraries/Modifiers.sol";
 import "./libraries/Strings.sol";
 import { BatchStatus } from "./types/VintageStatusTypes.sol";
 
-contract CarbonOffsetBatches is
+contract VintageStatus is
 	IVintageStatus,
 	ERC721EnumerableUpgradeable,
 	OwnableUpgradeable,
@@ -31,9 +31,6 @@ contract CarbonOffsetBatches is
 	Modifiers,
 	VintageStatusStorage
 {
-	// storage
-
-	//
 	using SafeERC20Upgradeable for IERC20Upgradeable;
 	using Strings for string;
 
@@ -41,7 +38,7 @@ contract CarbonOffsetBatches is
 	/// releases. VERSION_RELEASE_CANDIDATE keeps track of iterations
 	/// of a VERSION in our staging environment.
 	string public constant VERSION = "1.4.0";
-	uint256 public constant VERSION_RELEASE_CANDIDATE = 2;
+	uint256 public constant VERSION_RELEASE_CANDIDATE = 3;
 
 	/// @dev All roles related to accessing this contract
 	bytes32 public constant VERIFIER_ROLE = keccak256("VERIFIER_ROLE");
@@ -62,6 +59,7 @@ contract CarbonOffsetBatches is
 	event RegistrySupported(string registry, bool isSupported);
 	event BatchStatusUpdate(uint256 tokenId, BatchStatus status);
 
+	/// @custom:oz-upgrades-unsafe-allow constructor
 	constructor() {
 		_disableInitializers();
 	}
@@ -396,7 +394,8 @@ contract CarbonOffsetBatches is
 		override(AccessControlUpgradeable, ERC721EnumerableUpgradeable)
 		returns (bool)
 	{
-		return interfaceId == type(IAccessControlUpgradeable).interfaceId ||
+		return
+			interfaceId == type(IAccessControlUpgradeable).interfaceId ||
 			ERC721Upgradeable.supportsInterface(interfaceId);
 	}
 }
