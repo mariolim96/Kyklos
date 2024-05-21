@@ -49,8 +49,6 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 	// ----------------------------------------
 
 	event TokenCreated(uint256 vintageTokenId, address tokenAddress);
-	event AddedToAllowedBridges(address account);
-	event RemovedFromallowedBridges(address account);
 
 	/// @custom:oz-upgrades-unsafe-allow constructor
 	constructor() {
@@ -58,7 +56,7 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 	}
 
 	function __KyklosCarbonOffsetsFactoryBase_init(
-        address defaultAdmin,
+		address defaultAdmin,
 		address[] calldata accounts,
 		bytes32[] calldata roles
 	) internal {
@@ -130,8 +128,8 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 		string memory signature = "initialize(string,string,uint256,address)";
 		bytes memory payload = abi.encodeWithSignature(
 			signature,
-			"Kyklos Protocol: TCO2",
-			"TCO2",
+			"Kyklos: KCO2",
+			"KCO2",
 			projectVintageTokenId,
 			contractRegistry
 		);

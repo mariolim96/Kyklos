@@ -83,6 +83,9 @@ contract VintageStatus is
 
 		contractRegistry = _contractRegistry;
 		_grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+		_grantRole(TOKENIZER_ROLE, msg.sender);
+		_grantRole(VERIFIER_ROLE, msg.sender);
+		_setRoleAdmin(VERIFIER_ROLE, VERIFIER_ROLE);
 	}
 
 	function _authorizeUpgrade(
@@ -204,6 +207,11 @@ contract VintageStatus is
 			projectVintages.exists(projectVintageTokenId),
 			"vintageTokenId does not exist"
 		);
+		// owner of the vintage should be the same as the owner of the batch
+		require(
+			projectVintages.ownerOf(projectVintageTokenId) == to,
+			"owner of the vintage should be the same as the owner of the batch"
+		);
 		VintageData memory vintageData = projectVintages
 			.getProjectVintageDataByTokenId(projectVintageTokenId);
 		require(
@@ -225,8 +233,6 @@ contract VintageStatus is
 		onlyActive(tokenId);
 		nftList[tokenId].quantity = quantity;
 	}
-
-	// fucntion u
 
 	/// @notice Returns just the confirmation (approval) status of Batch-NFT
 	/// @param tokenId The token ID of the batch
@@ -306,13 +312,16 @@ contract VintageStatus is
 	/// @param tokenId The token ID of the batch
 	function fractionalize(uint256 tokenId) external virtual {
 		onlyApprovedOrOwner(tokenId);
-		// Fractionalize by transferring the batch-NFT to the TCO2 contract.
 		safeTransferFrom(
 			_msgSender(),
 			_getTCO2ForBatchTokenId(tokenId),
 			tokenId,
 			""
 		);
+	}
+
+	function beforeFractionalize(uint256 tokenId) external virtual {
+		onlyApprovedOrOwner(tokenId);
 	}
 
 	/// @notice Split a batch-NFT into two batch-NFTs, by creating a new batch-NFT and updating the old one.

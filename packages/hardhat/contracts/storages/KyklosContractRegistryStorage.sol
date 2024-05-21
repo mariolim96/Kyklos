@@ -11,9 +11,9 @@ abstract contract KyklosContractRegistryStorageV1 {
     address internal _carbonProjectVintagesAddress;
     //slither-disable-next-line uninitialized-state,constable-states
     address internal _retirementCertificatesAddress;
+    string[] internal standardRegistries;
     mapping(address => bool) public projectVintageERC20Registry;
     mapping(string => address) public kyklosCarbonOffsetFactories;
-    string[] internal standardRegistries;
 }
 
 

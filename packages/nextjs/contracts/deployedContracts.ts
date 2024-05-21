@@ -15,19 +15,6 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "AddedToAllowedBridges",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "address",
               name: "previousAdmin",
               type: "address",
             },
@@ -97,19 +84,6 @@ const deployedContracts = {
             },
           ],
           name: "Paused",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "RemovedFromallowedBridges",
           type: "event",
         },
         {
@@ -3850,32 +3824,6 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [],
-          name: "kyklosCarbonOffsetsEscrowAddress",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "kyklosCarbonOffsetsFactoryAddress",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
           inputs: [
             {
               internalType: "string",
@@ -3905,6 +3853,13 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "pauseSystem",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -4025,6 +3980,19 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "address",
+              name: "tco2Factory",
+              type: "address",
+            },
+          ],
+          name: "setKyklosCarbonOffsetsFactoryAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
               name: "_address",
               type: "address",
             },
@@ -4045,6 +4013,19 @@ const deployedContracts = {
           name: "setVintageStatusAddress",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "supportedStandardRegistries",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -4075,6 +4056,13 @@ const deployedContracts = {
             },
           ],
           name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "unpauseSystem",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -4632,6 +4620,19 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "beforeFractionalize",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
