@@ -6,12 +6,10 @@ import {
   CarbonProjectVintages,
   KyklosCarbonOffsetsFactory,
   VintageStatus,
-  KyklosCarbonOffsets,
+  RetirementCertificates,
 } from "../typechain-types";
 import { ProjectDataStruct } from "../typechain-types/contracts/CarbonProjects";
 import { VintageDataStruct } from "../typechain-types/contracts/CarbonProjectVintages";
-import { upgrades } from "hardhat";
-import { Contract } from "ethers";
 
 const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { getNamedAccounts, ethers, deployments } = hre;
@@ -23,7 +21,8 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const carbonProjectVintagesAddress = (await deployments.get("CarbonProjectVintagesP")).address;
   const vintageStatusAddress = (await deployments.get("VintageStatusP")).address;
   const carbonOffsetFactoryAddress = (await deployments.get("CarbonOffsetFactoryP")).address;
-
+  const RetirementCertificatesAddress = (await deployments.get("RetirementCertificatesP")).address;
+  const carbonOffsetTokenAddress = (await deployments.get("CarbonOffsetP")).address;
   // Attach to contract factories
   const kyklosContractRegistry = (await ethers.getContractAt(
     "KyklosContractRegistry",
@@ -42,24 +41,32 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
 
   const vintageStatus = (await ethers.getContractAt("VintageStatus", vintageStatusAddress)) as VintageStatus;
   // deploy carbon offset token beacon
-  const carbonOffsetTokenBeacon = await ethers.getContractFactory("KyklosCarbonOffsets");
-  const carbonOffset = (await upgrades.deployBeacon(carbonOffsetTokenBeacon)) as Contract & KyklosCarbonOffsets;
-  await carbonOffset.waitForDeployment();
+  //   const carbonOffsetTokenBeacon = await ethers.getContractFactory("KyklosCarbonOffsets");
+  //   const carbonOffset = (await upgrades.deployBeacon(carbonOffsetTokenBeacon)) as Contract & KyklosCarbonOffsets;
+  //   await carbonOffset.waitForDeployment();
+
+  const retirementCertificates = (await ethers.getContractAt(
+    "RetirementCertificates",
+    RetirementCertificatesAddress,
+  )) as RetirementCertificates;
   // Set up registry links
   try {
     await (await kyklosContractRegistry.setCarbonProjectsAddress(carbonProjectsAddress)).wait();
     await (await kyklosContractRegistry.setCarbonProjectVintagesAddress(carbonProjectVintagesAddress)).wait();
     await (await kyklosContractRegistry.setVintageStatusAddress(vintageStatusAddress)).wait();
     await (await kyklosContractRegistry.setKyklosCarbonOffsetsFactoryAddress(carbonOffsetFactoryAddress)).wait();
+    await (await kyklosContractRegistry.setRetirementCertificatesAddress(RetirementCertificatesAddress)).wait();
 
     // Set registry in individual contracts
     await (await carbonProjectsFactory.setKyklosContractRegistry(registryAddress)).wait();
     await (await carbonProjectVintagesFactory.setKyklosContractRegistry(registryAddress)).wait();
     await (await carbonOffsetFactory.setKyklosContractRegistry(registryAddress)).wait();
     await (await vintageStatus.setKyklosContractRegistry(registryAddress)).wait();
+    // await (await carbonOffset.setKyklosContractRegistry(registryAddress)).wait();
+    await (await retirementCertificates.setKyklosContractRegistry(registryAddress)).wait();
 
     // set carbon offset token beacon address in registry
-    await carbonOffsetFactory.setBeacon(await carbonOffset.getAddress());
+    await carbonOffsetFactory.setBeacon(carbonOffsetTokenAddress);
     console.log("Registry setup completed successfully");
   } catch (error) {
     console.error("Failed to set registry addresses:", error);
@@ -101,37 +108,36 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     throw new Error("Deployment failed during project addition.");
   }
 
+  const vintage: VintageDataStruct = {
+    projectTokenId: 1, // Assuming this should be a number, not a string
+    startTime: 1636422000,
+    endTime: 1636512000,
+    additionalCertification: "test additional certification",
+    uri: "test uri",
+    coBenefits: "test co benefits",
+    correspAdjustment: "test corresp adjustments details",
+    isCCPcompliant: true,
+    isCorsiaCompliant: true,
+    name: "test name",
+    registry: "Kyklos",
+    totalVintageQuantity: 2000000000000000000n, // means 2 tonne
+  };
+  const vintage2: VintageDataStruct = {
+    projectTokenId: 1, // Assuming this should be a number, not a string
+    startTime: 1736422000,
+    endTime: 1738512000,
+    additionalCertification: "test additional certification",
+    uri: "test uri",
+    coBenefits: "test co benefits",
+    correspAdjustment: "test corresp adjustments details",
+    isCCPcompliant: true,
+    isCorsiaCompliant: true,
+    name: "test name",
+    registry: "Kyklos",
+    totalVintageQuantity: 1000000000000000000n, // means 1 tonne
+  };
   // Add a new vintage
   try {
-    const vintage: VintageDataStruct = {
-      projectTokenId: 1, // Assuming this should be a number, not a string
-      startTime: 1636422000,
-      endTime: 1636512000,
-      additionalCertification: "test additional certification",
-      uri: "test uri",
-      coBenefits: "test co benefits",
-      correspAdjustment: "test corresp adjustments details",
-      isCCPcompliant: true,
-      isCorsiaCompliant: true,
-      name: "test name",
-      registry: "Kyklos",
-      totalVintageQuantity: ethers.parseEther("0.3"),
-    };
-    const vintage2: VintageDataStruct = {
-      projectTokenId: 1, // Assuming this should be a number, not a string
-      startTime: 1736422000,
-      endTime: 1738512000,
-      additionalCertification: "test additional certification",
-      uri: "test uri",
-      coBenefits: "test co benefits",
-      correspAdjustment: "test corresp adjustments details",
-      isCCPcompliant: true,
-      isCorsiaCompliant: true,
-      name: "test name",
-      registry: "Kyklos",
-      totalVintageQuantity: ethers.parseEther("0.5"),
-    };
-
     const vintageTx = await carbonProjectVintagesFactory.addNewVintage(deployer, vintage);
     await vintageTx.wait();
     const vintageTx2 = await carbonProjectVintagesFactory.addNewVintage(deployer, vintage2);
@@ -149,7 +155,9 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
 
   // adding a vintage status
   try {
-    const vintageStatusTx = await vintageStatus.mintBatch(deployer, 1, ethers.parseEther("0.3"));
+    let vintageStatusTx = await vintageStatus.mintBatch(deployer, 1, vintage.totalVintageQuantity);
+    await vintageStatusTx.wait();
+    vintageStatusTx = await vintageStatus.mintBatch(deployer, 2, vintage2.totalVintageQuantity);
     await vintageStatusTx.wait();
     console.log("Vintage status added successfully");
   } catch (error) {

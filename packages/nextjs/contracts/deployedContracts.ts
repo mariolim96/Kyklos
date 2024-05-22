@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     CarbonOffsetFactoryP: {
-      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      address: "0xf5059a5D33d5853360D16C683c16e67980206f36",
       abi: [
         {
           anonymous: false,
@@ -831,8 +831,944 @@ const deployedContracts = {
       ],
       inheritedFunctions: {},
     },
+    CarbonOffsetP: {
+      address: "0x998abeb3E57409262aE5b751f60747921B33613E",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "bridger",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "fees",
+              type: "uint256",
+            },
+          ],
+          name: "FeeBurnt",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "bridger",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "fees",
+              type: "uint256",
+            },
+          ],
+          name: "FeePaid",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "eventId",
+              type: "uint256",
+            },
+          ],
+          name: "Retired",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "DETOKENIZER_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "RETIREMENT_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "TOKENIZER_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "VERSION_RELEASE_CANDIDATE",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "allowance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "burnFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "contractRegistry",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "subtractedValue",
+              type: "uint256",
+            },
+          ],
+          name: "decreaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "defractionalize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAttributes",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "projectId",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "standard",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "methodology",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "region",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "storageMethod",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "method",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "emissionType",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "category",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "uri",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "beneficiary",
+                  type: "address",
+                },
+              ],
+              internalType: "struct ProjectData",
+              name: "",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "uint64",
+                  name: "startTime",
+                  type: "uint64",
+                },
+                {
+                  internalType: "uint64",
+                  name: "endTime",
+                  type: "uint64",
+                },
+                {
+                  internalType: "uint256",
+                  name: "projectTokenId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint64",
+                  name: "totalVintageQuantity",
+                  type: "uint64",
+                },
+                {
+                  internalType: "bool",
+                  name: "isCorsiaCompliant",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "isCCPcompliant",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "coBenefits",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "correspAdjustment",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "additionalCertification",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "uri",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "registry",
+                  type: "string",
+                },
+              ],
+              internalType: "struct VintageData",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getDepositCap",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getGlobalProjectVintageIdentifiers",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getRemaining",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "remaining",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getVintageData",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "uint64",
+                  name: "startTime",
+                  type: "uint64",
+                },
+                {
+                  internalType: "uint64",
+                  name: "endTime",
+                  type: "uint64",
+                },
+                {
+                  internalType: "uint256",
+                  name: "projectTokenId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint64",
+                  name: "totalVintageQuantity",
+                  type: "uint64",
+                },
+                {
+                  internalType: "bool",
+                  name: "isCorsiaCompliant",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "isCCPcompliant",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "coBenefits",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "correspAdjustment",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "additionalCertification",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "uri",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "registry",
+                  type: "string",
+                },
+              ],
+              internalType: "struct VintageData",
+              name: "vintageData",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "addedValue",
+              type: "uint256",
+            },
+          ],
+          name: "increaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "name_",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "symbol_",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "projectVintageTokenId_",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "contractRegistry_",
+              type: "address",
+            },
+          ],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "retiringEntityString",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "beneficiary",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "beneficiaryString",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "retirementMessage",
+              type: "string",
+            },
+          ],
+          name: "mintCertificateLegacy",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "minterToId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          name: "onERC721Received",
+          outputs: [
+            {
+              internalType: "bytes4",
+              name: "",
+              type: "bytes4",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "projectVintageTokenId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "retire",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "retirementEventId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "retiringEntityString",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "beneficiary",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "beneficiaryString",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "retirementMessage",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "retireAndMintCertificate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "retireFrom",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "retirementEventId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "standardRegistry",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "standardRegistryDecimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "recipient",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "recipient",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
     CarbonProjectsP: {
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      address: "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
       abi: [
         {
           inputs: [],
@@ -2146,7 +3082,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     CarbonProjectVintagesP: {
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      address: "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
       abi: [
         {
           inputs: [],
@@ -3443,7 +4379,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     Registry_Proxy: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
       abi: [
         {
           inputs: [],
@@ -4101,8 +5037,1257 @@ const deployedContracts = {
       ],
       inheritedFunctions: {},
     },
+    RetirementCertificatesP: {
+      address: "0x95401dc811bb5740090279Ba06cfA8fcF6113778",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "previousAdmin",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "newAdmin",
+              type: "address",
+            },
+          ],
+          name: "AdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "approved",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+          ],
+          name: "ApprovalForAll",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "baseURI",
+              type: "string",
+            },
+          ],
+          name: "BaseURISet",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "beacon",
+              type: "address",
+            },
+          ],
+          name: "BeaconUpgraded",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "CertificateMinted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "CertificateUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256[]",
+              name: "eventIds",
+              type: "uint256[]",
+            },
+          ],
+          name: "EventsAttached",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "ContractRegistry",
+              type: "address",
+            },
+          ],
+          name: "KyklosRegistrySet",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "previousAmount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newAmount",
+              type: "uint256",
+            },
+          ],
+          name: "MinValidAmountSet",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "implementation",
+              type: "address",
+            },
+          ],
+          name: "Upgraded",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "VERSION_RELEASE_CANDIDATE",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[]",
+              name: "retirementEventIds",
+              type: "uint256[]",
+            },
+          ],
+          name: "attachRetirementEvents",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "baseURI",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "certificates",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "createdAt",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "retiringEntity",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "beneficiary",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "retiringEntityString",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "beneficiaryString",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "retirementMessage",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "beneficiaryLocation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "consumptionCountryCode",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "consumptionPeriodStart",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "consumptionPeriodEnd",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "claimedEvents",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "contractRegistry",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "getApproved",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "getData",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256[]",
+                  name: "retirementEventIds",
+                  type: "uint256[]",
+                },
+                {
+                  internalType: "uint256",
+                  name: "createdAt",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "retiringEntity",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "beneficiary",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "retiringEntityString",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "beneficiaryString",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "retirementMessage",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "beneficiaryLocation",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "consumptionCountryCode",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "consumptionPeriodStart",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "consumptionPeriodEnd",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct RetirementCertificatesStorageV1.Data",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "getRetiredAmount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "getRetiredAmountInKilos",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "getRetiredAmountInTonnes",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "user",
+              type: "address",
+            },
+          ],
+          name: "getUserEvents",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_contractRegistry",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "_baseURI",
+              type: "string",
+            },
+          ],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+          ],
+          name: "isApprovedForAll",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "string[]",
+              name: "registries",
+              type: "string[]",
+            },
+          ],
+          name: "isCertificateForRegistry",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "kiloDenomination",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "minValidRetirementAmount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "retiringEntity",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "retiringEntityString",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "beneficiary",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "beneficiaryString",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "retirementMessage",
+              type: "string",
+            },
+            {
+              internalType: "uint256[]",
+              name: "retirementEventIds",
+              type: "uint256[]",
+            },
+          ],
+          name: "mintCertificate",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "retiringEntity",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256[]",
+                  name: "tokenIds",
+                  type: "uint256[]",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "retiringEntityString",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "beneficiary",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "beneficiaryString",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "retirementMessage",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "beneficiaryLocation",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "consumptionCountryCode",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "consumptionPeriodStart",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "consumptionPeriodEnd",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct CreateRetirementRequestParams",
+              name: "params",
+              type: "tuple",
+            },
+            {
+              internalType: "uint256[]",
+              name: "retirementEventIds",
+              type: "uint256[]",
+            },
+          ],
+          name: "mintCertificateWithExtraData",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "ownerOf",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "proxiableUUID",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "retiringEntity",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "projectVintageTokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "isLegacy",
+              type: "bool",
+            },
+          ],
+          name: "registerEvent",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "retireEventCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "retirements",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "createdAt",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "retiringEntity",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "projectVintageTokenId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "safeTransferFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "_data",
+              type: "bytes",
+            },
+          ],
+          name: "safeTransferFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+          ],
+          name: "setApprovalForAll",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "baseURI_",
+              type: "string",
+            },
+          ],
+          name: "setBaseURI",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_address",
+              type: "address",
+            },
+          ],
+          name: "setKyklosContractRegistry",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "setMinValidRetirementAmount",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes4",
+              name: "interfaceId",
+              type: "bytes4",
+            },
+          ],
+          name: "supportsInterface",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "tokenURI",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "tonneDenomination",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "retiringEntityString",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "beneficiary",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "beneficiaryString",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "retirementMessage",
+              type: "string",
+            },
+          ],
+          name: "updateCertificate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newImplementation",
+              type: "address",
+            },
+          ],
+          name: "upgradeTo",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newImplementation",
+              type: "address",
+            },
+            {
+              internalType: "bytes",
+              name: "data",
+              type: "bytes",
+            },
+          ],
+          name: "upgradeToAndCall",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
     VintageStatusP: {
-      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      address: "0x851356ae760d987E095750cCeb3bC6014560891C",
       abi: [
         {
           inputs: [],

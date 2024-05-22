@@ -74,8 +74,8 @@ contract RetirementCertificates is
     {
         __Context_init_unchained();
         __ERC721_init_unchained(
-            'Kyklos Protocol: Retirement Certificates for Tokenized Carbon Offsets',
-            'TOUCAN-CERT'
+            'Kyklos: Retirement Certificates for Tokenized Carbon Offsets',
+            'Kyklos-CERT'
         );
         __Ownable_init_unchained();
         __ReentrancyGuard_init_unchained();
@@ -380,11 +380,6 @@ contract RetirementCertificates is
                 .carbonProjectVintagesAddress()
         ).getProjectVintageDataByTokenId(projectVintageTokenId);
         string memory registry = data.registry;
-        if (bytes(registry).length == 0) {
-            // For backwards-compatibility
-            registry = 'verra';
-        }
-
         // Loop through the registries and check if the certificate is for one of them
         for (uint256 i = 0; i < registries.length; i++) {
             if (registry.equals(registries[i])) {
