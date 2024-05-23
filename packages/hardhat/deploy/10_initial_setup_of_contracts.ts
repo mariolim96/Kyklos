@@ -7,9 +7,12 @@ import {
   KyklosCarbonOffsetsFactory,
   VintageStatus,
   RetirementCertificates,
+  KyklosCarbonOffsets,
 } from "../typechain-types";
 import { ProjectDataStruct } from "../typechain-types/contracts/CarbonProjects";
 import { VintageDataStruct } from "../typechain-types/contracts/CarbonProjectVintages";
+import { Contract } from "ethers";
+import { CreateRetirementRequestParamsStruct } from "../typechain-types/contracts/RetirementCertificates";
 
 const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { getNamedAccounts, ethers, deployments } = hre;
@@ -40,10 +43,6 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   )) as KyklosCarbonOffsetsFactory;
 
   const vintageStatus = (await ethers.getContractAt("VintageStatus", vintageStatusAddress)) as VintageStatus;
-  // deploy carbon offset token beacon
-  //   const carbonOffsetTokenBeacon = await ethers.getContractFactory("KyklosCarbonOffsets");
-  //   const carbonOffset = (await upgrades.deployBeacon(carbonOffsetTokenBeacon)) as Contract & KyklosCarbonOffsets;
-  //   await carbonOffset.waitForDeployment();
 
   const retirementCertificates = (await ethers.getContractAt(
     "RetirementCertificates",
@@ -167,12 +166,35 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
 
   // fractionalize a vintage status
   try {
-    // we need first to approve the fractionalize function
-    // const approveTx = await vintageStatus.approve(carbonOffsetFactoryAddress, 1);
-    // await approveTx.wait();
     const fractionalizeTx = await vintageStatus.fractionalize(1);
     await fractionalizeTx.wait();
+    // get token by project id into carbon offset factory
+    const token = await carbonOffsetFactory.pvIdtoERC20(1);
+    // attach the token address to carbon offset token and retire half of the token
+    const carbonOffsetToken = (await ethers.getContractAt("KyklosCarbonOffsets", token)) as Contract &
+      KyklosCarbonOffsets;
+    const certificateData: CreateRetirementRequestParamsStruct = {
+      amount: 1000000000000000000n,
+      beneficiary: deployer,
+      beneficiaryLocation: "test location",
+      beneficiaryString: "test beneficiary string",
+      consumptionCountryCode: "test consumption country code",
+      consumptionPeriodEnd: 0,
+      consumptionPeriodStart: 0,
+      retirementMessage: "test retirement message",
+      retiringEntityString: "test retiring entity string",
+      tokenIds: [1],
+    };
     console.log("Vintage status fractionalized successfully");
+    const retireTx = await carbonOffsetToken.retireAndMintCertificate(
+      certificateData.retiringEntityString,
+      certificateData.beneficiary,
+      certificateData.beneficiaryString,
+      certificateData.retirementMessage,
+      certificateData.amount,
+    );
+    await retireTx.wait();
+    console.log("Token retired successfully");
   } catch (error) {
     console.error("Failed to fractionalize vintage status:", error);
     throw new Error("Deployment failed during vintage status fractionalization.");

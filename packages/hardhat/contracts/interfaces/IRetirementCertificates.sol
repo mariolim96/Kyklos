@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.14;
 
+import "../bases/KyklosCarbonOffsetsWithBatchBaseTypes.sol";
 interface IRetirementCertificates {
 	function mintCertificate(
 		address retiringEntity,
@@ -11,11 +12,11 @@ interface IRetirementCertificates {
 		uint256[] calldata retirementEventIds
 	) external returns (uint256);
 
-	// function mintCertificateWithExtraData(
-	//     address retiringEntity,
-	//     CreateRetirementRequestParams calldata params,
-	//     uint256[] calldata retirementEventIds
-	// ) external returns (uint256);
+	function mintCertificateWithExtraData(
+	    address retiringEntity,
+	    CreateRetirementRequestParams calldata params,
+	    uint256[] calldata retirementEventIds
+	) external returns (uint256);
 
 	function registerEvent(
 		address retiringEntity,

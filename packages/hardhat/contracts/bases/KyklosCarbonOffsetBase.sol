@@ -14,6 +14,9 @@ import "../interfaces/IKyklosCarbonOffsetsFactory.sol";
 import "../interfaces/IKyklosContractRegistry.sol";
 import "../storages/KyklosCarbonOffsetsStorage.sol";
 import "../interfaces/IVintageStatus.sol";
+import { CreateRetirementRequestParams } from "./KyklosCarbonOffsetsWithBatchBaseTypes.sol";
+
+import "../interfaces/IRetirementCertificates.sol";
 
 /// @notice Base contract for any specific contract implementation of the TCO2 tokens (ERC20)
 abstract contract KyklosCarbonOffsetsBase is
@@ -51,7 +54,6 @@ abstract contract KyklosCarbonOffsetsBase is
 		_;
 	}
 
-
 	modifier onlyFactoryOwner() {
 		address tco2Factory = IKyklosContractRegistry(contractRegistry)
 			.kyklosCarbonOffsetsFactoryAddress(standardRegistry());
@@ -71,7 +73,6 @@ abstract contract KyklosCarbonOffsetsBase is
 		);
 		_;
 	}
-
 
 	/// @custom:oz-upgrades-unsafe-allow constructor
 	constructor() {
@@ -216,30 +217,30 @@ abstract contract KyklosCarbonOffsetsBase is
 		emit Retired(retiringEntityAddress, amount, retirementEventId);
 	}
 
-	// @dev Internal function retire and mint certificates
-	// function _retireAndMintCertificate(
-	// 	address retiringEntity,
-	// 	CreateRetirementRequestParams memory params
-	// ) internal virtual whenNotPaused {
-	// 	// Retire provided amount
-	// 	uint256 retirementEventId = _retire(
-	// 		msg.sender,
-	// 		params.amount,
-	// 		retiringEntity
-	// 	);
-	// 	uint256[] memory retirementEventIds = new uint256[](1);
-	// 	retirementEventIds[0] = retirementEventId;
+	/// @dev Internal function retire and mint certificates
+	function _retireAndMintCertificate(
+		address retiringEntity,
+		CreateRetirementRequestParams memory params
+	) internal virtual whenNotPaused {
+		// Retire provided amount
+		uint256 retirementEventId = _retire(
+			msg.sender,
+			params.amount,
+			retiringEntity
+		);
+		uint256[] memory retirementEventIds = new uint256[](1);
+		retirementEventIds[0] = retirementEventId;
 
-	// 	//slither-disable-next-line unused-return
-	// 	IRetirementCertificates(
-	// 		IKyklosContractRegistry(contractRegistry)
-	// 			.retirementCertificatesAddress()
-	// 	).mintCertificateWithExtraData(
-	// 			retiringEntity,
-	// 			params,
-	// 			retirementEventIds
-	// 		);
-	// }
+		//slither-disable-next-line unused-return
+		IRetirementCertificates(
+			IKyklosContractRegistry(contractRegistry)
+				.retirementCertificatesAddress()
+		).mintCertificateWithExtraData(
+				retiringEntity,
+				params,
+				retirementEventIds
+			);
+	}
 
 	// -----------------------------
 	//      Locked ERC20 safety

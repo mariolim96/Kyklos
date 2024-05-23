@@ -52,20 +52,20 @@ abstract contract KyklosCarbonOffsetsDirectRetirements is
         string calldata retirementMessage,
         uint256 amount
     ) external virtual whenNotPaused {
-        // CreateRetirementRequestParams
-        //     memory params = CreateRetirementRequestParams({
-        //         tokenIds: new uint256[](0),
-        //         amount: amount,
-        //         retiringEntityString: retiringEntityString,
-        //         beneficiary: beneficiary,
-        //         beneficiaryString: beneficiaryString,
-        //         retirementMessage: retirementMessage,
-        //         beneficiaryLocation: '',
-        //         consumptionCountryCode: '',
-        //         consumptionPeriodStart: 0,
-        //         consumptionPeriodEnd: 0
-        //     });
+        CreateRetirementRequestParams
+            memory params = CreateRetirementRequestParams({
+                tokenIds: new uint256[](0),
+                amount: amount,
+                retiringEntityString: retiringEntityString,
+                beneficiary: beneficiary,
+                beneficiaryString: beneficiaryString,
+                retirementMessage: retirementMessage,
+                beneficiaryLocation: '',
+                consumptionCountryCode: '',
+                consumptionPeriodStart: 0,
+                consumptionPeriodEnd: 0
+            });
 
-        // _retireAndMintCertificate(msg.sender, params);
+        _retireAndMintCertificate(msg.sender, params);
     }
 }

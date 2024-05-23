@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     CarbonOffsetFactoryP: {
-      address: "0xf5059a5D33d5853360D16C683c16e67980206f36",
+      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
       abi: [
         {
           anonymous: false,
@@ -832,7 +832,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     CarbonOffsetP: {
-      address: "0x998abeb3E57409262aE5b751f60747921B33613E",
+      address: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
       abi: [
         {
           anonymous: false,
@@ -1768,7 +1768,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     CarbonProjectsP: {
-      address: "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [],
@@ -3082,7 +3082,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     CarbonProjectVintagesP: {
-      address: "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
           inputs: [],
@@ -4379,7 +4379,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     Registry_Proxy: {
-      address: "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       abi: [
         {
           inputs: [],
@@ -5038,7 +5038,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     RetirementCertificatesP: {
-      address: "0x95401dc811bb5740090279Ba06cfA8fcF6113778",
+      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
       abi: [
         {
           inputs: [],
@@ -6287,7 +6287,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     VintageStatusP: {
-      address: "0x851356ae760d987E095750cCeb3bC6014560891C",
+      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
       abi: [
         {
           inputs: [],
