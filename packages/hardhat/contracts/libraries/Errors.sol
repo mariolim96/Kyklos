@@ -118,4 +118,6 @@ library Errors {
 	string public constant COB_NOT_VERIFIER_OR_BATCH_OWNER = "51";
 	// The quantity provided is invalid
 	string public constant COB_INVALID_QUANTITY = "52";
+    // The TCO2 is not allowlisted
+    string public constant CP_NOT_ALLOWLISTED = "53";
 }
