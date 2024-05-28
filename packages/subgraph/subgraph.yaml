@@ -16,6 +16,7 @@ dataSources:
         - Project
         - User
         - ProjectVintage
+        - BatchToken
       abis:
         - name: CarbonProjects
           file: ./abis/localhost_CarbonProjects.json
@@ -41,6 +42,7 @@ dataSources:
         - Project
         - User
         - ProjectVintage
+        - BatchToken
       abis:
         - name: CarbonProjectVintages
           file: ./abis/localhost_CarbonProjectVintages.json
@@ -50,3 +52,27 @@ dataSources:
         - event: ProjectVintageUpdated(uint256)
           handler: handleProjectVintageUpdated
       file: ./src/carbon-project-vintages.ts
+  - kind: ethereum
+    name: VintageStatus
+    network: localhost
+    source:
+      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+      abi: VintageStatus
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Project
+        - User
+        - ProjectVintage
+        - BatchToken
+      abis:
+        - name: VintageStatus
+          file: ./abis/localhost_VintageStatus.json
+      eventHandlers:
+        - event: Tokenized(uint256,address,indexed address,uint256)
+          handler: handleTokenized
+        - event: BatchMinted(address,uint256)
+          handler: handleBatchMinted
+      file: ./src/vintage-status.ts

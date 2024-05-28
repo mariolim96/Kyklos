@@ -1,29 +1,16 @@
-type Greeting @entity {
-  id: ID!
-  sender: Sender!
-  greeting: String!
-  premium: Boolean
-  value: BigInt
-  createdAt: BigInt!
-  transactionHash: String!
-}
-
-type Sender @entity {
-  id: ID!
-  address: Bytes!
-  greetings: [Greeting!] @derivedFrom(field: "sender")
-  createdAt: BigInt!
-  greetingCount: BigInt!
-}
-
 type User @entity {
   id: ID!
-  # batchesOwned: [BatchToken!]!
-  # batchesCreated: [BatchToken!]!
-  # batchComments: [BatchComment!]!
+  batchesOwned: [BatchToken!]! @derivedFrom(field: "owner")
+  batchesCreated: [BatchToken!]! @derivedFrom(field: "creator")
   projectsOwned: [Project!]! @derivedFrom(field: "owner")
   projectsCreated: [Project!]! @derivedFrom(field: "creator")
+  vintagesOwned: [ProjectVintage!]! @derivedFrom(field: "owner")
+  vintagesCreated: [ProjectVintage!]! @derivedFrom(field: "creator")
+#   retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
+#   redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
+#   tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
 }
+
 type Project @entity {
   id: ID!
   creator: User!
@@ -52,28 +39,90 @@ type ProjectVintage @entity {
   startTime: BigInt!
   endTime: BigInt!
   project: Project
-#   batches: [BatchToken!]!
+  batches: [BatchToken!]! @derivedFrom(field: "vintage")
   totalVintageQuantity: BigInt!
   isCorsiaCompliant: Boolean!
   isCCCompliant: Boolean!
   coBenefits: String!
   corresAdjustment: String!
   additionalCertification: String!
-#   tco2Token: TCO2Token
+#   kco2Token: KCO2Token
 }
-# struct VintageData {
-#     /// @dev A human-readable string which differentiates this from other vintages in
-#     /// the same project, and helps build the corresponding TCO2 name and symbol.
-#     string name;
-#     uint64 startTime; // UNIX timestamp
-#     uint64 endTime; // UNIX timestamp
-#     uint256 projectTokenId;
-#     uint64 totalVintageQuantity;
-#     bool isCorsiaCompliant;
-#     bool isCCPcompliant;
-#     string coBenefits;
-#     string correspAdjustment;
-#     string additionalCertification;
-#     string uri;
-#     string registry;
+
+type BatchToken @entity {
+  id: ID!
+  creator: User!
+  owner: User!
+  timestamp: BigInt!
+  vintage: ProjectVintage!
+  status: String!
+  tx: String!
+}
+
+# type KCO2Token @entity {
+#   id: ID!
+#   creator: User!
+#   createdAt: BigInt!
+#   creationTx: String!
+#   projectVintage: ProjectVintage!
+#   name: String!
+#   symbol: String!
+#   address: String!
+#   retirements: [Retirement!]! @derivedFrom(field: "token")
+# }
+
+# type KCO2Balance @entity {
+#   id: ID!
+#   user: User!
+#   token: KCO2Token!
+#   balance: BigInt!
+# }
+
+# type PooledKCO2Token @entity {
+#   id: ID!
+#   token: KCO2Token!
+#   poolAddress: String!
+#   amount: BigInt!
+# }
+
+# type Retirement @entity {
+#   id: ID!
+#   creationTx: String!
+#   amount: BigInt!
+#   timestamp: BigInt!
+#   token: KCO2Token!
+#   creator: User!
+#   eventId: BigInt!
+#   certificate: RetirementCertificate!
+# }
+
+# type RetirementCertificate @entity {
+#   id: ID!
+#   creationTx: String!
+#   updateTxs: [String!]!
+#   createdAt: BigInt!
+#   retiringEntity: User!
+#   beneficiary: User!
+#   retiringEntityString: String!
+#   beneficiaryString: String!
+#   retirementMessage: String!
+#   retirements: [Retirement!]! @derivedFrom(field: "certificate")
+# }
+
+# type Deposit @entity {
+#   id: ID!
+#   amount: BigInt!
+#   timestamp: BigInt!
+#   token: KCO2Token!
+#   pool: String!
+#   creator: User!
+# }
+
+# type Redeem @entity {
+#   id: ID!
+#   amount: BigInt!
+#   timestamp: BigInt!
+#   token: KCO2Token!
+#   pool: String!
+#   creator: User!
 # }

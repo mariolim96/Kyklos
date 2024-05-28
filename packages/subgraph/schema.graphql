@@ -6,10 +6,9 @@ type User @entity {
   projectsCreated: [Project!]! @derivedFrom(field: "creator")
   vintagesOwned: [ProjectVintage!]! @derivedFrom(field: "owner")
   vintagesCreated: [ProjectVintage!]! @derivedFrom(field: "creator")
-  retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
-  redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
-  tokensOwned: [TCO2Balance!]! @derivedFrom(field: "user")
-  bridgeRequestOwned: [BridgeTokenRequest!]! @derivedFrom(field: "creator")
+#   retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
+#   redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
+#   tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
 }
 
 type Project @entity {
@@ -47,7 +46,7 @@ type ProjectVintage @entity {
   coBenefits: String!
   corresAdjustment: String!
   additionalCertification: String!
-  tco2Token: TCO2Token
+#   kco2Token: KCO2Token
 }
 
 type BatchToken @entity {
@@ -57,81 +56,73 @@ type BatchToken @entity {
   timestamp: BigInt!
   vintage: ProjectVintage!
   status: String!
-  timestamp: BigInt!
   tx: String!
 }
 
-type TCO2Token @entity {
-  id: ID!
-  creator: User!
-  createdAt: BigInt!
-  creationTx: String!
-  projectVintage: ProjectVintage!
-  name: String!
-  symbol: String!
-  address: String!
-  score: BigInt!
-  retirements: [Retirement!]! @derivedFrom(field: "token")
-}
+# type KCO2Token @entity {
+#   id: ID!
+#   creator: User!
+#   createdAt: BigInt!
+#   creationTx: String!
+#   projectVintage: ProjectVintage!
+#   name: String!
+#   symbol: String!
+#   address: String!
+#   retirements: [Retirement!]! @derivedFrom(field: "token")
+# }
 
-type TCO2Balance @entity {
-  id: ID!
-  user: User!
-  token: TCO2Token!
-  balance: BigInt!
-}
+# type KCO2Balance @entity {
+#   id: ID!
+#   user: User!
+#   token: KCO2Token!
+#   balance: BigInt!
+# }
 
-type PooledTCO2Token @entity {
-  id: ID!
-  token: TCO2Token!
-  poolAddress: String!
-  amount: BigInt!
-}
+# type PooledKCO2Token @entity {
+#   id: ID!
+#   token: KCO2Token!
+#   poolAddress: String!
+#   amount: BigInt!
+# }
 
-type Retirement @entity {
-  id: ID!
-  creationTx: String!
-  amount: BigInt!
-  timestamp: BigInt!
-  token: TCO2Token!
-  creator: User!
-  eventId: BigInt!
-  certificate: RetirementCertificate!
-}
+# type Retirement @entity {
+#   id: ID!
+#   creationTx: String!
+#   amount: BigInt!
+#   timestamp: BigInt!
+#   token: KCO2Token!
+#   creator: User!
+#   eventId: BigInt!
+#   certificate: RetirementCertificate!
+# }
 
-type RetirementCertificate @entity {
-  id: ID!
-  creationTx: String!
-  updateTxs: [String!]!
-  createdAt: BigInt!
-  retiringEntity: User!
-  beneficiary: User!
-  retiringEntityString: String!
-  beneficiaryString: String!
-  retirementMessage: String!
-  retirements: [Retirement!]! @derivedFrom(field: "certificate")
-}
+# type RetirementCertificate @entity {
+#   id: ID!
+#   creationTx: String!
+#   updateTxs: [String!]!
+#   createdAt: BigInt!
+#   retiringEntity: User!
+#   beneficiary: User!
+#   retiringEntityString: String!
+#   beneficiaryString: String!
+#   retirementMessage: String!
+#   retirements: [Retirement!]! @derivedFrom(field: "certificate")
+# }
 
-type Deposit @entity {
-  id: ID!
-  amount: BigInt!
-  timestamp: BigInt!
-  token: TCO2Token!
-  pool: String!
-  creator: User!
-}
+# type Deposit @entity {
+#   id: ID!
+#   amount: BigInt!
+#   timestamp: BigInt!
+#   token: KCO2Token!
+#   pool: String!
+#   creator: User!
+# }
 
-type Redeem @entity {
-  id: ID!
-  amount: BigInt!
-  timestamp: BigInt!
-  token: TCO2Token!
-  pool: String!
-  creator: User!
-}
-type PooledTCO2Token @entity {
-  id: ID!
-  token: TCO2Token!
-  poolAddress: String!
-  amount: BigInt!
-}
+# type Redeem @entity {
+#   id: ID!
+#   amount: BigInt!
+#   timestamp: BigInt!
+#   token: KCO2Token!
+#   pool: String!
+#   creator: User!
+# }
