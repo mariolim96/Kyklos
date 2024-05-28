@@ -215,6 +215,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "VintageStatusAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -230,19 +243,6 @@
     "name": "addERC20",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "carbonOffsetBatchesAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -378,32 +378,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "kyklosCarbonOffsetsEscrowAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "kyklosCarbonOffsetsFactoryAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "string",
@@ -433,6 +407,13 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pauseSystem",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -531,19 +512,6 @@
         "type": "address"
       }
     ],
-    "name": "setCarbonOffsetBatchesAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_address",
-        "type": "address"
-      }
-    ],
     "name": "setCarbonProjectVintagesAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -566,6 +534,19 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "tco2Factory",
+        "type": "address"
+      }
+    ],
+    "name": "setKyklosCarbonOffsetsFactoryAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "_address",
         "type": "address"
       }
@@ -573,6 +554,32 @@
     "name": "setRetirementCertificatesAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "setVintageStatusAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "supportedStandardRegistries",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -603,6 +610,13 @@
       }
     ],
     "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unpauseSystem",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

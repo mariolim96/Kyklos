@@ -26,8 +26,13 @@ const deployRetirementCertificates: DeployFunction = async function (hre: Hardha
     ...artifacts,
   };
 
-  await hre.deployments.save("RetirementCertificatesP", proxyDeployment);
+  const implementationDeployment = {
+    address: implementationAddress,
+    ...artifacts,
+  };
 
+  await hre.deployments.save("RetirementCertificatesP", proxyDeployment);
+  await hre.deployments.save("RetirementCertificates", implementationDeployment);
   try {
     if (chainId !== "31337") {
       log("Verifying Proxy on Etherscan...");

@@ -13,12 +13,12 @@ const CarbonOffset: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const proxyAddress = await carbonOffset.getAddress();
   const artifacts = await hre.deployments.getExtendedArtifact("KyklosCarbonOffsets");
 
-  const proxyDeployment = {
+  const implementationDeployment = {
     address: proxyAddress,
     ...artifacts,
   };
-
-  await hre.deployments.save("CarbonOffsetP", proxyDeployment);
+  //   await hre.deployments.save("CarbonOffsetP", proxyDeployment);
+  await hre.deployments.save("CarbonOffset", implementationDeployment);
 
   try {
     const chainId = await hre.getChainId();

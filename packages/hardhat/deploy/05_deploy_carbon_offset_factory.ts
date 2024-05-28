@@ -40,13 +40,13 @@ const deployCarbonOffsetFactory: DeployFunction = async function (hre: HardhatRu
     ...artifacts,
   };
 
-  //   const implementationDeployment = {
-  //     address: implementationAddress,
-  //     ...artifacts,
-  //   };
+  const implementationDeployment = {
+    address: implementationAddress,
+    ...artifacts,
+  };
 
   await hre.deployments.save("CarbonOffsetFactoryP", proxyDeployment);
-  //   await hre.deployments.save("CarbonOffsetFactory", implementationDeployment);
+  await hre.deployments.save("CarbonOffsetFactory", implementationDeployment);
 
   try {
     if (chainId !== "31337") {

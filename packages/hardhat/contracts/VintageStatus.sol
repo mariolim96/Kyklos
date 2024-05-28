@@ -318,6 +318,7 @@ contract VintageStatus is
 			tokenId,
 			""
 		);
+        emit Tokenized(tokenId, _getTCO2ForBatchTokenId(tokenId), _msgSender(), nftList[tokenId].quantity);
 	}
 
 	function beforeFractionalize(uint256 tokenId) external virtual {

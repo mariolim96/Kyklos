@@ -28,13 +28,13 @@ const VintageStatus: DeployFunction = async function (hre: HardhatRuntimeEnviron
     ...artifacts,
   };
 
-  //   const implementationDeployment = {
-  //     address: implementationAddress,
-  //     ...artifacts,
-  //   };
+  const implementationDeployment = {
+    address: implementationAddress,
+    ...artifacts,
+  };
 
   await hre.deployments.save("VintageStatusP", proxyDeployment);
-  //   await hre.deployments.save("VintageStatus", implementationDeployment);
+  await hre.deployments.save("VintageStatus", implementationDeployment);
 
   try {
     if (chainId !== "31337") {

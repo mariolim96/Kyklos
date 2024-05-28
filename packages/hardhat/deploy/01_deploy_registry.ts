@@ -44,13 +44,13 @@ const deployYourContractContract: DeployFunction = async function (hre: HardhatR
     ...artifacts,
   };
 
-  //   const implementationDeployment = {
-  //     address: implementationAddress,
-  //     ...artifacts,
-  //   };
+  const implementationDeployment = {
+    address: implementationAddress,
+    ...artifacts,
+  };
 
   await hre.deployments.save("Registry_Proxy", proxyDeployment);
-  //   await hre.deployments.save("Registry_Implementation", implementationDeployment);
+  await hre.deployments.save("Registry_Implementation", implementationDeployment);
   try {
     if (chainId !== "31337") {
       log("Verifying Proxy on Etherscan..." + chainId);

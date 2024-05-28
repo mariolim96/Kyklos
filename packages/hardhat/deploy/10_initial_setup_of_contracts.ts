@@ -25,7 +25,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const vintageStatusAddress = (await deployments.get("VintageStatusP")).address;
   const carbonOffsetFactoryAddress = (await deployments.get("CarbonOffsetFactoryP")).address;
   const RetirementCertificatesAddress = (await deployments.get("RetirementCertificatesP")).address;
-  const carbonOffsetTokenAddress = (await deployments.get("CarbonOffsetP")).address;
+  const carbonOffsetTokenAddress = (await deployments.get("CarbonOffset")).address;
   // Attach to contract factories
   const kyklosContractRegistry = (await ethers.getContractAt(
     "KyklosContractRegistry",

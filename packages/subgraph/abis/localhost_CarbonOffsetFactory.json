@@ -1,10 +1,5 @@
 [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -66,6 +61,19 @@
       }
     ],
     "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
     "type": "event"
   },
   {
@@ -147,19 +155,32 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "factory",
-        "type": "address"
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "vintageTokenId",
+        "type": "uint256"
       },
       {
-        "indexed": true,
-        "internalType": "string",
-        "name": "standard",
-        "type": "string"
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
       }
     ],
-    "name": "TCO2FactoryAdded",
+    "name": "TokenCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
     "type": "event"
   },
   {
@@ -190,7 +211,20 @@
   },
   {
     "inputs": [],
-    "name": "PAUSER_ROLE",
+    "name": "DETOKENIZER_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "TOKENIZER_ROLE",
     "outputs": [
       {
         "internalType": "bytes32",
@@ -216,7 +250,111 @@
   },
   {
     "inputs": [],
-    "name": "VintageStatusAddress",
+    "name": "VERSION_RELEASE_CANDIDATE",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "beacon",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bridgeFeeBurnAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bridgeFeeBurnPercentageInBase",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bridgeFeeDivider",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bridgeFeePercentageInBase",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bridgeFeeReceiver",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bridgeFeeReceiverAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "contractRegistry",
     "outputs": [
       {
         "internalType": "address",
@@ -230,24 +368,25 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "erc20",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "standardRegistry",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "projectVintageTokenId",
+        "type": "uint256"
       }
     ],
-    "name": "addERC20",
+    "name": "deployFromVintage",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "carbonProjectVintagesAddress",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "deployedContracts",
     "outputs": [
       {
         "internalType": "address",
@@ -259,13 +398,37 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "carbonProjectsAddress",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_quantity",
+        "type": "uint256"
+      }
+    ],
+    "name": "getBridgeFeeAndBurnAmount",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "uint256",
         "name": "",
-        "type": "address"
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getContracts",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
       }
     ],
     "stateMutability": "view",
@@ -333,67 +496,31 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_contractRegistry",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_admin",
+        "type": "address"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_accounts",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_roles",
+        "type": "bytes32[]"
+      }
+    ],
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "erc20",
-        "type": "address"
-      }
-    ],
-    "name": "isValidERC20",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "name": "kyklosCarbonOffsetFactories",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "standardRegistry",
-        "type": "string"
-      }
-    ],
-    "name": "kyklosCarbonOffsetsFactoryAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -411,20 +538,14 @@
   },
   {
     "inputs": [],
-    "name": "pauseSystem",
+    "name": "pause",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "projectVintageERC20Registry",
+    "inputs": [],
+    "name": "paused",
     "outputs": [
       {
         "internalType": "bool",
@@ -443,6 +564,25 @@
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "pvIdtoERC20",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -474,19 +614,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "retirementCertificatesAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -508,11 +635,76 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_address",
+        "name": "_user",
         "type": "address"
       }
     ],
-    "name": "setCarbonProjectVintagesAddress",
+    "name": "setAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_beacon",
+        "type": "address"
+      }
+    ],
+    "name": "setBeacon",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_bridgeFeeBurnAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setBridgeFeeBurnAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bridgeFeeBurnPercentageInBase",
+        "type": "uint256"
+      }
+    ],
+    "name": "setBridgeFeeBurnPercentage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bridgeFeePercentageInBase",
+        "type": "uint256"
+      }
+    ],
+    "name": "setBridgeFeePercentage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_bridgeFeeReceiver",
+        "type": "address"
+      }
+    ],
+    "name": "setBridgeFeeReceiver",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -525,53 +717,27 @@
         "type": "address"
       }
     ],
-    "name": "setCarbonProjectsAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "tco2Factory",
-        "type": "address"
-      }
-    ],
-    "name": "setKyklosCarbonOffsetsFactoryAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_address",
-        "type": "address"
-      }
-    ],
-    "name": "setRetirementCertificatesAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_address",
-        "type": "address"
-      }
-    ],
-    "name": "setVintageStatusAddress",
+    "name": "setKyklosContractRegistry",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "supportedStandardRegistries",
+    "name": "standardRegistry",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "supportedStandards",
     "outputs": [
       {
         "internalType": "string[]",
@@ -579,7 +745,7 @@
         "type": "string[]"
       }
     ],
-    "stateMutability": "view",
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -616,7 +782,7 @@
   },
   {
     "inputs": [],
-    "name": "unpauseSystem",
+    "name": "unpause",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

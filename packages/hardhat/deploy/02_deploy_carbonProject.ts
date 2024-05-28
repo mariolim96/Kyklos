@@ -48,13 +48,13 @@ const deployYourContractContract: DeployFunction = async function (hre: HardhatR
     ...artifacts,
   };
 
-  //   const implementationDeployment = {
-  //     address: implementationAddress,
-  //     ...artifacts,
-  //   };
+  const implementationDeployment = {
+    address: implementationAddress,
+    ...artifacts,
+  };
 
   await hre.deployments.save("CarbonProjectsP", proxyDeployment);
-  //   await hre.deployments.save("CarbonProjects", implementationDeployment);
+  await hre.deployments.save("CarbonProjects", implementationDeployment);
 
   try {
     if (chainId !== "31337") {
