@@ -674,6 +674,98 @@ export class BatchToken extends Entity {
   }
 }
 
+export class KCO2Token extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save KCO2Token entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type KCO2Token must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("KCO2Token", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): KCO2Token | null {
+    return changetype<KCO2Token | null>(store.get_in_block("KCO2Token", id));
+  }
+
+  static load(id: string): KCO2Token | null {
+    return changetype<KCO2Token | null>(store.get("KCO2Token", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get creator(): string {
+    let value = this.get("creator");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set creator(value: string) {
+    this.set("creator", Value.fromString(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get creationTx(): string {
+    let value = this.get("creationTx");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set creationTx(value: string) {
+    this.set("creationTx", Value.fromString(value));
+  }
+
+  get projectVintage(): string {
+    let value = this.get("projectVintage");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set projectVintage(value: string) {
+    this.set("projectVintage", Value.fromString(value));
+  }
+}
+
 export class BatchTokenLoader extends Entity {
   _entity: string;
   _field: string;

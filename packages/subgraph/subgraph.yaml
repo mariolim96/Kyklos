@@ -43,6 +43,7 @@ dataSources:
         - User
         - ProjectVintage
         - BatchToken
+        - KCO2Token
       abis:
         - name: CarbonProjectVintages
           file: ./abis/localhost_CarbonProjectVintages.json
@@ -67,6 +68,7 @@ dataSources:
         - User
         - ProjectVintage
         - BatchToken
+        - KCO2Token
       abis:
         - name: VintageStatus
           file: ./abis/localhost_VintageStatus.json
@@ -76,3 +78,26 @@ dataSources:
         - event: BatchMinted(address,uint256)
           handler: handleBatchMinted
       file: ./src/vintage-status.ts
+  - kind: ethereum
+    name: CarbonOffsetFactory
+    network: localhost
+    source:
+      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318"
+      abi: CarbonOffsetFactory
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Project
+        - User
+        - ProjectVintage
+        - BatchToken
+        - KCO2Token
+      abis:
+        - name: CarbonOffsetFactory
+          file: ./abis/localhost_CarbonOffsetFactory.json
+      eventHandlers:
+        - event: TokenCreated(uint256,address)
+          handler: handleTokenCreated
+      file: ./src/carbon-offset-factory.ts

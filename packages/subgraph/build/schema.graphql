@@ -59,17 +59,17 @@ type BatchToken @entity {
   tx: String!
 }
 
-# type KCO2Token @entity {
-#   id: ID!
-#   creator: User!
-#   createdAt: BigInt!
-#   creationTx: String!
-#   projectVintage: ProjectVintage!
+type KCO2Token @entity {
+  id: ID!
+  creator: User!
+  createdAt: BigInt!
+  creationTx: String!
+  projectVintage: ProjectVintage!
 #   name: String!
 #   symbol: String!
 #   address: String!
 #   retirements: [Retirement!]! @derivedFrom(field: "token")
-# }
+}
 
 # type KCO2Balance @entity {
 #   id: ID!
