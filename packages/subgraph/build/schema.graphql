@@ -65,8 +65,8 @@ type KCO2Token @entity {
   createdAt: BigInt!
   creationTx: String!
   projectVintage: ProjectVintage!
-#   name: String!
-#   symbol: String!
+  name: String!
+  symbol: String!
 #   address: String!
 #   retirements: [Retirement!]! @derivedFrom(field: "token")
 }

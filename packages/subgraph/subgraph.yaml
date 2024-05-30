@@ -97,7 +97,35 @@ dataSources:
       abis:
         - name: CarbonOffsetFactory
           file: ./abis/localhost_CarbonOffsetFactory.json
+        - name: KyklosCarbonOffsets
+          file: ./abis/localhost_KyklosCarbonOffsets.json
       eventHandlers:
         - event: TokenCreated(uint256,address)
           handler: handleTokenCreated
       file: ./src/carbon-offset-factory.ts
+templates:
+  - kind: ethereum
+    name: KyklosCarbonOffsets
+    network: localhost
+    source:
+      abi: KyklosCarbonOffsets
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Project
+        - User
+        - ProjectVintage
+        - BatchToken
+        - KCO2Token
+      abis:
+        - name: CarbonOffsetFactory
+          file: ./abis/localhost_CarbonOffsetFactory.json
+        - name: KyklosCarbonOffsets
+          file: ./abis/localhost_KyklosCarbonOffsets.json
+      eventHandlers:
+        - event: Retired(address,uint256,uint256)
+          handler: handleRetired
+      file: ./src/carbon-offset-factory.ts
+

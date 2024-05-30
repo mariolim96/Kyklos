@@ -25,7 +25,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const vintageStatusAddress = (await deployments.get("VintageStatusP")).address;
   const carbonOffsetFactoryAddress = (await deployments.get("CarbonOffsetFactoryP")).address;
   const RetirementCertificatesAddress = (await deployments.get("RetirementCertificatesP")).address;
-  const carbonOffsetTokenAddress = (await deployments.get("CarbonOffset")).address;
+  const carbonOffsetTokenBeaconAddress = (await deployments.get("KyklosCarbonOffsets")).address;
   // Attach to contract factories
   const kyklosContractRegistry = (await ethers.getContractAt(
     "KyklosContractRegistry",
@@ -65,7 +65,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     await (await retirementCertificates.setKyklosContractRegistry(registryAddress)).wait();
 
     // set carbon offset token beacon address in registry
-    await carbonOffsetFactory.setBeacon(carbonOffsetTokenAddress);
+    await carbonOffsetFactory.setBeacon(carbonOffsetTokenBeaconAddress);
     console.log("Registry setup completed successfully");
   } catch (error) {
     console.error("Failed to set registry addresses:", error);
@@ -108,33 +108,35 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   }
 
   const vintage: VintageDataStruct = {
-    projectTokenId: 1, // Assuming this should be a number, not a string
-    startTime: 1636422000,
-    endTime: 1636512000,
-    additionalCertification: "test additional certification",
-    uri: "test uri",
-    coBenefits: "test co benefits",
-    correspAdjustment: "test corresp adjustments details",
-    isCCPcompliant: true,
-    isCorsiaCompliant: true,
-    name: "test name",
+    projectTokenId: 1,
+    startTime: 1609459200, // Corresponds to January 1, 2021
+    endTime: 1612137600, // Corresponds to February 1, 2021
+    additionalCertification: "ISO 14064-2:2019",
+    uri: "https://example.com/vintage100",
+    coBenefits: "Biodiversity enhancement, local employment",
+    correspAdjustment: "No adjustments required",
+    isCCPcompliant: false,
+    isCorsiaCompliant: false,
+    name: "Project Green Wind",
     registry: "Kyklos",
-    totalVintageQuantity: 2000000000000000000n, // means 2 tonne
+    totalVintageQuantity: 2000000000000000000n, // 2 tonnes
   };
+
   const vintage2: VintageDataStruct = {
-    projectTokenId: 1, // Assuming this should be a number, not a string
-    startTime: 1736422000,
-    endTime: 1738512000,
-    additionalCertification: "test additional certification",
-    uri: "test uri",
-    coBenefits: "test co benefits",
-    correspAdjustment: "test corresp adjustments details",
+    projectTokenId: 1,
+    startTime: 1619827200, // Corresponds to May 1, 2021
+    endTime: 1622505600, // Corresponds to June 1, 2021
+    additionalCertification: "Gold Standard VER",
+    uri: "https://example.com/vintage101",
+    coBenefits: "Community health improvements, educational support",
+    correspAdjustment: "Aligned with NDCs",
     isCCPcompliant: true,
     isCorsiaCompliant: true,
-    name: "test name",
+    name: "Solar Power Sahara",
     registry: "Kyklos",
-    totalVintageQuantity: 1000000000000000000n, // means 1 tonne
+    totalVintageQuantity: 10000000000000000000n, // 10 tonne
   };
+
   // Add a new vintage
   try {
     const vintageTx = await carbonProjectVintagesFactory.addNewVintage(deployer, vintage);

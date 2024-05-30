@@ -644,34 +644,6 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "retiringEntityString",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "beneficiary",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "beneficiaryString",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "retirementMessage",
-        "type": "string"
-      }
-    ],
-    "name": "mintCertificateLegacy",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "",
         "type": "address"
