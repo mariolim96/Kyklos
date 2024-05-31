@@ -1,6 +1,6 @@
 import { log } from '@graphprotocol/graph-ts';
 import { TokenCreated as TokenCreatedEvent } from '../generated/CarbonOffsetFactory/CarbonOffsetFactory';
-import { User, Project, BatchToken, KCO2Token } from '../generated/schema';
+import { User, Project, BatchToken, KCO2Token,ProjectVintage } from '../generated/schema';
 import { KyklosCarbonOffsets as beacon } from '../generated/templates';
 import {
   KyklosCarbonOffsets,
@@ -22,6 +22,14 @@ export function handleTokenCreated(event: TokenCreatedEvent): void {
   token.name = name;
   token.symbol = symbol;
   token.save();
+  // open vintage and insert token
+  const projectVintage = ProjectVintage.load(`${projectVintageId}`);
+  if (!projectVintage) {
+    log.critical('Project Vintage not found: {}', [`${projectVintageId}`]);
+    return;
+  }
+  projectVintage.kco2Token = tokenAddress.toHexString();
+  projectVintage.save();
   log.info('Token Created: {}', [`${tokenAddress}`]);
 }
 

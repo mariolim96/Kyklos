@@ -6,9 +6,9 @@ type User @entity {
   projectsCreated: [Project!]! @derivedFrom(field: "creator")
   vintagesOwned: [ProjectVintage!]! @derivedFrom(field: "owner")
   vintagesCreated: [ProjectVintage!]! @derivedFrom(field: "creator")
-#   retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
-#   redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
-#   tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
+  #   retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
+  #   redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
+  #   tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
 }
 
 type Project @entity {
@@ -46,7 +46,7 @@ type ProjectVintage @entity {
   coBenefits: String!
   corresAdjustment: String!
   additionalCertification: String!
-#   kco2Token: KCO2Token
+  kco2Token: KCO2Token
 }
 
 type BatchToken @entity {
@@ -60,23 +60,23 @@ type BatchToken @entity {
 }
 
 type KCO2Token @entity {
-  id: ID!
+  id: ID! # address
   creator: User!
   createdAt: BigInt!
   creationTx: String!
   projectVintage: ProjectVintage!
   name: String!
   symbol: String!
-#   address: String!
-#   retirements: [Retirement!]! @derivedFrom(field: "token")
+  #   address: String!
+  #   retirements: [Retirement!]! @derivedFrom(field: "token")
 }
 
-# type KCO2Balance @entity {
-#   id: ID!
-#   user: User!
-#   token: KCO2Token!
-#   balance: BigInt!
-# }
+type KCO2Balance @entity {
+  id: ID!
+  user: User!
+  token: KCO2Token!
+  balance: BigInt!
+}
 
 # type PooledKCO2Token @entity {
 #   id: ID!

@@ -4,7 +4,7 @@ import {
   BatchMinted as BatchMintedEvent,
   VintageStatus,
 } from '../generated/VintageStatus/VintageStatus';
-import { User, BatchToken, ProjectVintage } from '../generated/schema';
+import { User, BatchToken, ProjectVintage, KCO2Balance } from '../generated/schema';
 
 function addUser(userId: string): void {
   let user = User.load(userId);
@@ -14,7 +14,26 @@ function addUser(userId: string): void {
   user.save();
 }
 
-export function handleTokenized(event: TokenizedEvent): void {}
+export function handleTokenized(event: TokenizedEvent): void {
+  const tokenOwner = `${event.params.recipient.toHexString()}`;
+  const tokenAddress = `${event.params.tco2}`;
+  const batchTokenId = `${event.params.tokenId}`; 
+  const amount = event.params.amount;
+  const batchToken = BatchToken.load(batchTokenId);
+  if (!batchToken) {
+    log.critical('Batch Token not found: {}', [`${event.params.tokenId}`]);
+    return;
+  }
+  batchToken.status = '0';
+  addUser(`${tokenOwner}`);
+  const tokenBalance = new KCO2Balance(`${batchTokenId}-${tokenOwner}`);
+  tokenBalance.balance = amount; // transform this into tco2 balance
+  tokenBalance.user = tokenOwner;
+  tokenBalance.token = tokenAddress;
+  batchToken.save();
+  tokenBalance.save();
+  
+}
 
 export function handleBatchMinted(event: BatchMintedEvent): void {
   const owner = `${event.params.sender.toHexString()}`;
