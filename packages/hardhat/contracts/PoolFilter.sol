@@ -91,20 +91,20 @@ contract PoolFilter is
 		bool isKyklosContract = IKyklosContractRegistry(contractRegistry)
 			.isValidERC20(erc20Addr);
 
-		if (isKyklosContract) {
-			if (internalAllowlist[erc20Addr]) {
-				return true;
-			}
+		// if (isKyklosContract) {
+		// 	if (internalAllowlist[erc20Addr]) {
+		// 		return true;
+		// 	}
 
-			require(!internalBlocklist[erc20Addr], Errors.CP_BLACKLISTED);
+		// 	require(!internalBlocklist[erc20Addr], Errors.CP_BLACKLISTED);
 
-			checkAttributeMatching(erc20Addr);
-		} else {
-			/// @dev If not Kyklos native contract, check if address is allowlisted
-			require(externalAllowlist[erc20Addr], Errors.CP_NOT_ALLOWLISTED);
-		}
+		// 	checkAttributeMatching(erc20Addr);
+		// } else {
+		// 	/// @dev If not Kyklos native contract, check if address is allowlisted
+		// 	require(externalAllowlist[erc20Addr], Errors.CP_NOT_ALLOWLISTED);
+		// }
 
-		return true;
+		return isKyklosContract;
 	}
 
 	/// @notice Checks whether incoming ERC20s match the accepted criteria/attributes

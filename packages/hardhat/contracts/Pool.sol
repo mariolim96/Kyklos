@@ -128,6 +128,19 @@ contract Pool is
 	//   Permissionless functions
 	// ----------------------------
 
+	/// @notice Deposit function for pool that accepts TCO2s and mints pool token 1:1
+	/// @param tco2 TCO2 contract address to be deposited, requires approve
+	/// @param amount Amount of TCO2 to be deposited
+	/// @dev Eligibility is checked via `checkEligible`, balances are tracked
+	/// for each TCO2 separately
+	/// @return mintedPoolTokenAmount Amount of pool tokens minted to the caller
+	function deposit(
+		address tco2,
+		uint256 amount
+	) external returns (uint256 mintedPoolTokenAmount) {
+		return _deposit(tco2, amount);
+	}
+
 	function _deposit(
 		address erc20Addr,
 		uint256 amount

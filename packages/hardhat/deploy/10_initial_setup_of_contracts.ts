@@ -8,10 +8,12 @@ import {
   VintageStatus,
   RetirementCertificates,
   KyklosCarbonOffsets,
+  Pool,
+  PoolFilter,
 } from "../typechain-types";
 import { ProjectDataStruct } from "../typechain-types/contracts/CarbonProjects";
 import { VintageDataStruct } from "../typechain-types/contracts/CarbonProjectVintages";
-import { Contract } from "ethers";
+import { BigNumberish, Contract } from "ethers";
 import { CreateRetirementRequestParamsStruct } from "../typechain-types/contracts/RetirementCertificates";
 
 const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
@@ -26,6 +28,8 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const carbonOffsetFactoryAddress = (await deployments.get("CarbonOffsetFactoryP")).address;
   const RetirementCertificatesAddress = (await deployments.get("RetirementCertificatesP")).address;
   const carbonOffsetTokenBeaconAddress = (await deployments.get("KyklosCarbonOffsets")).address;
+  const poolAddress = (await deployments.get("PoolP")).address;
+  const poolFilterAddress = (await deployments.get("PoolFilterP")).address;
   // Attach to contract factories
   const kyklosContractRegistry = (await ethers.getContractAt(
     "KyklosContractRegistry",
@@ -48,6 +52,9 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     "RetirementCertificates",
     RetirementCertificatesAddress,
   )) as RetirementCertificates;
+
+  const pool = (await ethers.getContractAt("Pool", poolAddress)) as Contract & Pool;
+  const poolFilter = (await ethers.getContractAt("PoolFilter", poolFilterAddress)) as Contract & PoolFilter;
   // Set up registry links
   try {
     await (await kyklosContractRegistry.setCarbonProjectsAddress(carbonProjectsAddress)).wait();
@@ -61,11 +68,12 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     await (await carbonProjectVintagesFactory.setKyklosContractRegistry(registryAddress)).wait();
     await (await carbonOffsetFactory.setKyklosContractRegistry(registryAddress)).wait();
     await (await vintageStatus.setKyklosContractRegistry(registryAddress)).wait();
-    // await (await carbonOffset.setKyklosContractRegistry(registryAddress)).wait();
     await (await retirementCertificates.setKyklosContractRegistry(registryAddress)).wait();
-
-    // set carbon offset token beacon address in registry
+    await (await poolFilter.setKyklosContractRegistry(registryAddress)).wait();
+    await (await pool.setFilter(poolFilterAddress)).wait();
     await carbonOffsetFactory.setBeacon(carbonOffsetTokenBeaconAddress);
+    const number: BigNumberish = 100000000000000000000000000n;
+    await (await pool.setSupplyCap(number)).wait();
     console.log("Registry setup completed successfully");
   } catch (error) {
     console.error("Failed to set registry addresses:", error);
@@ -200,6 +208,21 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   } catch (error) {
     console.error("Failed to fractionalize vintage status:", error);
     throw new Error("Deployment failed during vintage status fractionalization.");
+  }
+
+  // deposit tokens into the pool
+  try {
+    const token = await carbonOffsetFactory.pvIdtoERC20(1);
+    const carbonOffsetToken = (await ethers.getContractAt("KyklosCarbonOffsets", token)) as Contract &
+      KyklosCarbonOffsets;
+    const approveTx = await carbonOffsetToken.approve(poolAddress, 1000000000000000000n);
+    await approveTx.wait();
+    const depositTx = await pool.deposit(token, 100000000000000n);
+    await depositTx.wait();
+    console.log("Tokens deposited into the pool successfully");
+  } catch (error) {
+    console.error("Failed to deposit tokens into the pool:", error);
+    throw new Error("Deployment failed during token deposit.");
   }
 };
 

@@ -25,7 +25,7 @@ const PoolFilter: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     ...artifacts,
   };
 
-  await hre.deployments.save("PoolP", proxyDeployment);
+  await hre.deployments.save("PoolFilterP", proxyDeployment);
   const chainId = await hre.getChainId();
   try {
     if (chainId !== "31337") {
