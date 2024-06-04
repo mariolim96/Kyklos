@@ -7051,6 +7051,12 @@ const deployedContracts = {
               name: "eventId",
               type: "uint256",
             },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "projectVintageTokenId",
+              type: "uint256",
+            },
           ],
           name: "Retired",
           type: "event",

@@ -38,7 +38,7 @@ abstract contract KyklosCarbonOffsetsBase is
 
 	event FeePaid(address bridger, uint256 fees);
 	event FeeBurnt(address bridger, uint256 fees);
-	event Retired(address sender, uint256 amount, uint256 eventId);
+	event Retired(address sender, uint256 amount, uint256 eventId, uint256 projectVintageTokenId );
 
 	// ----------------------------------------
 	//              Modifiers
@@ -214,7 +214,7 @@ abstract contract KyklosCarbonOffsetsBase is
 			false
 		);
 
-		emit Retired(retiringEntityAddress, amount, retirementEventId);
+		emit Retired(retiringEntityAddress, amount, retirementEventId, _projectVintageTokenId);
 	}
 
 	/// @dev Internal function retire and mint certificates

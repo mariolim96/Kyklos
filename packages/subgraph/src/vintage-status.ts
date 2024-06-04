@@ -16,8 +16,14 @@ function addUser(userId: string): void {
 
 export function handleTokenized(event: TokenizedEvent): void {
   const tokenOwner = `${event.params.recipient.toHexString()}`;
-  const tokenAddress = `${event.params.tco2}`;
-  const batchTokenId = `${event.params.tokenId}`; 
+  log.info('Tokenized: {}', [
+    `${event.params.tokenId}`,
+    `${event.params.tco2}`,
+    `${event.params.amount}`,
+    `${tokenOwner}`,
+  ]);
+  const tokenAddress = `${event.params.tco2.toHexString()}`;
+  const batchTokenId = `${event.params.tokenId}`;
   const amount = event.params.amount;
   const batchToken = BatchToken.load(batchTokenId);
   if (!batchToken) {
@@ -26,13 +32,12 @@ export function handleTokenized(event: TokenizedEvent): void {
   }
   batchToken.status = '0';
   addUser(`${tokenOwner}`);
-  const tokenBalance = new KCO2Balance(`${batchTokenId}-${tokenOwner}`);
+  const tokenBalance = new KCO2Balance(`${tokenOwner}-${tokenAddress}`);
   tokenBalance.balance = amount; // transform this into tco2 balance
   tokenBalance.user = tokenOwner;
   tokenBalance.token = tokenAddress;
   batchToken.save();
   tokenBalance.save();
-  
 }
 
 export function handleBatchMinted(event: BatchMintedEvent): void {

@@ -44,6 +44,9 @@ dataSources:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: CarbonProjectVintages
           file: ./abis/localhost_CarbonProjectVintages.json
@@ -69,6 +72,9 @@ dataSources:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: VintageStatus
           file: ./abis/localhost_VintageStatus.json
@@ -94,6 +100,9 @@ dataSources:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: CarbonOffsetFactory
           file: ./abis/localhost_CarbonOffsetFactory.json
@@ -107,7 +116,7 @@ dataSources:
     name: RetirementCertificates
     network: localhost
     source:
-      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318"
+      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"
       abi: RetirementCertificates
     mapping:
       kind: ethereum/events
@@ -119,10 +128,15 @@ dataSources:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: RetirementCertificates
           file: ./abis/localhost_RetirementCertificates.json
       eventHandlers:
+        - event: EventsAttached(uint256,uint256[])
+          handler: handleEventAttached
         - event: CertificateMinted(uint256)
           handler: handleCertificateMinted
       file: ./src/retirement-certificates.ts
@@ -142,13 +156,18 @@ templates:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: CarbonOffsetFactory
           file: ./abis/localhost_CarbonOffsetFactory.json
         - name: KyklosCarbonOffsets
           file: ./abis/localhost_KyklosCarbonOffsets.json
+        - name: RetirementCertificates
+          file: ./abis/localhost_RetirementCertificates.json
       eventHandlers:
-        - event: Retired(address,uint256,uint256)
+        - event: Retired(address,uint256,uint256,uint256)
           handler: handleRetired
       file: ./src/carbon-offset-factory.ts
 

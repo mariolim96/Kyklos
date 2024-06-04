@@ -52,11 +52,12 @@ contract RetirementCertificates is
     // ----------------------------------------
 
     event CertificateMinted(uint256 tokenId);
+    event EventsAttached(uint256 tokenId, uint256[] eventIds);
+
     event CertificateUpdated(uint256 tokenId);
     event KyklosRegistrySet(address ContractRegistry);
     event BaseURISet(string baseURI);
     event MinValidAmountSet(uint256 previousAmount, uint256 newAmount);
-    event EventsAttached(uint256 tokenId, uint256[] eventIds);
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -267,7 +268,7 @@ contract RetirementCertificates is
         }
         _tokenIds = newItemId;
 
-        // Attach retirement events to the newly minted NFT
+        // Attach retiremenvt events to the newly minted NFT
         _attachRetirementEvents(newItemId, retiringEntity, retirementEventIds);
 
         certificates[newItemId].createdAt = block.timestamp;
@@ -340,7 +341,7 @@ contract RetirementCertificates is
         string calldata retirementMessage
     ) external virtual {
         string[] memory registries = new string[](1);
-        registries[0] = 'verra';
+        registries[0] = 'Kyklos';
         require(
             isCertificateForRegistry(tokenId, registries),
             'Invalid registry'

@@ -6,9 +6,9 @@ type User @entity {
   projectsCreated: [Project!]! @derivedFrom(field: "creator")
   vintagesOwned: [ProjectVintage!]! @derivedFrom(field: "owner")
   vintagesCreated: [ProjectVintage!]! @derivedFrom(field: "creator")
-  #   retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
+  retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
   #   redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
-  #   tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
+  tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
 }
 
 type Project @entity {
@@ -67,8 +67,8 @@ type KCO2Token @entity {
   projectVintage: ProjectVintage!
   name: String!
   symbol: String!
+  retirements: [Retirement!]! @derivedFrom(field: "token")
   #   address: String!
-  #   retirements: [Retirement!]! @derivedFrom(field: "token")
 }
 
 type KCO2Balance @entity {
@@ -78,35 +78,34 @@ type KCO2Balance @entity {
   balance: BigInt!
 }
 
+type RetirementCertificate @entity {
+  id: ID!
+  creationTx: String!
+  updateTxs: [String!]!
+  createdAt: BigInt!
+  retiringEntity: User!
+  beneficiary: User!
+  retiringEntityString: String!
+  beneficiaryString: String!
+  retirementMessage: String!
+  retirements: [Retirement!]! @derivedFrom(field: "certificate")
+}
+
+type Retirement @entity {
+  id: ID!
+  creationTx: String!
+  amount: BigInt!
+  timestamp: BigInt!
+  token: KCO2Token!
+  creator: User!
+  eventId: BigInt
+  certificate: RetirementCertificate
+}
 # type PooledKCO2Token @entity {
 #   id: ID!
 #   token: KCO2Token!
 #   poolAddress: String!
 #   amount: BigInt!
-# }
-
-# type Retirement @entity {
-#   id: ID!
-#   creationTx: String!
-#   amount: BigInt!
-#   timestamp: BigInt!
-#   token: KCO2Token!
-#   creator: User!
-#   eventId: BigInt!
-#   certificate: RetirementCertificate!
-# }
-
-# type RetirementCertificate @entity {
-#   id: ID!
-#   creationTx: String!
-#   updateTxs: [String!]!
-#   createdAt: BigInt!
-#   retiringEntity: User!
-#   beneficiary: User!
-#   retiringEntityString: String!
-#   beneficiaryString: String!
-#   retirementMessage: String!
-#   retirements: [Retirement!]! @derivedFrom(field: "certificate")
 # }
 
 # type Deposit @entity {

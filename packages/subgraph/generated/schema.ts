@@ -97,6 +97,22 @@ export class User extends Entity {
       "vintagesCreated"
     );
   }
+
+  get retirementsCreated(): RetirementLoader {
+    return new RetirementLoader(
+      "User",
+      this.get("id")!.toString(),
+      "retirementsCreated"
+    );
+  }
+
+  get tokensOwned(): KCO2BalanceLoader {
+    return new KCO2BalanceLoader(
+      "User",
+      this.get("id")!.toString(),
+      "tokensOwned"
+    );
+  }
 }
 
 export class Project extends Entity {
@@ -807,6 +823,14 @@ export class KCO2Token extends Entity {
   set symbol(value: string) {
     this.set("symbol", Value.fromString(value));
   }
+
+  get retirements(): RetirementLoader {
+    return new RetirementLoader(
+      "KCO2Token",
+      this.get("id")!.toString(),
+      "retirements"
+    );
+  }
 }
 
 export class KCO2Balance extends Entity {
@@ -890,6 +914,304 @@ export class KCO2Balance extends Entity {
   }
 }
 
+export class RetirementCertificate extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id != null,
+      "Cannot save RetirementCertificate entity without an ID"
+    );
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type RetirementCertificate must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("RetirementCertificate", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): RetirementCertificate | null {
+    return changetype<RetirementCertificate | null>(
+      store.get_in_block("RetirementCertificate", id)
+    );
+  }
+
+  static load(id: string): RetirementCertificate | null {
+    return changetype<RetirementCertificate | null>(
+      store.get("RetirementCertificate", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get creationTx(): string {
+    let value = this.get("creationTx");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set creationTx(value: string) {
+    this.set("creationTx", Value.fromString(value));
+  }
+
+  get updateTxs(): Array<string> {
+    let value = this.get("updateTxs");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set updateTxs(value: Array<string>) {
+    this.set("updateTxs", Value.fromStringArray(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get retiringEntity(): string {
+    let value = this.get("retiringEntity");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set retiringEntity(value: string) {
+    this.set("retiringEntity", Value.fromString(value));
+  }
+
+  get beneficiary(): string {
+    let value = this.get("beneficiary");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set beneficiary(value: string) {
+    this.set("beneficiary", Value.fromString(value));
+  }
+
+  get retiringEntityString(): string {
+    let value = this.get("retiringEntityString");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set retiringEntityString(value: string) {
+    this.set("retiringEntityString", Value.fromString(value));
+  }
+
+  get beneficiaryString(): string {
+    let value = this.get("beneficiaryString");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set beneficiaryString(value: string) {
+    this.set("beneficiaryString", Value.fromString(value));
+  }
+
+  get retirementMessage(): string {
+    let value = this.get("retirementMessage");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set retirementMessage(value: string) {
+    this.set("retirementMessage", Value.fromString(value));
+  }
+
+  get retirements(): RetirementLoader {
+    return new RetirementLoader(
+      "RetirementCertificate",
+      this.get("id")!.toString(),
+      "retirements"
+    );
+  }
+}
+
+export class Retirement extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Retirement entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Retirement must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Retirement", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): Retirement | null {
+    return changetype<Retirement | null>(store.get_in_block("Retirement", id));
+  }
+
+  static load(id: string): Retirement | null {
+    return changetype<Retirement | null>(store.get("Retirement", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get creationTx(): string {
+    let value = this.get("creationTx");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set creationTx(value: string) {
+    this.set("creationTx", Value.fromString(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get token(): string {
+    let value = this.get("token");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set token(value: string) {
+    this.set("token", Value.fromString(value));
+  }
+
+  get creator(): string {
+    let value = this.get("creator");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set creator(value: string) {
+    this.set("creator", Value.fromString(value));
+  }
+
+  get eventId(): BigInt | null {
+    let value = this.get("eventId");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set eventId(value: BigInt | null) {
+    if (!value) {
+      this.unset("eventId");
+    } else {
+      this.set("eventId", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get certificate(): string | null {
+    let value = this.get("certificate");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set certificate(value: string | null) {
+    if (!value) {
+      this.unset("certificate");
+    } else {
+      this.set("certificate", Value.fromString(<string>value));
+    }
+  }
+}
+
 export class BatchTokenLoader extends Entity {
   _entity: string;
   _field: string;
@@ -941,5 +1263,41 @@ export class ProjectVintageLoader extends Entity {
   load(): ProjectVintage[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
     return changetype<ProjectVintage[]>(value);
+  }
+}
+
+export class RetirementLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): Retirement[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<Retirement[]>(value);
+  }
+}
+
+export class KCO2BalanceLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): KCO2Balance[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<KCO2Balance[]>(value);
   }
 }

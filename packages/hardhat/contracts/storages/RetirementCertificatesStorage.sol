@@ -35,18 +35,18 @@ abstract contract RetirementCertificatesStorageV1 {
 	/// @dev maps the retireEventCounter to the RetirementEvent data
 	mapping(uint256 => RetirementEvent) public retirements;
 
+	uint256 internal _tokenIds;
+	mapping(uint256 => Data) public certificates;
+
 	/// @dev mapping that helps ensure retirement events are not claimed multiple times
 	mapping(uint256 => bool) public claimedEvents;
+
 
 	/// @dev List all the events belonging to user (maybe this could be better inferred via a subgraph)
 	mapping(address => uint256[]) eventsOfUser;
 
-	string public baseURI;
 	address public contractRegistry;
-	uint256 internal _tokenIds;
-
-	mapping(uint256 => Data) public certificates;
-
+	string public baseURI;
 	uint256 public minValidRetirementAmount;
 }
 

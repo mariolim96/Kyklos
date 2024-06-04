@@ -44,6 +44,9 @@ dataSources:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: CarbonProjectVintages
           file: CarbonProjectVintages\abis\localhost_CarbonProjectVintages.json
@@ -69,6 +72,9 @@ dataSources:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: VintageStatus
           file: VintageStatus\abis\localhost_VintageStatus.json
@@ -94,6 +100,9 @@ dataSources:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: CarbonOffsetFactory
           file: CarbonOffsetFactory\abis\localhost_CarbonOffsetFactory.json
@@ -103,6 +112,34 @@ dataSources:
         - event: TokenCreated(uint256,address)
           handler: handleTokenCreated
       file: CarbonOffsetFactory\CarbonOffsetFactory.wasm
+  - kind: ethereum
+    name: RetirementCertificates
+    network: localhost
+    source:
+      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"
+      abi: RetirementCertificates
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Project
+        - User
+        - ProjectVintage
+        - BatchToken
+        - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
+      abis:
+        - name: RetirementCertificates
+          file: RetirementCertificates\abis\localhost_RetirementCertificates.json
+      eventHandlers:
+        - event: EventsAttached(uint256,uint256[])
+          handler: handleEventAttached
+        - event: CertificateMinted(uint256)
+          handler: handleCertificateMinted
+      file: RetirementCertificates\RetirementCertificates.wasm
 templates:
   - kind: ethereum
     name: KyklosCarbonOffsets
@@ -119,12 +156,17 @@ templates:
         - ProjectVintage
         - BatchToken
         - KCO2Token
+        - KCO2Balance
+        - RetirementCertificate
+        - Retirement
       abis:
         - name: CarbonOffsetFactory
           file: KyklosCarbonOffsets\abis\localhost_CarbonOffsetFactory.json
         - name: KyklosCarbonOffsets
           file: KyklosCarbonOffsets\abis\localhost_KyklosCarbonOffsets.json
+        - name: RetirementCertificates
+          file: KyklosCarbonOffsets\abis\localhost_RetirementCertificates.json
       eventHandlers:
-        - event: Retired(address,uint256,uint256)
+        - event: Retired(address,uint256,uint256,uint256)
           handler: handleRetired
       file: CarbonOffsetFactory\CarbonOffsetFactory.wasm
