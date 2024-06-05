@@ -38,19 +38,6 @@ export function handleProjectMinted(event: ProjectMintedEvent): void {
   }
   log.info('Project Minted: {}', [`${event.params.tokenId}`]);
 }
-// export function handleProjectMinted(event: ProjectMintedEvent): void {
-//   let entity = new ProjectMinted(
-//     event.transaction.hash.concatI32(event.logIndex.toI32())
-//   )
-//   entity.receiver = event.params.receiver
-//   entity.tokenId = event.params.tokenId
-
-//   entity.blockNumber = event.block.number
-//   entity.blockTimestamp = event.block.timestamp
-//   entity.transactionHash = event.transaction.hash
-
-//   entity.save()
-// }
 
 export function handleProjectIdUpdated(event: ProjectIdUpdatedEvent): void {
 //   let entity = new ProjectIdUpdated(

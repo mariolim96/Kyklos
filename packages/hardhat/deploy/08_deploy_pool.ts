@@ -24,8 +24,13 @@ const Pool: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     address: proxyAddress,
     ...artifacts,
   };
+  const implementationDeployment = {
+    address: implementationAddress,
+    ...artifacts,
+  };
 
   await hre.deployments.save("PoolP", proxyDeployment);
+  await hre.deployments.save("Pool", implementationDeployment);
   const chainId = await hre.getChainId();
   try {
     if (chainId !== "31337") {

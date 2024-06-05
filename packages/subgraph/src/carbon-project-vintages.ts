@@ -5,7 +5,7 @@ import {
   ProjectVintageUpdated as ProjectVintageUpdatedEvent,
 } from '../generated/CarbonProjectVintages/CarbonProjectVintages';
 import { ProjectVintage, User, Project } from '../generated/schema';
-import { CarbonProjects } from '../generated/CarbonProjects/CarbonProjects';
+// import { CarbonProjects } from '../generated/CarbonProjects/CarbonProjects';
 function addUser(userId: string): void {
   let user = User.load(userId);
   if (!user) {

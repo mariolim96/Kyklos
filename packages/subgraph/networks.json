@@ -22,7 +22,7 @@
       "address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82"
     },
     "PoolP": {
-      "address": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+      "address": "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
     },
     "Registry_Implementation": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
@@ -41,6 +41,12 @@
     },
     "VintageStatusP": {
       "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+    },
+    "PoolFilterP": {
+      "address": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+    },
+    "Pool": {
+      "address": "0x9A676e781A523b5d0C0e43731313A708CB607508"
     }
   },
   "sepolia": {

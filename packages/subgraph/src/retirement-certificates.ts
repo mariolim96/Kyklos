@@ -5,12 +5,6 @@ import {
 } from '../generated/RetirementCertificates/RetirementCertificates';
 import { log } from '@graphprotocol/graph-ts';
 import {
-  User,
-  Project,
-  BatchToken,
-  KCO2Token,
-  ProjectVintage,
-  KCO2Balance,
   Retirement,
   RetirementCertificate,
 } from '../generated/schema';

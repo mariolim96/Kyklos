@@ -101,27 +101,28 @@ type Retirement @entity {
   eventId: BigInt
   certificate: RetirementCertificate
 }
-# type PooledKCO2Token @entity {
-#   id: ID!
-#   token: KCO2Token!
-#   poolAddress: String!
-#   amount: BigInt!
-# }
 
-# type Deposit @entity {
-#   id: ID!
-#   amount: BigInt!
-#   timestamp: BigInt!
-#   token: KCO2Token!
-#   pool: String!
-#   creator: User!
-# }
+type PooledKCO2Token @entity {
+  id: ID!
+  token: KCO2Token!
+  poolAddress: String!
+  amount: BigInt!
+}
 
-# type Redeem @entity {
-#   id: ID!
-#   amount: BigInt!
-#   timestamp: BigInt!
-#   token: KCO2Token!
-#   pool: String!
-#   creator: User!
-# }
+type Deposit @entity {
+  id: ID!
+  amount: BigInt!
+  timestamp: BigInt!
+  token: KCO2Token!
+  pool: String!
+  creator: User!
+}
+
+type Redeem @entity {
+  id: ID!
+  amount: BigInt!
+  timestamp: BigInt!
+  token: KCO2Token!
+  pool: String!
+  creator: User!
+}

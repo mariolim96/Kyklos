@@ -1,6 +1,6 @@
 import { log } from '@graphprotocol/graph-ts';
 import { TokenCreated as TokenCreatedEvent } from '../generated/CarbonOffsetFactory/CarbonOffsetFactory';
-import { User, Project, BatchToken, KCO2Token, ProjectVintage, KCO2Balance, Retirement } from '../generated/schema';
+import { User, KCO2Token, ProjectVintage, KCO2Balance, Retirement } from '../generated/schema';
 import { KyklosCarbonOffsets as beacon } from '../generated/templates';
 import {
   KyklosCarbonOffsets,
@@ -75,16 +75,3 @@ export function handleRetired(event: RetiredEvent): void {
   KcoBalance.save();
   Token.save();
 }
-// address of the contract caller
-
-//   const addressToken = event.transaction.from;
-//   const tk = KyklosCarbonOffsets.bind(addressToken);
-//   const registryAddress = tk.try_contractRegistry();
-//   if (registryAddress.reverted) {
-//     log.critical('Registry not found: {}', [`${addressToken}`]);
-//     return;
-//   }
-//   const registry = KyklosCarbonOffsets.bind(registryAddress.value);
-//   const certificateAddress
-// from certificates get the certificate from the event id
-// }
