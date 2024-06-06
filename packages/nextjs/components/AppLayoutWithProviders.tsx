@@ -13,82 +13,78 @@ import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { useNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
+import { apolloClient } from "~~/services/graphql/apolloClient";
 import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { cn } from "~~/utils/utils";
 
 export const ScaffoldEthAppLayout = ({ children }: { children: React.ReactNode }) => {
-  const price = useNativeCurrencyPrice();
-  const setNativeCurrencyPrice = useGlobalState(state => state.setNativeCurrencyPrice);
+    const price = useNativeCurrencyPrice();
+    const setNativeCurrencyPrice = useGlobalState(state => state.setNativeCurrencyPrice);
 
-  useEffect(() => {
-    if (price > 0) {
-      setNativeCurrencyPrice(price);
-    }
-  }, [setNativeCurrencyPrice, price]);
+    useEffect(() => {
+        if (price > 0) {
+            setNativeCurrencyPrice(price);
+        }
+    }, [setNativeCurrencyPrice, price]);
 
-  return (
-    <>
-      <div className="flex flex-col min-h-screen bg-[oklch(var(--b2))]">
-        <Header />
-        <main className={"relative flex flex-col flex-1"}>{children}</main>
-        <Footer />
-      </div>
-      <Toaster />
-    </>
-  );
+    return (
+        <>
+            <div className="flex flex-col min-h-screen bg-[oklch(var(--b2))]">
+                <Header />
+                <main className={"relative flex flex-col flex-1"}>{children}</main>
+                <Footer />
+            </div>
+            <Toaster />
+        </>
+    );
 };
 
 const font = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700", "800", "900"],
+    subsets: ["latin"],
+    variable: "--font-sans",
+    weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const KyklosLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <>
-      <main className={cn("relative", font.variable)}>
-        <Layout>{children}</Layout>
-      </main>
-    </>
-  );
+    return (
+        <>
+            <main className={cn("relative", font.variable)}>
+                <Layout>{children}</Layout>
+                <Toaster />
+            </main>
+        </>
+    );
 };
 
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
     },
-  },
 });
 
 export const AppLayoutWithProviders = ({ children }: { children: React.ReactNode }) => {
-  const { resolvedTheme } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const isDarkMode = resolvedTheme === "dark";
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [mounted, setMounted] = useState(false);
+    const { resolvedTheme } = useTheme();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const isDarkMode = resolvedTheme === "dark";
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
-  const subgraphUri = "http://localhost:8000/subgraphs/name/kyklos";
-  const apolloClient = new ApolloClient({
-    uri: subgraphUri,
-    cache: new InMemoryCache(),
-  });
-
-  return (
-    <ApolloProvider client={apolloClient}>
-      <WagmiProvider config={wagmiConfig}>
-        <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider avatar={BlockieAvatar} theme={lightTheme()}>
-            <div className="bg-base-2">{children}</div>
-          </RainbowKitProvider>
-        </QueryClientProvider>
-      </WagmiProvider>
-    </ApolloProvider>
-  );
+    return (
+        <ApolloProvider client={apolloClient}>
+            <WagmiProvider config={wagmiConfig}>
+                <QueryClientProvider client={queryClient}>
+                    <RainbowKitProvider avatar={BlockieAvatar} theme={lightTheme()}>
+                        <div className="bg-base-2">{children}</div>
+                    </RainbowKitProvider>
+                </QueryClientProvider>
+            </WagmiProvider>
+        </ApolloProvider>
+    );
 };

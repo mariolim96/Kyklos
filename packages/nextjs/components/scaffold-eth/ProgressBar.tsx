@@ -7,12 +7,12 @@ import NProgress from "nprogress";
 type PushStateInput = [data: any, unused: string, url?: string | URL | null | undefined];
 
 export function ProgressBar() {
-  const height = "3px";
-  const color = "#2F5C3B";
+    const height = "3px";
+    const color = "#2F5C3B";
 
-  const styles = (
-    <style>
-      {`
+    const styles = (
+        <style>
+            {`
         #nprogress {
           pointer-events: none;
         }
@@ -39,45 +39,45 @@ export function ProgressBar() {
                   transform: rotate(3deg) translate(0px, -4px);
         }
     `}
-    </style>
-  );
+        </style>
+    );
 
-  useEffect(() => {
-    NProgress.configure({ showSpinner: false });
+    useEffect(() => {
+        NProgress.configure({ showSpinner: false });
 
-    const handleAnchorClick = (event: MouseEvent) => {
-      const targetUrl = (event.currentTarget as HTMLAnchorElement).href;
-      const currentUrl = location.href;
-      if (targetUrl !== currentUrl) {
-        NProgress.start();
-      }
-    };
+        const handleAnchorClick = (event: MouseEvent) => {
+            const targetUrl = (event.currentTarget as HTMLAnchorElement).href;
+            const currentUrl = location.href;
+            if (targetUrl !== currentUrl) {
+                NProgress.start();
+            }
+        };
 
-    const handleMutation: MutationCallback = () => {
-      const anchorElements = document.querySelectorAll("a");
-      anchorElements.forEach(anchor => anchor.addEventListener("click", handleAnchorClick));
-    };
+        const handleMutation: MutationCallback = () => {
+            const anchorElements = document.querySelectorAll("a");
+            anchorElements.forEach(anchor => anchor.addEventListener("click", handleAnchorClick));
+        };
 
-    const mutationObserver = new MutationObserver(handleMutation);
-    mutationObserver.observe(document, { childList: true, subtree: true });
+        const mutationObserver = new MutationObserver(handleMutation);
+        mutationObserver.observe(document, { childList: true, subtree: true });
 
-    window.history.pushState = new Proxy(window.history.pushState, {
-      apply: (target, thisArg, argArray: PushStateInput) => {
+        window.history.pushState = new Proxy(window.history.pushState, {
+            apply: (target, thisArg, argArray: PushStateInput) => {
+                NProgress.done();
+                return target.apply(thisArg, argArray);
+            },
+        });
+    });
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        NProgress.configure({
+            showSpinner: false,
+            trickleSpeed: 100,
+        });
         NProgress.done();
-        return target.apply(thisArg, argArray);
-      },
-    });
-  });
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+    }, [pathname, searchParams]);
 
-  useEffect(() => {
-    NProgress.configure({
-      showSpinner: false,
-      trickleSpeed: 100,
-    });
-    NProgress.done();
-  }, [pathname, searchParams]);
-
-  return styles;
+    return styles;
 }

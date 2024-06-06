@@ -14,24 +14,24 @@ import { ContractAbi, ContractName, UseScaffoldEventConfig } from "~~/utils/scaf
  * @param config.onLogs - the callback that receives events.
  */
 export const useScaffoldWatchContractEvent = <
-  TContractName extends ContractName,
-  TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>>,
+    TContractName extends ContractName,
+    TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>>,
 >({
-  contractName,
-  eventName,
-  onLogs,
-}: UseScaffoldEventConfig<TContractName, TEventName>) => {
-  const { data: deployedContractData } = useDeployedContractInfo(contractName);
-  const { targetNetwork } = useTargetNetwork();
-
-  const addIndexedArgsToLogs = (logs: Log[]) => logs.map(addIndexedArgsToEvent);
-  const listenerWithIndexedArgs = (logs: Log[]) => onLogs(addIndexedArgsToLogs(logs) as Parameters<typeof onLogs>[0]);
-
-  return useWatchContractEvent({
-    address: deployedContractData?.address,
-    abi: deployedContractData?.abi as Abi,
-    chainId: targetNetwork.id,
-    onLogs: listenerWithIndexedArgs,
+    contractName,
     eventName,
-  });
+    onLogs,
+}: UseScaffoldEventConfig<TContractName, TEventName>) => {
+    const { data: deployedContractData } = useDeployedContractInfo(contractName);
+    const { targetNetwork } = useTargetNetwork();
+
+    const addIndexedArgsToLogs = (logs: Log[]) => logs.map(addIndexedArgsToEvent);
+    const listenerWithIndexedArgs = (logs: Log[]) => onLogs(addIndexedArgsToLogs(logs) as Parameters<typeof onLogs>[0]);
+
+    return useWatchContractEvent({
+        address: deployedContractData?.address,
+        abi: deployedContractData?.abi as Abi,
+        chainId: targetNetwork.id,
+        onLogs: listenerWithIndexedArgs,
+        eventName,
+    });
 };

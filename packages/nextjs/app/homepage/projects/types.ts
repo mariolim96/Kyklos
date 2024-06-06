@@ -20,34 +20,34 @@
 //     }
 // ]
 export interface Project {
-  __typename: "Project";
-  id: string;
-  category: string;
-  emissionType: string;
-  method: string;
-  methodology: string;
-  projectId: string;
-  region: string;
-  standard: string;
-  storageMethod: string;
-  timestamp: string; // Assuming the timestamp is a string representation of a Unix timestamp
-  tx: any; // Assuming all are null, otherwise need to define what `tx` type could be if not always null
-  uri: string;
-  owner: User;
+    __typename: "Project";
+    id: string;
+    category: string;
+    emissionType: string;
+    method: string;
+    methodology: string;
+    projectId: string;
+    region: string;
+    standard: string;
+    storageMethod: string;
+    timestamp: string; // Assuming the timestamp is a string representation of a Unix timestamp
+    tx: any; // Assuming all are null, otherwise need to define what `tx` type could be if not always null
+    uri: string;
+    owner: User;
 }
 
 interface User {
-  __typename: "User";
-  id: string;
+    __typename: "User";
+    id: string;
 }
 
 export interface ProjectsData {
-  projects: Project[];
+    projects: Project[];
 }
 export interface ProjectTableData {
-  projectId: string;
-  region: string;
-  standard: string;
-  category: string;
-  //   pool: string;
+    projectId: string;
+    region: string;
+    standard: string;
+    category: string;
+    //   pool: string;
 }

@@ -1,13 +1,18 @@
+import { useQuery } from "@apollo/client";
 import type { NextPage } from "next";
-import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
-
-export const metadata = getMetadata({
-  title: "Debug Contracts",
-  description: "Debug your deployed 🏗 Scaffold-ETH 2 contracts in an easy way",
-});
+import { useAccount } from "wagmi";
+import { Label } from "~~/components/kyklos/ui/label";
 
 const HomePage: NextPage = () => {
-  return <div className="bg-slate-800"> pools</div>;
+    const account = useAccount();
+    // user address
+    // const query = useQuery;
+    // const address = userAddress();
+    return (
+        <>
+            <Label className="m-4 font-bold text-lg">{JSON.stringify(account)}</Label>
+        </>
+    );
 };
 
 export default HomePage;

@@ -13,45 +13,45 @@ import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
  * @param config.walletClient - optional walletClient from wagmi useWalletClient hook can be passed for doing write transactions
  */
 export const useScaffoldContract = <
-  TContractName extends ContractName,
-  TWalletClient extends Exclude<GetWalletClientReturnType, null> | undefined,
+    TContractName extends ContractName,
+    TWalletClient extends Exclude<GetWalletClientReturnType, null> | undefined,
 >({
-  contractName,
-  walletClient,
+    contractName,
+    walletClient,
 }: {
-  contractName: TContractName;
-  walletClient?: TWalletClient | null;
+    contractName: TContractName;
+    walletClient?: TWalletClient | null;
 }) => {
-  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-  const { targetNetwork } = useTargetNetwork();
-  const publicClient = usePublicClient({ chainId: targetNetwork.id });
+    const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
+    const { targetNetwork } = useTargetNetwork();
+    const publicClient = usePublicClient({ chainId: targetNetwork.id });
 
-  let contract = undefined;
-  if (deployedContractData && publicClient) {
-    contract = getContract<
-      Transport,
-      Address,
-      Contract<TContractName>["abi"],
-      TWalletClient extends Exclude<GetWalletClientReturnType, null>
-        ? {
-            public: Client<Transport, Chain>;
-            wallet: TWalletClient;
-          }
-        : { public: Client<Transport, Chain> },
-      Chain,
-      Account
-    >({
-      address: deployedContractData.address,
-      abi: deployedContractData.abi as Contract<TContractName>["abi"],
-      client: {
-        public: publicClient,
-        wallet: walletClient ? walletClient : undefined,
-      } as any,
-    });
-  }
+    let contract = undefined;
+    if (deployedContractData && publicClient) {
+        contract = getContract<
+            Transport,
+            Address,
+            Contract<TContractName>["abi"],
+            TWalletClient extends Exclude<GetWalletClientReturnType, null>
+                ? {
+                      public: Client<Transport, Chain>;
+                      wallet: TWalletClient;
+                  }
+                : { public: Client<Transport, Chain> },
+            Chain,
+            Account
+        >({
+            address: deployedContractData.address,
+            abi: deployedContractData.abi as Contract<TContractName>["abi"],
+            client: {
+                public: publicClient,
+                wallet: walletClient ? walletClient : undefined,
+            } as any,
+        });
+    }
 
-  return {
-    data: contract,
-    isLoading: deployedContractLoading,
-  };
+    return {
+        data: contract,
+        isLoading: deployedContractLoading,
+    };
 };

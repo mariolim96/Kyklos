@@ -9,38 +9,38 @@ import { Contract, ContractCodeStatus, ContractName, contracts } from "~~/utils/
  * and externalContracts.ts corresponding to targetNetworks configured in scaffold.config.ts
  */
 export const useDeployedContractInfo = <TContractName extends ContractName>(contractName: TContractName) => {
-  const isMounted = useIsMounted();
-  const { targetNetwork } = useTargetNetwork();
-  const deployedContract = contracts?.[targetNetwork.id]?.[contractName as ContractName] as Contract<TContractName>;
-  const [status, setStatus] = useState<ContractCodeStatus>(ContractCodeStatus.LOADING);
-  const publicClient = usePublicClient({ chainId: targetNetwork.id });
+    const isMounted = useIsMounted();
+    const { targetNetwork } = useTargetNetwork();
+    const deployedContract = contracts?.[targetNetwork.id]?.[contractName as ContractName] as Contract<TContractName>;
+    const [status, setStatus] = useState<ContractCodeStatus>(ContractCodeStatus.LOADING);
+    const publicClient = usePublicClient({ chainId: targetNetwork.id });
 
-  useEffect(() => {
-    const checkContractDeployment = async () => {
-      if (!isMounted() || !publicClient) return;
+    useEffect(() => {
+        const checkContractDeployment = async () => {
+            if (!isMounted() || !publicClient) return;
 
-      if (!deployedContract) {
-        setStatus(ContractCodeStatus.NOT_FOUND);
-        return;
-      }
+            if (!deployedContract) {
+                setStatus(ContractCodeStatus.NOT_FOUND);
+                return;
+            }
 
-      const code = await publicClient.getBytecode({
-        address: deployedContract.address,
-      });
+            const code = await publicClient.getBytecode({
+                address: deployedContract.address,
+            });
 
-      // If contract code is `0x` => no contract deployed on that address
-      if (code === "0x") {
-        setStatus(ContractCodeStatus.NOT_FOUND);
-        return;
-      }
-      setStatus(ContractCodeStatus.DEPLOYED);
+            // If contract code is `0x` => no contract deployed on that address
+            if (code === "0x") {
+                setStatus(ContractCodeStatus.NOT_FOUND);
+                return;
+            }
+            setStatus(ContractCodeStatus.DEPLOYED);
+        };
+
+        checkContractDeployment();
+    }, [isMounted, contractName, deployedContract, publicClient]);
+
+    return {
+        data: status === ContractCodeStatus.DEPLOYED ? deployedContract : undefined,
+        isLoading: status === ContractCodeStatus.LOADING,
     };
-
-    checkContractDeployment();
-  }, [isMounted, contractName, deployedContract, publicClient]);
-
-  return {
-    data: status === ContractCodeStatus.DEPLOYED ? deployedContract : undefined,
-    isLoading: status === ContractCodeStatus.LOADING,
-  };
 };

@@ -30,39 +30,41 @@ import { IoIosArrowDown } from "react-icons/io";
 //   );
 // }
 export interface DropdownMenuItem {
-  label: string;
-  checked: boolean;
-  disabled?: boolean;
+    label: string;
+    checked: boolean;
+    disabled?: boolean;
 }
 
 export interface DropdownMenuCheckboxesProps {
-  items: DropdownMenuItem[];
-  name: string;
-  onItemChange: (label: string, checked: boolean) => void;
+    items: DropdownMenuItem[];
+    name: string;
+    onItemChange: (label: string, checked: boolean) => void;
 }
 
 export function DropdownMenuCheckboxes({ items, onItemChange, name }: DropdownMenuCheckboxesProps) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  return (
-    <DropdownMenu onOpenChange={open => setIsOpen(open)}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost2">
-          {name}
-          <IoIosArrowDown className={`ml-2 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        {items.map(item => (
-          <DropdownMenuCheckboxItem
-            key={item.label}
-            checked={item.checked}
-            onCheckedChange={checked => onItemChange(item.label, checked)}
-            disabled={item.disabled}
-          >
-            {item.label}
-          </DropdownMenuCheckboxItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+    const [isOpen, setIsOpen] = React.useState(false);
+    return (
+        <DropdownMenu onOpenChange={open => setIsOpen(open)}>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost2">
+                    {name}
+                    <IoIosArrowDown
+                        className={`ml-2 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+                {items.map(item => (
+                    <DropdownMenuCheckboxItem
+                        key={item.label}
+                        checked={item.checked}
+                        onCheckedChange={checked => onItemChange(item.label, checked)}
+                        disabled={item.disabled}
+                    >
+                        {item.label}
+                    </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
 }

@@ -14,139 +14,139 @@ import { Step, StepItem, Stepper, useStepper } from "~~/components/kyklos/ui/ste
 import Text from "~~/components/kyklos/ui/text";
 
 const Home: NextPage = () => {
-  const [menuItems, setMenuItems] = React.useState([
-    { label: "Status Bar", checked: true },
-    { label: "Activity Bar", checked: false, disabled: true },
-    { label: "Panel", checked: false },
-  ]);
+    const [menuItems, setMenuItems] = React.useState([
+        { label: "Status Bar", checked: true },
+        { label: "Activity Bar", checked: false, disabled: true },
+        { label: "Panel", checked: false },
+    ]);
 
-  const handleItemChange = (label: string, checked: boolean) => {
-    setMenuItems(prevItems => prevItems.map(item => (item.label === label ? { ...item, checked } : item)));
-  };
-  //   router.push("/homepage");
+    const handleItemChange = (label: string, checked: boolean) => {
+        setMenuItems(prevItems => prevItems.map(item => (item.label === label ? { ...item, checked } : item)));
+    };
+    //   router.push("/homepage");
 
-  return (
-    <>
-      <Button>Click me</Button>
-      <Button variant="destructive">Click me</Button>
-      <Button variant="outline">Click me</Button>
-      <Button variant="ghost">Click me</Button>
-      <Button variant="secondary">Click me</Button>
-      <Button variant="link">Click me</Button>
+    return (
+        <>
+            <Button>Click me</Button>
+            <Button variant="destructive">Click me</Button>
+            <Button variant="outline">Click me</Button>
+            <Button variant="ghost">Click me</Button>
+            <Button variant="secondary">Click me</Button>
+            <Button variant="link">Click me</Button>
 
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>Create project</CardTitle>
-          <CardDescription>Deploy your new project in one-click.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Name of your project" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="framework">Framework</Label>
-              </div>
+            <Card className="w-[350px]">
+                <CardHeader>
+                    <CardTitle>Create project</CardTitle>
+                    <CardDescription>Deploy your new project in one-click.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form>
+                        <div className="grid w-full items-center gap-4">
+                            <div className="flex flex-col space-y-1.5">
+                                <Label htmlFor="name">Name</Label>
+                                <Input id="name" placeholder="Name of your project" />
+                            </div>
+                            <div className="flex flex-col space-y-1.5">
+                                <Label htmlFor="framework">Framework</Label>
+                            </div>
+                        </div>
+                    </form>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                    <Button variant="outline">Cancel</Button>
+                    <Button>Deploy</Button>
+                </CardFooter>
+            </Card>
+
+            <div className="flex items-center space-x-2">
+                <Checkbox id="terms" />
+                <label
+                    htmlFor="terms"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                    Accept terms and conditions
+                </label>
             </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
-          <Button>Deploy</Button>
-        </CardFooter>
-      </Card>
+            <DropdownMenuCheckboxes items={menuItems} name={"hello"} onItemChange={handleItemChange} />
 
-      <div className="flex items-center space-x-2">
-        <Checkbox id="terms" />
-        <label
-          htmlFor="terms"
-          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        >
-          Accept terms and conditions
-        </label>
-      </div>
-      <DropdownMenuCheckboxes items={menuItems} name={"hello"} onItemChange={handleItemChange} />
-
-      <StatusCard title="Payments" header={<Button variant="outline">View all</Button>} />
-      <Loader />
-      <Text element="h1" as="h1">
-        Hello World
-      </Text>
-      <Text element="h1" as="h1">
-        Hello World
-      </Text>
-      <Text element="h1" as="h2">
-        Hello World
-      </Text>
-      <Text element="h1" as="h3">
-        Hello World
-      </Text>
-      <Text element="h1" as="h4">
-        Hello World
-      </Text>
-      <Text element="h1" as="h5">
-        Hello World
-      </Text>
-      <StepperDemo />
-    </>
-  );
+            <StatusCard title="Payments" header={<Button variant="outline">View all</Button>} />
+            <Loader />
+            <Text element="h1" as="h1">
+                Hello World
+            </Text>
+            <Text element="h1" as="h1">
+                Hello World
+            </Text>
+            <Text element="h1" as="h2">
+                Hello World
+            </Text>
+            <Text element="h1" as="h3">
+                Hello World
+            </Text>
+            <Text element="h1" as="h4">
+                Hello World
+            </Text>
+            <Text element="h1" as="h5">
+                Hello World
+            </Text>
+            <StepperDemo />
+        </>
+    );
 };
 
 const steps = [
-  { label: "Step 1", description: "desc", id: "1", icon: () => <div>120</div> },
-  { label: "Step 2", icon: () => <div>120</div> },
-  { label: "Step 3", icon: () => <div>120</div> },
+    { label: "Step 1", description: "desc", id: "1", icon: () => <div>120</div> },
+    { label: "Step 2", icon: () => <div>120</div> },
+    { label: "Step 3", icon: () => <div>120</div> },
 ] satisfies StepItem[];
 
 function StepperDemo() {
-  const { activeStep } = useStepper();
-  return (
-    <div className="flex w-full flex-col gap-4">
-      <Stepper initialStep={0} steps={steps} variant="circle-alt" checkIcon={steps[activeStep].icon}>
-        {steps.map((stepProps, index) => {
-          return (
-            <Step key={stepProps.label} {...stepProps}>
-              <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-                <h1 className="text-xl">Step {index + 1}</h1>
-              </div>
-            </Step>
-          );
-        })}
-        <Footer />
-      </Stepper>
-    </div>
-  );
+    const { activeStep } = useStepper();
+    return (
+        <div className="flex w-full flex-col gap-4">
+            <Stepper initialStep={0} steps={steps} variant="circle-alt" checkIcon={steps[activeStep].icon}>
+                {steps.map((stepProps, index) => {
+                    return (
+                        <Step key={stepProps.label} {...stepProps}>
+                            <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
+                                <h1 className="text-xl">Step {index + 1}</h1>
+                            </div>
+                        </Step>
+                    );
+                })}
+                <Footer />
+            </Stepper>
+        </div>
+    );
 }
 
 const Footer = () => {
-  const { nextStep, prevStep, resetSteps, isDisabledStep, hasCompletedAllSteps, isLastStep, isOptionalStep } =
-    useStepper();
-  return (
-    <>
-      {hasCompletedAllSteps && (
-        <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-          <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-        </div>
-      )}
-      <div className="w-full flex justify-end gap-2">
-        {hasCompletedAllSteps ? (
-          <Button size="sm" onClick={resetSteps}>
-            Reset
-          </Button>
-        ) : (
-          <>
-            <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="secondary">
-              Prev
-            </Button>
-            <Button size="sm" onClick={nextStep}>
-              {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-            </Button>
-          </>
-        )}
-      </div>
-    </>
-  );
+    const { nextStep, prevStep, resetSteps, isDisabledStep, hasCompletedAllSteps, isLastStep, isOptionalStep } =
+        useStepper();
+    return (
+        <>
+            {hasCompletedAllSteps && (
+                <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
+                    <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
+                </div>
+            )}
+            <div className="w-full flex justify-end gap-2">
+                {hasCompletedAllSteps ? (
+                    <Button size="sm" onClick={resetSteps}>
+                        Reset
+                    </Button>
+                ) : (
+                    <>
+                        <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="secondary">
+                            Prev
+                        </Button>
+                        <Button size="sm" onClick={nextStep}>
+                            {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
+                        </Button>
+                    </>
+                )}
+            </div>
+        </>
+    );
 };
 export default Home;
