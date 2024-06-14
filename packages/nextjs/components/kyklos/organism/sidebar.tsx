@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SidebarTab from "../molecules/sidebarTab";
 import { AiOutlineProject } from "react-icons/ai";
 import { BsBoxArrowInDown } from "react-icons/bs";
@@ -33,8 +33,9 @@ const Sidebar = (props: Props) => {
         ],
     } = props;
 
+    const pathName = usePathname();
     const [open, setOpen] = React.useState(true);
-    const [selected, setSelected] = React.useState(0);
+    const [selected, setSelected] = React.useState(menu.findIndex(item => pathName.includes(item.href)));
     const navigate = useRouter();
     const onButtonClick = (index: number, href: string) => {
         setSelected(index);

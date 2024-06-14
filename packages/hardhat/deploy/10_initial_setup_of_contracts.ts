@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import {
@@ -86,7 +87,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       projectId: "test project id",
       standard: "Kyklos",
       methodology: "test methodology",
-      region: "test region",
+      region: "Italy",
       storageMethod: "test storage method",
       method: "test method",
       emissionType: "test emission type",
@@ -94,7 +95,70 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       uri: "test uri",
       beneficiary: deployer,
     };
+    const project1: ProjectDataStruct = {
+      projectId: "carbon project 001",
+      standard: "Kyklos",
+      methodology: "Improved Forest Management",
+      region: "Brazil",
+      storageMethod: "Afforestation/Reforestation",
+      method: "Satellite Monitoring",
+      emissionType: "CO2",
+      category: "Forestry",
+      uri: "https://verra.org/project1",
+      beneficiary: deployer,
+    };
 
+    const project2: ProjectDataStruct = {
+      projectId: "carbon project 002",
+      standard: "Kyklos",
+      methodology: "Renewable Energy",
+      region: "India",
+      storageMethod: "Solar Power",
+      method: "Field Data Collection",
+      emissionType: "CO2",
+      category: "Energy",
+      uri: "https://goldstandard.org/project2",
+      beneficiary: deployer,
+    };
+
+    const project3: ProjectDataStruct = {
+      projectId: "carbon project 003",
+      standard: "Kyklos",
+      methodology: "Methane Capture",
+      region: "United States",
+      storageMethod: "Landfill Gas",
+      method: "Continuous Monitoring",
+      emissionType: "CH4",
+      category: "Waste Management",
+      uri: "https://americancarbonregistry.org/project3",
+      beneficiary: deployer,
+    };
+
+    const project4: ProjectDataStruct = {
+      projectId: "carbon project 004",
+      standard: "Kyklos",
+      methodology: "Agricultural Soil Management",
+      region: "Australia",
+      storageMethod: "Soil Carbon Sequestration",
+      method: "Soil Sampling",
+      emissionType: "CO2",
+      category: "Agriculture",
+      uri: "https://climateactionreserve.org/project4",
+      beneficiary: deployer,
+    };
+
+    const project5: ProjectDataStruct = {
+      projectId: "carbon project 005",
+      standard: "Kyklos",
+      methodology: "Community Reforestation",
+      region: "Kenya",
+      storageMethod: "Agroforestry",
+      method: "Community Reporting",
+      emissionType: "CO2",
+      category: "Community",
+      uri: "https://planvivo.org/project5",
+      beneficiary: deployer,
+    };
     const projectTx = await carbonProjectsFactory.addNewProject(
       deployer,
       project.projectId,
@@ -127,7 +191,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     isCorsiaCompliant: false,
     name: "Project Green Wind",
     registry: "Kyklos",
-    totalVintageQuantity: 2000000000000000000n, // 2 tonnes
+    totalVintageQuantity: 5, // 2 tonnes
   };
 
   const vintage2: VintageDataStruct = {
@@ -142,7 +206,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     isCorsiaCompliant: true,
     name: "Solar Power Sahara",
     registry: "Kyklos",
-    totalVintageQuantity: 10000000000000000000n, // 10 tonne
+    totalVintageQuantity: 10, // 10 tonne
   };
 
   // Add a new vintage
@@ -217,7 +281,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       KyklosCarbonOffsets;
     const approveTx = await carbonOffsetToken.approve(poolAddress, 1000000000000000000n);
     await approveTx.wait();
-    const depositTx = await pool.deposit(token, 100000000000000n);
+    const depositTx = await pool.deposit(token, 1000000000000000000n);
     await depositTx.wait();
     console.log("Tokens deposited into the pool successfully");
   } catch (error) {

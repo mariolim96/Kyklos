@@ -1,5 +1,3 @@
-"use client";
-
 import GetProjects from "./_components/getProjexts";
 import type { NextPage } from "next";
 import { Label } from "~~/components/kyklos/ui/label";

@@ -1,16 +1,14 @@
-import { useQuery } from "@apollo/client";
+"use client";
+
+import TokenList from "./components/tokenList";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
 import { Label } from "~~/components/kyklos/ui/label";
 
 const HomePage: NextPage = () => {
-    const account = useAccount();
-    // user address
-    // const query = useQuery;
-    // const address = userAddress();
     return (
         <>
-            <Label className="m-4 font-bold text-lg">{JSON.stringify(account)}</Label>
+            <Label className="px-[1px] font-bold text-lg">Pool</Label>
+            <TokenList />
         </>
     );
 };

@@ -1,4 +1,6 @@
 import type { NextPage } from "next";
+import ProjectTable from "~~/components/kyklos/organism/cardsVisualizer";
+import InfoCards from "~~/components/kyklos/organism/infoCards";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
 export const metadata = getMetadata({
@@ -7,7 +9,12 @@ export const metadata = getMetadata({
 });
 
 const HomePage: NextPage = () => {
-    return <div className="bg-slate-800"> overview</div>;
+    return (
+        <div className="">
+            <ProjectTable />
+            <InfoCards />
+        </div>
+    );
 };
 
 export default HomePage;

@@ -14,9 +14,6 @@ import ListVisualizer, { checkFilter } from "~~/components/kyklos/organism/listV
 import { Badge } from "~~/components/kyklos/ui/badge";
 import Loader from "~~/components/kyklos/ui/loader";
 
-/* eslint-disable prettier/prettier */
-/* eslint-disable @next/next/no-img-element */
-
 const GetProjects = () => {
     const GET_PROJECTS = gql`
         query GetProjects {
@@ -110,7 +107,7 @@ const GetProjects = () => {
             <h2 className="m-4 font-semibold">
                 Projects({loading ? <span className="loading loading-spinner loading-sm"></span> : rows?.length})
             </h2>
-            <ListVisualizer columns={columns} data={[...rows, ...rows]}></ListVisualizer>
+            <ListVisualizer columns={columns} data={rows} hasFilters/>
         </Suspense>
     );
 };

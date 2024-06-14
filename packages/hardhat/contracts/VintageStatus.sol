@@ -320,7 +320,12 @@ contract VintageStatus is
 		);
 		// set vintage status to fractionalized
 		_updateStatus(tokenId, BatchStatus.Tokenized);
-    emit Tokenized(tokenId, _getTCO2ForBatchTokenId(tokenId), _msgSender(), nftList[tokenId].quantity);
+		emit Tokenized(
+			tokenId,
+			_getTCO2ForBatchTokenId(tokenId),
+			_msgSender(),
+			nftList[tokenId].quantity * 10 ** 18
+		);
 	}
 
 	function beforeFractionalize(uint256 tokenId) external virtual {

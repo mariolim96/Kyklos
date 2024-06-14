@@ -41,5 +41,6 @@ const Text = <T extends Element>({ className, element, as, ...props }: Typograph
 
     return React.createElement(Component, componentProps);
 };
-
-export default React.forwardRef(Text);
+const text = React.forwardRef(Text);
+export default text;
+export { text as Text };

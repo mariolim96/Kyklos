@@ -3,6 +3,7 @@
 import * as React from "react";
 import type { NextPage } from "next";
 import { DropdownMenuCheckboxes } from "~~/components/kyklos/molecules/checkboxMenu";
+import InfoTab from "~~/components/kyklos/molecules/infoTab";
 import StatusCard from "~~/components/kyklos/molecules/statusCard";
 import { Button } from "~~/components/kyklos/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/kyklos/ui/card";
@@ -90,6 +91,7 @@ const Home: NextPage = () => {
                 Hello World
             </Text>
             <StepperDemo />
+            <InfoTab image="/token.png" title="Welcome to Scaffold-ETH 2" subTitle="Scaffold-ETH 2 is a" />
         </>
     );
 };

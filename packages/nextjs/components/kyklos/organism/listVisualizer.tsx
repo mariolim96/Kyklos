@@ -31,9 +31,10 @@ interface ListVisualizerProps<T> {
     data: T[];
     columns: ColumnDef<T>[];
     isLoading?: boolean;
+    hasFilters?: boolean;
 }
 
-function ListVisualizer<T>({ data, columns, isLoading }: ListVisualizerProps<T>) {
+function ListVisualizer<T>({ data, columns, isLoading, hasFilters }: ListVisualizerProps<T>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -58,27 +59,31 @@ function ListVisualizer<T>({ data, columns, isLoading }: ListVisualizerProps<T>)
         getFilteredRowModel: getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getFacetedUniqueValues: getFacetedUniqueValues(),
-        debugTable: true,
+        // debugTable: true,
         debugHeaders: true,
         debugColumns: false,
     });
 
     const tableRenderer = table.getHeaderGroups().map(headerGroup => (
         <>
-            <div className="flex items-center gap-4 flex-wrap bg-muted h-16 p-2 border-t-2 rounded-t-md">
-                <div className="flex-grow">
-                    <div className="flex items-center gap-x-2 gap-y-4 flex-wrap">
-                        {headerGroup.headers.map(header => (
-                            <>{header.column.getCanFilter() ? <Filter column={header.column} /> : null}</>
-                        ))}
+            {hasFilters && (
+                <>
+                    <div className="flex items-center gap-4 flex-wrap bg-muted h-16 p-2 border-t-2 rounded-t-md">
+                        <div className="flex-grow">
+                            <div className="flex items-center gap-x-2 gap-y-4 flex-wrap">
+                                {headerGroup.headers.map(header => (
+                                    <>{header.column.getCanFilter() ? <Filter column={header.column} /> : null}</>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="flex">
+                            <CiBoxList className="w-[20px]  h-[20px] font-bold " />
+                            <PiSquaresFourLight className="w-[20px]  h-[20px] " />
+                        </div>
                     </div>
-                </div>
-                <div className="flex">
-                    <CiBoxList className="w-[20px]  h-[20px] font-bold " />
-                    <PiSquaresFourLight className="w-[20px]  h-[20px] " />
-                </div>
-            </div>
-            <Separator />
+                    <Separator />
+                </>
+            )}
             <Table>
                 <TableHeader className="h-12">
                     {table.getHeaderGroups().map(headerGroup => (

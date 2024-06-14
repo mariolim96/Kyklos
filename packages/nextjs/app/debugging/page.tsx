@@ -57,8 +57,8 @@ const Home: NextPage = () => {
                                 Explore your local transactions with the{" "}
                                 <Link href="/blockexplorer" passHref className="link">
                                     Block Explorer
-                                </Link>{" "}
-                                tab.
+                                </Link>
+                                tab
                             </p>
                         </div>
                     </div>

@@ -1,4 +1,6 @@
+import RetirementList from "./component/retirementList";
 import type { NextPage } from "next";
+import RetirementSummary from "~~/components/kyklos/organism/retirementSummary";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
 export const metadata = getMetadata({
@@ -7,7 +9,12 @@ export const metadata = getMetadata({
 });
 
 const HomePage: NextPage = () => {
-    return <div className="bg-slate-800"> retirements</div>;
+    return (
+        <div className="">
+            <RetirementSummary />
+            <RetirementList />
+        </div>
+    );
 };
 
 export default HomePage;

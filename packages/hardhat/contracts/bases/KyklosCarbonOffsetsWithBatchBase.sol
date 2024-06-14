@@ -5,6 +5,7 @@ pragma solidity 0.8.14;
 import './KyklosCarbonOffsetBase.sol';
 import {Errors} from '../libraries/Errors.sol';
 import {BatchStatus} from '../types/VintageStatusTypes.sol';
+import 'hardhat/console.sol';
 
 /// @notice Base contract that can be reused between different TCO2
 /// implementations that need to work with batch NFTs
@@ -76,6 +77,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
             status == BatchStatus.Active,
             Errors.TCO2_BATCH_NOT_CONFIRMED
         );
+        console.log(quantity);
         require(getRemaining() >= quantity, Errors.TCO2_QTY_HIGHER);
 
         minterToId[from] = tokenId;
