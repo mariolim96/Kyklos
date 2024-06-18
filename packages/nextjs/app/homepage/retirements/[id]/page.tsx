@@ -180,7 +180,7 @@ export default function Page({ params }: { params: { id: string } }) {
                             }
                         />
                         <InfoTab
-                            image={<BsBoxArrowInDown style={iconsStyle} className="text-base-content-2 w-32"  />}
+                            image={<BsBoxArrowInDown style={iconsStyle} className="text-base-content-2 w-32" />}
                             title={
                                 <Text as="h6" element="h5" className="text-base-content-3 w-32">
                                     Retired on

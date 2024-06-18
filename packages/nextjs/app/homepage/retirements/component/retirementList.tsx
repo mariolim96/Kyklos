@@ -108,7 +108,7 @@ const RetirementList = () => {
         },
     ];
     const rows = data?.user?.retirementsCreated || [];
-    return <ListVisualizer columns={columns} data={rows} isLoading={loading}  />;
+    return <ListVisualizer columns={columns} data={rows} isLoading={loading} />;
 };
 
 export default RetirementList;

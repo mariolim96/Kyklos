@@ -80,7 +80,7 @@ p {
         --primary-subtle-content: 135, 40%, 0%; /* hsl(135, 40%, 0%) */
         --secondary: 90, 60%, 43%; /* hsl(90, 60%, 43%) */
         --secondary-focus: 90, 60%, 37.5%; /* hsl(90, 60%, 37.5%) */
-        --secondary-subtle: 90, 60%, 70.5%; /* hsl(90, 60%, 70.5%) */
+        --secondary-subtle: 90, 60%, 70.5%; /* hsl(80, 60%, 70.5%) */
         --secondary-subtle-content: 90, 60%, 0%; /* hsl(90, 60%, 0%) */
         --secondary-content: 90, 60%, 0%; /* hsl(90, 60%, 0%) */
         --info: 258, 40%, 76%; /* hsl(258, 40%, 76%) */
@@ -104,11 +104,39 @@ p {
         --warning-subtle: 41, 95%, 28%; /* hsl(41, 95%, 28%) */
         --warning-subtle-content: 41, 95%, 100%; /* hsl(41, 95%, 100%) */
         --warning-content: 41, 95%, 0%; /* hsl(41, 95%, 0%) */
+        --radix-collapsible-content-height: auto;
     }
     * {
         @apply border-border;
     }
     body {
         @apply bg-[hsl(var(--base))] text-foreground;
+    }
+    /* not working in tail- writed in css  */
+    .CollapsibleContent {
+        overflow: hidden;
+    }
+    .CollapsibleContent[data-state="open"] {
+        animation: slideDown 300ms ease-out;
+    }
+    .CollapsibleContent[data-state="closed"] {
+        animation: slideUp 300ms ease-out;
+    }
+    @keyframes slideDown {
+        from {
+            height: 0;
+        }
+        to {
+            height: var(--radix-collapsible-content-height);
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            height: var(--radix-collapsible-content-height);
+        }
+        to {
+            height: 0;
+        }
     }
 }

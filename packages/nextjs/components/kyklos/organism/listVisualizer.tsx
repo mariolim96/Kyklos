@@ -137,7 +137,7 @@ function ListVisualizer<T>({ data, columns, isLoading, hasFilters }: ListVisuali
             </Table>
         </>
     ));
-    return <div className="relative  overflow-auto shadow-lg shadow-content-2 m-4 rounded-md">{tableRenderer}</div>;
+    return <div className="relative  overflow-auto shadow-lg shadow-content-2 mt-8 rounded-md">{tableRenderer}</div>;
 }
 function Filter({ column }: { column: Column<any, unknown> }) {
     const { filterVariant } = column.columnDef.meta ?? {};

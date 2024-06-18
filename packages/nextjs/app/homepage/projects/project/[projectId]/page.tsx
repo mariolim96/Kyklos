@@ -1,14 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Image from "next/image";
 import { Project } from "../../types";
 import StepperDemo from "./_components/credits";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { MdOutlineFolderCopy } from "react-icons/md";
 import Text from "~~/components/kyklos/ui/text";
 import { getProject } from "~~/services/graphql/query";
 
-// My Post: {params.projectId} e serena e scema
 export default function Page({ params }: { params: { projectId: string } }) {
     const { loading, error, data } = useQuery(getProject(params.projectId));
     const project = data?.project as Project;
@@ -19,11 +18,11 @@ export default function Page({ params }: { params: { projectId: string } }) {
             <div className="flex  flex-col gap-6">
                 <div className="flex-grow-2 bg-base shadow-lg shadow-overlay-2 rounded-md  w-[60%]  ">
                     <div className=" h-70 w-full relative ml-2 mt-2">
-                        <img
+                        <Image
                             src={"/reforestation.jpg"}
                             alt="reforestation"
-                            width="0"
-                            height={"0"}
+                            width="600"
+                            height={"1200"}
                             className="w-full h-full align-middle content-center rounded-t-md"
                         />
                     </div>

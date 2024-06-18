@@ -84,31 +84,6 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   // Add a new project
   try {
     const project: ProjectDataStruct = {
-      projectId: "test project id",
-      standard: "Kyklos",
-      methodology: "test methodology",
-      region: "Italy",
-      storageMethod: "test storage method",
-      method: "test method",
-      emissionType: "test emission type",
-      category: "test category",
-      uri: "test uri",
-      beneficiary: deployer,
-    };
-    const project1: ProjectDataStruct = {
-      projectId: "carbon project 001",
-      standard: "Kyklos",
-      methodology: "Improved Forest Management",
-      region: "Brazil",
-      storageMethod: "Afforestation/Reforestation",
-      method: "Satellite Monitoring",
-      emissionType: "CO2",
-      category: "Forestry",
-      uri: "https://verra.org/project1",
-      beneficiary: deployer,
-    };
-
-    const project2: ProjectDataStruct = {
       projectId: "carbon project 002",
       standard: "Kyklos",
       methodology: "Renewable Energy",
@@ -121,7 +96,7 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       beneficiary: deployer,
     };
 
-    const project3: ProjectDataStruct = {
+    const project1: ProjectDataStruct = {
       projectId: "carbon project 003",
       standard: "Kyklos",
       methodology: "Methane Capture",
@@ -134,31 +109,6 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       beneficiary: deployer,
     };
 
-    const project4: ProjectDataStruct = {
-      projectId: "carbon project 004",
-      standard: "Kyklos",
-      methodology: "Agricultural Soil Management",
-      region: "Australia",
-      storageMethod: "Soil Carbon Sequestration",
-      method: "Soil Sampling",
-      emissionType: "CO2",
-      category: "Agriculture",
-      uri: "https://climateactionreserve.org/project4",
-      beneficiary: deployer,
-    };
-
-    const project5: ProjectDataStruct = {
-      projectId: "carbon project 005",
-      standard: "Kyklos",
-      methodology: "Community Reforestation",
-      region: "Kenya",
-      storageMethod: "Agroforestry",
-      method: "Community Reporting",
-      emissionType: "CO2",
-      category: "Community",
-      uri: "https://planvivo.org/project5",
-      beneficiary: deployer,
-    };
     const projectTx = await carbonProjectsFactory.addNewProject(
       deployer,
       project.projectId,
@@ -173,6 +123,21 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       deployer,
     );
     await projectTx.wait();
+    const projectTx1 = await carbonProjectsFactory.addNewProject(
+      deployer,
+      project1.projectId,
+      project1.standard,
+      project1.methodology,
+      project1.region,
+      project1.storageMethod,
+      project1.method,
+      project1.emissionType,
+      project1.category,
+      project1.uri,
+      deployer,
+    );
+    await projectTx1.wait();
+
     console.log("Project added successfully");
   } catch (error) {
     console.error("Failed to add project:", error);
@@ -209,17 +174,38 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     totalVintageQuantity: 10, // 10 tonne
   };
 
+  // Add a new vintage to project1
+  const vintage3: VintageDataStruct = {
+    projectTokenId: 2,
+    startTime: 1622505600, // Corresponds to June 1, 2021
+    endTime: 1625097600, // Corresponds to July 1, 2021
+    additionalCertification: "Gold Standard VER",
+    uri: "https://example.com/vintage102",
+    coBenefits: "Community health improvements, educational support",
+    correspAdjustment: "Aligned with NDCs",
+    isCCPcompliant: true,
+    isCorsiaCompliant: true,
+    name: "Solar Power Sahara",
+    registry: "Kyklos",
+    totalVintageQuantity: 10, // 10 tonne
+  };
+
   // Add a new vintage
   try {
     const vintageTx = await carbonProjectVintagesFactory.addNewVintage(deployer, vintage);
     await vintageTx.wait();
     const vintageTx2 = await carbonProjectVintagesFactory.addNewVintage(deployer, vintage2);
     await vintageTx2.wait();
+    const vintageTx3 = await carbonProjectVintagesFactory.addNewVintage(deployer, vintage3);
+    await vintageTx3.wait();
+
     // deploy the token associated with the vintage
     const tokenTx = await carbonOffsetFactory.deployFromVintage(1);
     await tokenTx.wait();
     const tokenTx2 = await carbonOffsetFactory.deployFromVintage(2);
     await tokenTx2.wait();
+    const tokenTx3 = await carbonOffsetFactory.deployFromVintage(3);
+    await tokenTx3.wait();
     console.log("Vintage added successfully");
   } catch (error) {
     console.error("Failed to add vintage:", error);
@@ -231,6 +217,8 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     let vintageStatusTx = await vintageStatus.mintBatch(deployer, 1, vintage.totalVintageQuantity);
     await vintageStatusTx.wait();
     vintageStatusTx = await vintageStatus.mintBatch(deployer, 2, vintage2.totalVintageQuantity);
+    await vintageStatusTx.wait();
+    vintageStatusTx = await vintageStatus.mintBatch(deployer, 3, vintage3.totalVintageQuantity);
     await vintageStatusTx.wait();
     console.log("Vintage status added successfully");
   } catch (error) {

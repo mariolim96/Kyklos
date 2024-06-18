@@ -89,7 +89,7 @@ module.exports = {
             fontFamily: {
                 montserrat: ["var(--font-monserrat)", "monserrat", "sans-serif"],
             },
-
+            
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
@@ -198,6 +198,14 @@ module.exports = {
                 sm: "calc(var(--radius) - 4px)",
             },
             keyframes: {
+                "collapsible-down": {
+                    from: { height: "0" },
+                    to: { height: "var(--radix-collapsible-content-height)" },
+                },
+                "collapsible-up": {
+                    from: { height: "var(--radix-collapsible-content-height)" },
+                    to: { height: "0" },
+                },
                 "accordion-down": {
                     from: { height: "0" },
                     to: { height: "var(--radix-accordion-content-height)" },
@@ -206,6 +214,10 @@ module.exports = {
                     from: { height: "var(--radix-accordion-content-height)" },
                     to: { height: "0" },
                 },
+            },
+            animation: {
+                "collapsible-down": "collapsible-down 0.2s ease-out",
+                "collapsible-up": "collapsible-up 0.2s ease-out",
             },
             boxShadow: {
                 center: "0 0 12px -2px rgb(0 0 0 / 0.05)",

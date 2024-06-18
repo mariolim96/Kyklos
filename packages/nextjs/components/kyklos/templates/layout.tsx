@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import DynamicBreadcrumb from "../molecules/dynamicBreadcrumb";
 import { Header } from "../organism/header";
 import Sidebar from "../organism/sidebar";
 
@@ -15,6 +16,7 @@ export const Layout = ({ children }: Props) => (
             <div className="">
                 <Header />
             </div>
+            <DynamicBreadcrumb />
             <div className=" flex-1 overflow-y-auto">{children}</div>
         </div>
     </div>
