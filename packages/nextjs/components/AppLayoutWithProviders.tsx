@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { Montserrat } from "next/font/google";
 import { Layout } from "./kyklos/templates/layout";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ModalProvider } from "./modalProvider";
+import { ApolloProvider } from "@apollo/client";
 import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useTheme } from "next-themes";
@@ -81,7 +82,9 @@ export const AppLayoutWithProviders = ({ children }: { children: React.ReactNode
             <WagmiProvider config={wagmiConfig}>
                 <QueryClientProvider client={queryClient}>
                     <RainbowKitProvider avatar={BlockieAvatar} theme={lightTheme()}>
-                        <div className="bg-base-2">{children}</div>
+                        <ModalProvider>
+                            <div className="bg-base-2">{children}</div>
+                        </ModalProvider>
                     </RainbowKitProvider>
                 </QueryClientProvider>
             </WagmiProvider>

@@ -80,7 +80,7 @@ p {
         --primary-subtle-content: 135, 40%, 0%; /* hsl(135, 40%, 0%) */
         --secondary: 90, 60%, 43%; /* hsl(90, 60%, 43%) */
         --secondary-focus: 90, 60%, 37.5%; /* hsl(90, 60%, 37.5%) */
-        --secondary-subtle: 90, 60%, 70.5%; /* hsl(80, 60%, 70.5%) */
+        --secondary-subtle: 90, 60%, 70.5%; /* hsl(90, 30%, 70.5%) */
         --secondary-subtle-content: 90, 60%, 0%; /* hsl(90, 60%, 0%) */
         --secondary-content: 90, 60%, 0%; /* hsl(90, 60%, 0%) */
         --info: 258, 40%, 76%; /* hsl(258, 40%, 76%) */

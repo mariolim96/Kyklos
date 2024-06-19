@@ -7,10 +7,13 @@ import ListVisualizer from "~~/components/kyklos/organism/listVisualizer";
 import { Button } from "~~/components/kyklos/ui/button";
 import { Text } from "~~/components/kyklos/ui/text";
 import { UserTokenOwned, getUserTokens } from "~~/services/graphql/query";
+import { modalSelectors } from "~~/services/store/modals";
 
 const TokenList = () => {
     const { address } = useAccount();
-
+    const openModal = modalSelectors.use.openModal();
+    const modals = modalSelectors.use.modals();
+    console.log("modals:", modals);
     const { loading, data } = useQuery(getUserTokens, {
         variables: { address: address?.toLowerCase() },
         skip: !address,
@@ -72,6 +75,7 @@ const TokenList = () => {
                             onClick={e => {
                                 e.stopPropagation();
                                 console.log(cell);
+                                openModal("modals", { token: cell.row.original });
                             }}
                         >
                             Retire
