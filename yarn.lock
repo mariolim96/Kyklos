@@ -270,6 +270,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+  version: 7.24.7
+  resolution: "@babel/runtime@npm:7.24.7"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: d17f29eed6f848ac15cdf4202a910b741facfb0419a9d79e5c7fa37df6362fc3227f1cc2e248cc6db5e53ddffb4caa6686c488e6e80ce3d29c36a4e74c8734ea
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.15":
   version: 7.22.15
   resolution: "@babel/template@npm:7.22.15"
@@ -3684,6 +3693,7 @@ __metadata:
     "@types/nprogress": ^0
     "@types/react": ^18.0.9
     "@types/react-copy-to-clipboard": ^5.0.4
+    "@types/react-transition-group": ^4
     "@typescript-eslint/eslint-plugin": ^5.39.0
     "@uniswap/sdk-core": ^4.0.1
     "@uniswap/v2-sdk": ^3.0.1
@@ -3693,10 +3703,12 @@ __metadata:
     class-variance-authority: ^0.7.0
     clsx: ^2.1.1
     daisyui: 4.5.0
+    embla-carousel-react: ^8.1.5
     eslint: ^8.15.0
     eslint-config-next: ^14.0.4
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.2.1
+    framer-motion: ^11.2.11
     graphql: ^16.8.1
     lucide-react: ^0.378.0
     next: ^14.0.4
@@ -3710,6 +3722,7 @@ __metadata:
     react-dom: ^18.2.0
     react-hot-toast: ^2.4.0
     react-icons: ^5.2.1
+    react-transition-group: ^4.4.5
     sharp: ^0.33.3
     tailwind-merge: ^2.3.0
     tailwindcss: ^3.4.3
@@ -4518,6 +4531,15 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 48e356652c7c70394ef14a6f3dcec524a02fddabd892a9728083301c7f49bf5fd590215a0c0cad9812953af8fa23ab5813d9ad3a1b0ddd82b70ff000e7aa8a30
+  languageName: node
+  linkType: hard
+
+"@types/react-transition-group@npm:^4":
+  version: 4.4.10
+  resolution: "@types/react-transition-group@npm:4.4.10"
+  dependencies:
+    "@types/react": "*"
+  checksum: fe2ea11f70251e9f79f368e198c18fd469b1d4f1e1d44e4365845b44e15974b0ec925100036f449b023b0ca3480a82725c5f0a73040e282ad32ec7b0def9b57c
   languageName: node
   linkType: hard
 
@@ -8233,6 +8255,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dom-helpers@npm:^5.0.1":
+  version: 5.2.1
+  resolution: "dom-helpers@npm:5.2.1"
+  dependencies:
+    "@babel/runtime": ^7.8.7
+    csstype: ^3.0.2
+  checksum: 863ba9e086f7093df3376b43e74ce4422571d404fc9828bf2c56140963d5edf0e56160f9b2f3bb61b282c07f8fc8134f023c98fd684bddcb12daf7b0f14d951c
+  languageName: node
+  linkType: hard
+
 "dotenv@npm:^16.0.3":
   version: 16.3.1
   resolution: "dotenv@npm:16.3.1"
@@ -8349,6 +8381,34 @@ __metadata:
     minimalistic-assert: ^1.0.1
     minimalistic-crypto-utils: ^1.0.1
   checksum: d56d21fd04e97869f7ffcc92e18903b9f67f2d4637a23c860492fbbff5a3155fd9ca0184ce0c865dd6eb2487d234ce9551335c021c376cd2d3b7cb749c7d10f4
+  languageName: node
+  linkType: hard
+
+"embla-carousel-react@npm:^8.1.5":
+  version: 8.1.5
+  resolution: "embla-carousel-react@npm:8.1.5"
+  dependencies:
+    embla-carousel: 8.1.5
+    embla-carousel-reactive-utils: 8.1.5
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.1 || ^18.0.0
+  checksum: 997e0ba94bd20dffbd8b1f149a13f703f0d101c6b0c3a402eb5544cd761abf84da07781768675bc8304fdbfe1d92629e277ff8ba7fe578113de0558509be876d
+  languageName: node
+  linkType: hard
+
+"embla-carousel-reactive-utils@npm:8.1.5":
+  version: 8.1.5
+  resolution: "embla-carousel-reactive-utils@npm:8.1.5"
+  peerDependencies:
+    embla-carousel: 8.1.5
+  checksum: 7ef210dc7207d83e146a1fe3ac82e5a4c68a487fb0b093a8e407f64f40c8095f200b930dc5c903ea4d3162128658513cd15e769d24315961af4b7959cfa79451
+  languageName: node
+  linkType: hard
+
+"embla-carousel@npm:8.1.5":
+  version: 8.1.5
+  resolution: "embla-carousel@npm:8.1.5"
+  checksum: b570e23e122aee6d7c48e198cd79b321f5ce38a7b579b961cda76cddb725cd4b7df1d930eb88e9214e4604ae54f2771677bb29c8e53b8a3f2bf8fd253de23b6c
   languageName: node
   linkType: hard
 
@@ -10102,6 +10162,26 @@ __metadata:
   version: 4.3.6
   resolution: "fraction.js@npm:4.3.6"
   checksum: e96ae77e64ebfd442d3a5a01a3f0637b0663fc2440bcf2841b3ad9341ba24c81fb2e3e7142e43ef7d088558c6b3f8609df135b201adc7a1c674aea6a71384162
+  languageName: node
+  linkType: hard
+
+"framer-motion@npm:^11.2.11":
+  version: 11.2.11
+  resolution: "framer-motion@npm:11.2.11"
+  dependencies:
+    tslib: ^2.4.0
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: a315e7f36eddf78d7a0a6edfb768e7de235bc34cffe4dabd294e7170646c1b4e2d8ff12797e6602ace8b232648196735d396b5e11d66b4b2ddb53b60d90132c0
   languageName: node
   linkType: hard
 
@@ -15111,7 +15191,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -15534,6 +15614,21 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 7ee8ef3aab74c7ae1d70ff34a27643d11ba1a8d62d072c767827d9ff9a520905223e567002e0bf6c772929d8ea1c781a3ba0cc4a563e92b1e3dc2eaa817ecbe8
+  languageName: node
+  linkType: hard
+
+"react-transition-group@npm:^4.4.5":
+  version: 4.4.5
+  resolution: "react-transition-group@npm:4.4.5"
+  dependencies:
+    "@babel/runtime": ^7.5.5
+    dom-helpers: ^5.0.1
+    loose-envify: ^1.4.0
+    prop-types: ^15.6.2
+  peerDependencies:
+    react: ">=16.6.0"
+    react-dom: ">=16.6.0"
+  checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
   languageName: node
   linkType: hard
 

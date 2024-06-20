@@ -1,10 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { motion } from "framer-motion";
 import type { NextPage } from "next";
 import { DropdownMenuCheckboxes } from "~~/components/kyklos/molecules/checkboxMenu";
 import InfoTab from "~~/components/kyklos/molecules/infoTab";
 import StatusCard from "~~/components/kyklos/molecules/statusCard";
+import MultistepModal from "~~/components/kyklos/organism/multistepModal";
 import { Button } from "~~/components/kyklos/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/kyklos/ui/card";
 import { Checkbox } from "~~/components/kyklos/ui/checkbox";
@@ -92,6 +94,11 @@ const Home: NextPage = () => {
             </Text>
             <StepperDemo />
             <InfoTab image="/token.png" title="Welcome to Scaffold-ETH 2" subTitle="Scaffold-ETH 2 is a" />
+            <MultistepModal
+                steps={steps}
+                footer={<Footer />}
+                views={[<div key={1}>v1</div>, <div key={2}>v2</div>, <div key={3}>v3</div>]}
+            />
         </>
     );
 };
@@ -106,13 +113,25 @@ function StepperDemo() {
     const { activeStep } = useStepper();
     return (
         <div className="flex w-full flex-col gap-4">
-            <Stepper initialStep={0} steps={steps} variant="circle-alt" checkIcon={steps[activeStep].icon}>
+            <Stepper
+                initialStep={0}
+                steps={steps}
+                variant="circle-alt"
+                orientation="horizontal"
+                checkIcon={steps[activeStep].icon}
+            >
                 {steps.map((stepProps, index) => {
                     return (
                         <Step key={stepProps.label} {...stepProps}>
-                            <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
+                            <motion.div
+                                className="h-40 w-[300px] flex items-center justify-center my-2 border bg-secondary text-primary rounded-md"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.5 }}
+                            >
                                 <h1 className="text-xl">Step {index + 1}</h1>
-                            </div>
+                            </motion.div>
                         </Step>
                     );
                 })}
@@ -128,9 +147,16 @@ const Footer = () => {
     return (
         <>
             {hasCompletedAllSteps && (
-                <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
+                // add slide out animation
+                <motion.div
+                    className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-                </div>
+                </motion.div>
             )}
             <div className="w-full flex justify-end gap-2">
                 {hasCompletedAllSteps ? (
@@ -151,4 +177,5 @@ const Footer = () => {
         </>
     );
 };
+
 export default Home;

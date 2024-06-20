@@ -23,13 +23,8 @@ export type ModalProps = {
 };
 
 const MODALS = {
-    modals: {
-        id: "modals",
-        open: true,
-        meta: undefined,
-    },
-    LoginModal: {
-        id: "LoginModal",
+    retirement: {
+        id: "retirement",
         open: false,
         meta: undefined,
     },
