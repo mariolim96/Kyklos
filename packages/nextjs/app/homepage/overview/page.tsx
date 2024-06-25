@@ -13,7 +13,6 @@ const HomePage: NextPage = () => {
     return (
         <div className="">
             <CarbonStats />
-
             <CarbonPoolComponent></CarbonPoolComponent>
             <InfoCards />
         </div>

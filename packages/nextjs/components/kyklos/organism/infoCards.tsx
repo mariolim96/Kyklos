@@ -35,7 +35,7 @@ const InfoCards = () => {
     ];
 
     return (
-        <div className="flex space-x-4">
+        <div className="flex gap-4 sm:flex-col md:lg:xl:2xl:flex-row justify-between">
             {cards.map((card, index) => (
                 <a
                     key={index}

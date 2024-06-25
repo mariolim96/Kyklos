@@ -3,7 +3,6 @@ import { gql } from "@apollo/client";
 const getUserTokens = gql`
     query GetUserTokenBalance($address: ID!) {
         user(id: $address) {
-            id
             tokensOwned {
                 id
                 balance
@@ -12,6 +11,8 @@ const getUserTokens = gql`
                     name
                     symbol
                     projectVintage {
+                        id
+                        name
                         project {
                             projectId
                         }
@@ -29,6 +30,8 @@ type UserTokenOwned = {
         name: string;
         symbol: string;
         projectVintage: {
+            id: string;
+            name: string;
             project: {
                 projectId: string;
             };

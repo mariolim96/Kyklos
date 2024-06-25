@@ -1,25 +1,18 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { useQuery } from "@apollo/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useAccount } from "wagmi";
 import ListVisualizer from "~~/components/kyklos/organism/listVisualizer";
 import { Button } from "~~/components/kyklos/ui/button";
 import { Text } from "~~/components/kyklos/ui/text";
-import { UserTokenOwned, getUserTokens } from "~~/services/graphql/query";
+import { useUserTokensAndBalance } from "~~/services/graphql/apis";
+import { UserTokenOwned } from "~~/services/graphql/query";
 import { modalSelectors } from "~~/services/store/modals";
 
 const TokenList = () => {
-    const { address } = useAccount();
     const openModal = modalSelectors.use.openModal();
-    const modals = modalSelectors.use.modals();
-    console.log("modals:", modals);
-    const { loading, data } = useQuery(getUserTokens, {
-        variables: { address: address?.toLowerCase() },
-        skip: !address,
-        // pollInterval: 1000,
-    });
-    console.log("{ loading, data }:", { loading, data });
+    const { data, loading } = useUserTokensAndBalance();
     const columns: ColumnDef<UserTokenOwned>[] = [
         {
             id: "retirementImage",

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button } from "../ui/button";
 import { Step, StepItem, Stepper, useStepper } from "../ui/stepper";
@@ -32,15 +34,17 @@ const MultistepModal = ({ steps, initialStep, views, footer }: Props) => {
                 {steps.map((stepProps, index) => {
                     return (
                         <Step key={stepProps.label} {...stepProps}>
-                            <motion.div
-                                className=""
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.5 }}
-                            >
-                                {views[index]}
-                            </motion.div>
+                            <div className="flex flex-col">
+                                <motion.div
+                                    className="flex-1"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.5 }}
+                                >
+                                    {views[index]}
+                                </motion.div>
+                            </div>
                         </Step>
                     );
                 })}

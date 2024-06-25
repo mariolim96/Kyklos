@@ -89,7 +89,7 @@ module.exports = {
             fontFamily: {
                 montserrat: ["var(--font-monserrat)", "monserrat", "sans-serif"],
             },
-            
+
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
@@ -129,12 +129,12 @@ module.exports = {
                 },
                 overlay: {
                     DEFAULT: "hsl(var(--overlay))",
-                    focus: "hsl(var(--overlay-focus))",
+                    focus: "hsl(var(--overlay-focus) / <alpha-value> )",
                     2: "hsl(var(--overlay-2))",
                     "2-focus": "hsl(var(--overlay-2-focus))",
                     content: "hsl(var(--overlay-content))",
-                    "content-2": "hsl(var(--overlay-2-content))",
-                    "content-3": "hsl(var(--overlay-3-content))",
+                    "content-2": "hsl(var(--overlay-content-2))",
+                    "content-3": "hsl(var(--overlay-content-3))",
                 },
                 line: {
                     DEFAULT: "hsl(var(--line))",
@@ -147,8 +147,8 @@ module.exports = {
                     "content-2": "hsl(var(--input-2-content))",
                 },
                 primary: {
-                    DEFAULT: "hsl(var(--primary))",
-                    foreground: "hsl(var(--primary-foreground))",
+                    DEFAULT: "hsl(var(--color-primary) / <alpha-value>)",
+                    foreground: "hsl(var(--primary-content))",
                     focus: "hsl(var(--primary-focus))",
                     subtle: "hsl(var(--primary-subtle))",
                     content: "hsl(var(--primary-content))",
