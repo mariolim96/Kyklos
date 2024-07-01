@@ -60,7 +60,7 @@ function ListVisualizer<T>({ data, columns, isLoading, hasFilters }: ListVisuali
         getPaginationRowModel: getPaginationRowModel(),
         getFacetedUniqueValues: getFacetedUniqueValues(),
         // debugTable: true,
-        debugHeaders: true,
+        // debugHeaders: true,
         debugColumns: false,
     });
 

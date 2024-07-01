@@ -38,9 +38,11 @@ const generateCategoryPercentage = (
 ) => {
     if (!data) return { categories, total: 0 };
     let amount = 0;
+    let amoutInKco2 = 0;
     const categoryMap = new Map<string, number>();
     data.forEach(retirement => {
         amount += retirement.amount;
+        amoutInKco2 += retirement.amount / 1e18;
         const category = retirement.token.projectVintage.project.category;
         if (categoryMap.has(category)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -54,7 +56,7 @@ const generateCategoryPercentage = (
             const percentage = (categoryMap.get(category.name) ?? 0) / amount;
             return { ...category, percentage: percentage * 100 };
         }),
-        total: amount / 1e18,
+        total: amoutInKco2,
     };
 };
 

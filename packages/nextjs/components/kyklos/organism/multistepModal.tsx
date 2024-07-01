@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Button } from "../ui/button";
 import { Step, StepItem, Stepper, useStepper } from "../ui/stepper";
 import { motion } from "framer-motion";
 
@@ -16,7 +15,7 @@ const MultistepModal = ({ steps, initialStep, views, footer }: Props) => {
     const { activeStep } = useStepper();
 
     return (
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col">
             <Stepper
                 initialStep={initialStep ?? 0}
                 steps={steps}
@@ -48,7 +47,7 @@ const MultistepModal = ({ steps, initialStep, views, footer }: Props) => {
                         </Step>
                     );
                 })}
-                {footer ?? <Footer />}
+                {footer}
             </Stepper>
         </div>
     );
@@ -56,39 +55,39 @@ const MultistepModal = ({ steps, initialStep, views, footer }: Props) => {
 
 export default MultistepModal;
 
-const Footer = () => {
-    const { nextStep, prevStep, resetSteps, isDisabledStep, hasCompletedAllSteps, isLastStep, isOptionalStep } =
-        useStepper();
-    return (
-        <>
-            {hasCompletedAllSteps && (
-                // add slide out animation
-                <motion.div
-                    className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-                </motion.div>
-            )}
-            <div className="w-full flex justify-end gap-2">
-                {hasCompletedAllSteps ? (
-                    <Button size="sm" onClick={resetSteps}>
-                        Reset
-                    </Button>
-                ) : (
-                    <>
-                        <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="secondary">
-                            Prev
-                        </Button>
-                        <Button size="sm" onClick={nextStep}>
-                            {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-                        </Button>
-                    </>
-                )}
-            </div>
-        </>
-    );
-};
+// const Footer = () => {
+//     const { nextStep, prevStep, resetSteps, isDisabledStep, hasCompletedAllSteps, isLastStep, isOptionalStep } =
+//         useStepper();
+//     return (
+//         <>
+//             {hasCompletedAllSteps && (
+//                 // add slide out animation
+//                 <motion.div
+//                     className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md"
+//                     initial={{ opacity: 0, y: 10 }}
+//                     animate={{ opacity: 1, y: 0 }}
+//                     exit={{ opacity: 0, y: -10 }}
+//                     transition={{ duration: 0.5 }}
+//                 >
+//                     <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
+//                 </motion.div>
+//             )}
+//             <div className="w-full h-12 flex justify-end items-end gap-2">
+//                 {hasCompletedAllSteps ? (
+//                     <Button size="lg" onClick={resetSteps}>
+//                         Reset
+//                     </Button>
+//                 ) : (
+//                     <>
+//                         <Button disabled={isDisabledStep} onClick={prevStep} size="lg" variant="secondary">
+//                             Prev
+//                         </Button>
+//                         <Button size="lg" onClick={nextStep}>
+//                             {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
+//                         </Button>
+//                     </>
+//                 )}
+//             </div>
+//         </>
+//     );
+// };

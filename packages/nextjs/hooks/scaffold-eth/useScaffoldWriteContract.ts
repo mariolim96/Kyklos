@@ -23,6 +23,7 @@ import {
 export const useScaffoldWriteContract = <TContractName extends ContractName>(
     contractName: TContractName,
     writeContractParams?: UseWriteContractParameters,
+    beaconContractAddress?: string,
 ) => {
     const { chain } = useAccount();
     const writeTx = useTransactor();
@@ -60,7 +61,7 @@ export const useScaffoldWriteContract = <TContractName extends ContractName>(
                 wagmiContractWrite.writeContractAsync(
                     {
                         abi: deployedContractData.abi as Abi,
-                        address: deployedContractData.address,
+                        address: beaconContractAddress ?? deployedContractData.address,
                         ...variables,
                     } as WriteContractVariables<Abi, string, any[], Config, number>,
                     mutateOptions as
