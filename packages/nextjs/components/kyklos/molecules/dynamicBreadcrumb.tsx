@@ -1,6 +1,4 @@
-"use client";
-
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
     Breadcrumb,
@@ -13,14 +11,17 @@ import {
 
 const DynamicBreadcrumb = () => {
     const pathname = usePathname();
-    const pathParts = pathname.split("/").filter(Boolean);
+    const [breadcrumbParts, setBreadcrumbParts] = useState<string[]>([]);
 
-    // Ensure "homepage" is treated as the base/root path
-    const baseIndex = pathParts.indexOf("homepage");
-    const breadcrumbParts = baseIndex !== -1 ? pathParts.slice(baseIndex) : pathParts;
+    useEffect(() => {
+        const pathParts = pathname.split("/").filter(Boolean);
+        const baseIndex = pathParts.indexOf("homepage");
+        const parts = baseIndex !== -1 ? pathParts.slice(baseIndex) : pathParts;
+        setBreadcrumbParts(parts as string[]);
+    }, [pathname]);
 
     return (
-        <Breadcrumb className=" mt-4 ml-8 ">
+        <Breadcrumb className="mt-4 ml-8">
             <BreadcrumbList>
                 <BreadcrumbItem>
                     <BreadcrumbLink href="/homepage">Home</BreadcrumbLink>

@@ -16,6 +16,7 @@ import { Button } from "~~/components/kyklos/ui/button";
 import { Label } from "~~/components/kyklos/ui/label";
 import { Separator } from "~~/components/kyklos/ui/separator";
 import { Text } from "~~/components/kyklos/ui/text";
+import { useNavigate } from "~~/hooks/kyklos/useNavigate";
 import { GetRetirementType, getRetirement } from "~~/services/graphql/query";
 import { kcoToTonne } from "~~/utils/converter";
 import { formatTimestamp } from "~~/utils/time";
@@ -29,6 +30,7 @@ export default function Page({ params }: { params: { id: string } }) {
         height: "45px",
     };
 
+    const navigate = useNavigate();
     if (loading) {
         return (
             <div className="w-full flex items-center justify-center">
@@ -144,7 +146,16 @@ export default function Page({ params }: { params: { id: string } }) {
                                 </Text>
                             }
                         />
-                        <Button variant="outline">See project details</Button>
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                navigate.replace(
+                                    `homepage/projects/${data.retirement.token.projectVintage.project.id}`,
+                                );
+                            }}
+                        >
+                            See project details
+                        </Button>
                     </div>
                     <div className="min-h-[250px] w-full bg-green-100 rounded-md my-8 flex flex-col items-center justify-center">
                         <Text as="h1" element="blockquote" className="text-base-content font-medium">
@@ -205,7 +216,7 @@ export default function Page({ params }: { params: { id: string } }) {
                             }
                             subTitle={
                                 <Text as="h4" element="h4" className="text-base-content-2 w-32">
-                                    {data.retirement.token.projectVintage.project.category}
+                                    {data.retirement.certificate.retiringEntityString}
                                 </Text>
                             }
                         />
@@ -246,7 +257,7 @@ export default function Page({ params }: { params: { id: string } }) {
                             }
                             subTitle={
                                 <Text as="h4" element="h4" className="text-base-content-2 w-32">
-                                    {data.retirement.token.projectVintage.project.category}
+                                    {data.retirement.certificate.beneficiaryString}
                                 </Text>
                             }
                         />

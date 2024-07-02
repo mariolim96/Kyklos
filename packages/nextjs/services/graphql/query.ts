@@ -63,29 +63,6 @@ const getProjects = gql`
     }
 `;
 
-// const getUserRetirements = gql`
-//     query allRetirement($id: ID!) {
-//         user(id: $id) {
-//             retirementsCreated {
-//                 id
-//                 amount
-//                 creationTx
-//                 eventId
-//                 timestamp
-//                 certificate {
-//                     beneficiaryString
-//                     createdAt
-//                     creationTx
-//                     retirementMessage
-//                     retiringEntityString
-//                     beneficiary {
-//                         id
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// `;
 const getUserRetirements = gql`
     query allRetirement($id: ID = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266") {
         user(id: $id) {
@@ -154,6 +131,9 @@ const getRetirement = gql`
                 createdAt
                 retirementMessage
                 retiringEntityString
+                retiringEntity {
+                    id
+                }
                 creationTx
                 beneficiary {
                     id
@@ -162,6 +142,7 @@ const getRetirement = gql`
             token {
                 projectVintage {
                     project {
+                        id
                         projectId
                         category
                         standard
@@ -184,6 +165,7 @@ type Retirement = {
         retirementMessage: string;
         retiringEntityString: string;
         creationTx: string;
+
         beneficiary: {
             id: string;
         };
@@ -191,6 +173,7 @@ type Retirement = {
     token: {
         projectVintage: {
             project: {
+                id: string;
                 projectId: string;
                 category: string;
                 standard: string;

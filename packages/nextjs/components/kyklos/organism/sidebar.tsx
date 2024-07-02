@@ -37,9 +37,8 @@ const Sidebar = (props: Props) => {
     const [open, setOpen] = React.useState(true);
     const [selected, setSelected] = React.useState(menu.findIndex(item => pathName.includes(item.href)));
     const navigate = useRouter();
-    const onButtonClick = (index: number, href: string) => {
+    const onButtonClick = (index: number) => {
         setSelected(index);
-        navigate.push(href);
     };
 
     return (
@@ -68,7 +67,7 @@ const Sidebar = (props: Props) => {
                 tabIndex={0}
                 onKeyUp={e => {
                     if (e.key === "Enter") {
-                        navigate.push("/");
+                        navigate.push("/homepage");
                     }
                 }}
             >

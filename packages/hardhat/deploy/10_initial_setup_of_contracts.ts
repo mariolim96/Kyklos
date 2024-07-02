@@ -265,6 +265,9 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   // deposit tokens into the pool
   try {
     const token = await carbonOffsetFactory.pvIdtoERC20(1);
+    const token1 = await carbonOffsetFactory.pvIdtoERC20(2);
+    const token2 = await carbonOffsetFactory.pvIdtoERC20(3);
+    console.log(token, "token1:", token1, "token2:", token2);
     const carbonOffsetToken = (await ethers.getContractAt("KyklosCarbonOffsets", token)) as Contract &
       KyklosCarbonOffsets;
     const approveTx = await carbonOffsetToken.approve(poolAddress, 1000000000000000000n);
