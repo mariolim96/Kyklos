@@ -43,7 +43,7 @@ type getUserTokensResponse = {
         tokensOwned: UserTokenOwned[];
     };
 };
-
+////////////////////////////////////////////////////
 const getProjects = gql`
     query GetProjects {
         projects(first: 10) {
@@ -62,7 +62,7 @@ const getProjects = gql`
         }
     }
 `;
-
+////////////////////////////////////////////////////
 const getUserRetirements = gql`
     query allRetirement($id: ID = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266") {
         user(id: $id) {
@@ -100,7 +100,7 @@ type getUserRetirementsType = {
         retirementsCreated: userRetirements[];
     };
 };
-
+////////////////////////////////////////////////////
 const getProject = (projectId: string) => gql`
 query MyQuery {
   project(id: "${projectId}") {
@@ -119,6 +119,7 @@ query MyQuery {
   }
 }
 `;
+////////////////////////////////////////////////////
 const getRetirement = gql`
     query retirement($id: ID!) {
         retirement(id: $id) {
@@ -187,6 +188,7 @@ type GetRetirementType = {
     retirement: Retirement;
 };
 
+////////////////////////////////////////////////////
 const getAllUserRetirementCategoryAndAmount = gql`
     query allRetirement($id: ID!) {
         user(id: $id) {
@@ -204,7 +206,6 @@ const getAllUserRetirementCategoryAndAmount = gql`
         }
     }
 `;
-
 type allRetirementCategoryAndAmount = {
     id: string;
     amount: number;
@@ -222,7 +223,52 @@ type getAllUserRetirementCategoryAndAmountType = {
         retirementsCreated: allRetirementCategoryAndAmount[];
     };
 };
+////////////////////////////////////////////////////
+const getUserPoolBalance = gql`
+    query GetUserPoolBalance($id: ID!) {
+        userPoolBalance(id: $id) {
+            balance
+            pool {
+                id
+                name
+            }
+            user {
+                id
+            }
+        }
+    }
+`;
+type userPoolBalance = {
+    balance: number;
+    pool: {
+        id: string;
+        name: string;
+    };
+    user: {
+        id: string;
+    };
+};
 
+type getUserPoolBalanceType = {
+    userPoolBalance: userPoolBalance;
+};
+////////////////////////////////////////////////////
+const getPool = gql`
+    query MyQuery($id: ID!) {
+        pool(id: $id) {
+            id
+            totalCarbonLocked
+        }
+    }
+`;
+type pool = {
+    id: string;
+    totalCarbonLocked: number;
+};
+type getPoolType = {
+    pool: pool;
+};
+////////////////////////////////////////////////////
 export {
     getUserTokens,
     getProjects,
@@ -230,6 +276,8 @@ export {
     getProject,
     getRetirement,
     getAllUserRetirementCategoryAndAmount,
+    getUserPoolBalance,
+    getPool,
 };
 export type {
     getUserTokensResponse,
@@ -240,4 +288,8 @@ export type {
     GetRetirementType,
     allRetirementCategoryAndAmount,
     getAllUserRetirementCategoryAndAmountType,
+    userPoolBalance,
+    getUserPoolBalanceType,
+    pool,
+    getPoolType,
 };

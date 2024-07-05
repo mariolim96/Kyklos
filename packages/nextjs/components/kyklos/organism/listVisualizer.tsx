@@ -23,7 +23,6 @@ import {
 } from "@tanstack/react-table";
 import { CiBoxList } from "react-icons/ci";
 import { PiSquaresFourLight } from "react-icons/pi";
-import { useNavigate } from "~~/hooks/kyklos/useNavigate";
 import { cn } from "~~/utils/utils";
 
 // Define generic props
@@ -39,7 +38,6 @@ function ListVisualizer<T>({ data, columns, isLoading, hasFilters }: ListVisuali
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
-    const navigate = useNavigate();
 
     const table = useReactTable<T>({
         data,
@@ -112,14 +110,7 @@ function ListVisualizer<T>({ data, columns, isLoading, hasFilters }: ListVisuali
                                 data-state={row.getIsSelected() && "selected"}
                             >
                                 {row.getVisibleCells().map(cell => (
-                                    <TableCell
-                                        className="p-0 text-lg font-medium text-base-content"
-                                        onClick={() => {
-                                            console.log(row);
-                                            navigate.push(`projects/project/${(row.original as any)?.id}`);
-                                        }}
-                                        key={cell.id}
-                                    >
+                                    <TableCell className="p-0 text-lg font-medium text-base-content" key={cell.id}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </TableCell>
                                 ))}

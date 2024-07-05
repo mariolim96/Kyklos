@@ -9,6 +9,7 @@ type User @entity {
   retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
   #   redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
   tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
+  poolBalances: [UserPoolBalance!]! @derivedFrom(field: "user")
 }
 
 type Project @entity {
@@ -111,11 +112,11 @@ type PooledKCO2Token @entity {
 
 type Deposit @entity {
   id: ID!
-  amount: BigInt
-  timestamp: BigInt
-  token: KCO2Token
-  pool: String
-  creator: User
+  amount: BigInt!
+  timestamp: BigInt!
+  token: KCO2Token!
+  pool: Pool!
+  creator: User!
 }
 
 type Redeem @entity {
@@ -123,6 +124,22 @@ type Redeem @entity {
   amount: BigInt!
   timestamp: BigInt!
   token: KCO2Token!
-  pool: String!
+  pool: Pool!
   creator: User!
+}
+
+type UserPoolBalance @entity {
+  id: ID!
+  user: User!
+  pool: Pool!
+  balance: BigInt!
+}
+
+type Pool @entity {
+  id: ID! # address
+  name: String
+  totalCarbonLocked: BigInt!
+  poolBalances: [UserPoolBalance!]! @derivedFrom(field: "pool")
+  deposits: [Deposit!]! @derivedFrom(field: "pool")
+  redeems: [Redeem!]! @derivedFrom(field: "pool")
 }

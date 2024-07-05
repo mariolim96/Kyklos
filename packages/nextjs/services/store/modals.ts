@@ -28,6 +28,16 @@ const MODALS = {
         open: false,
         meta: undefined,
     },
+    deposit: {
+        id: "deposit",
+        open: false,
+        meta: undefined,
+    },
+    redeem: {
+        id: "redeem",
+        open: false,
+        meta: undefined,
+    },
 };
 export type modalsKeys = keyof typeof MODALS;
 export type ModalMap = { [key in modalsKeys]: Modal };

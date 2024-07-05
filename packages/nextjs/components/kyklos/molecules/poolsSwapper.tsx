@@ -1,14 +1,11 @@
 "use client";
 
 import React from "react";
-import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import { Text } from "../ui/text";
 import TokenSwapper from "./tokenSwapper";
-import { useAtom } from "jotai";
-import { price, selectedToken } from "~~/app/homepage/pools/components/atoms";
 
 type props = {
     list: {
@@ -16,21 +13,22 @@ type props = {
         name: string;
         balance: number;
     }[];
-    inputString?: string;
+    inputString: string;
+    value: string;
+    setValue: (value: string) => void;
+    selectedValue: number;
 };
-function CarbonTonneCard({ list, inputString }: props) {
-    const [tokenPrice, setPrice] = useAtom(price);
-    const [selectedValue] = useAtom(selectedToken);
+function PoolSwapper({ list, inputString, selectedValue, setValue, value }: props) {
     return (
-        <Card className="flex items-center justify-start p-2 px-4 bg-base">
+        <Card className="flex items-center justify-start p-2 px-4 bg-base z-20">
             <TokenSwapper list={list} placeholder="select the token" />
             <Separator orientation="vertical" className="h-16 m-2" />
             <div className="flex flex-col w-1/3 justify-start ">
                 <Text as="h5" element="h5" className="font-semibold">
-                    {list[selectedValue].balance} KCO
+                    {list[selectedValue].balance} KCT
                 </Text>
                 <Text as="h5" element="h5" className="text-sm text-gray-500">
-                    Balance in wallet
+                    Carbon in pool
                 </Text>
             </div>
             <Separator orientation="vertical" className="h-16 m-2" />
@@ -39,23 +37,17 @@ function CarbonTonneCard({ list, inputString }: props) {
                     <Input
                         type="textfield"
                         className="w-20 h-8"
-                        onChange={e => setPrice(e.target.value)}
+                        onChange={e => setValue(e.target.value)}
                         placeholder="0.0"
-                        value={tokenPrice}
+                        value={value}
                     ></Input>
                     <Text as="h5" element="h5" className="text-sm whitespace-nowrap text-gray-500">
                         {inputString ?? "BCT to Redeem"}
                     </Text>
                 </div>
-                <Button
-                    onClick={() => {
-                        setPrice(String(list[selectedValue].balance));
-                    }}
-                >
-                    Max
-                </Button>
             </div>
         </Card>
     );
 }
-export default CarbonTonneCard;
+
+export default PoolSwapper;

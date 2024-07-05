@@ -41,6 +41,7 @@ abstract contract PoolStorageV1 {
 	/// @notice Project token id to total supply of the project
 	/// in the pool.
 	mapping(uint256 => uint256) public totalPerProjectTCO2Supply;
+    
 }
 
 

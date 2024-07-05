@@ -23,7 +23,7 @@ const TokenSwapper = ({ list, placeholder }: Props) => {
         <Select value={String(selectedValue)} onValueChange={value => setSelectedValue(Number(value))}>
             <SelectTrigger className=" border-0 w-64 shadow-none pl-1 h-12">
                 <SelectValue placeholder={placeholder}>
-                    <div className="flex">
+                    <div className="flex items-center gap-2 ">
                         <Image
                             src={"/token.png"}
                             alt="kco2"
@@ -31,13 +31,15 @@ const TokenSwapper = ({ list, placeholder }: Props) => {
                             height="55"
                             className=" align-middle content-center rounded-full inline"
                         />
-                        <div className="flex flex-col items-start">
-                            <Text as="h5" element="h5" className="font-semibold">
-                                {list[Number(selectedValue)].name}
-                            </Text>
-                            <Text as="h5" element="h5" className="text-sm text-gray-500">
-                                {list[Number(selectedValue)].balance} KCO
-                            </Text>
+                        <div className="flex flex-col justify-start items-start">
+                            {list[Number(selectedValue)].name
+                                .split("-")
+                                .slice(0, 2)
+                                .map((item, index) => (
+                                    <Text as="h5" element="h5" className="font-semibold truncate" key={index}>
+                                        {item}
+                                    </Text>
+                                ))}
                         </div>
                     </div>
                 </SelectValue>
@@ -46,7 +48,7 @@ const TokenSwapper = ({ list, placeholder }: Props) => {
                 <SelectGroup>
                     {list.map((item, index) => (
                         <SelectItem key={index} value={index.toString()}>
-                            <div className="flex">
+                            <div className="flex gap-2">
                                 <Image
                                     src={"/token.png"}
                                     alt="kco2"
