@@ -8,6 +8,65 @@ import { PooledKCO2Token, Deposit, Redeem, KCO2Balance, UserPoolBalance, Pool } 
 
 export function handleRedeemed(event: RedeemedEvent): void {
   log.info('Redeemed: {}', [`${event.params.amount}`]);
+  const amount = event.params.amount;
+  const token = event.params.erc20;
+  const account = event.params.account;
+  const pool = Pool.load(event.address.toHexString());
+  if (!pool) {
+    log.error('Pool not found', []);
+    return;
+  }
+  const poolTokenId = `${event.address.toHexString()}-${token.toHexString()}`;
+  let pooledTokens = PooledKCO2Token.load(poolTokenId);
+  if (!pooledTokens) {
+    log.error('Pooled tokens not found', []);
+    return;
+  }
+  pooledTokens.amount = pooledTokens.amount.minus(amount);
+  if (pooledTokens.amount.lt(BigInt.zero())) {
+    log.error('Negative balance detected', []);
+    return;
+  }
+  pooledTokens.save();
+  const userPoolBalanceId = `${account.toHexString()}-${event.address.toHexString()}`;
+  let userPoolBalance = UserPoolBalance.load(userPoolBalanceId);
+  if (!userPoolBalance) {
+    log.error('User pool balance not found', []);
+    return;
+  }
+  userPoolBalance.balance = userPoolBalance.balance.minus(amount);
+  if (userPoolBalance.balance.lt(BigInt.zero())) {
+    log.error('Negative balance detected', []);
+    return;
+  }
+  userPoolBalance.save();
+  pool.totalCarbonLocked = pool.totalCarbonLocked.minus(amount);
+  pool.save();
+  // adjust kco2 balance
+  const tokenId = `${account.toHexString()}-${token.toHexString()}`;
+  let tokenBalance = KCO2Balance.load(tokenId);
+  if (!tokenBalance) {
+    log.error('Token balance not found', []);
+    return;
+  }
+  tokenBalance.balance = tokenBalance.balance.plus(amount);
+  tokenBalance.save();
+  const redeemId = `${event.transaction.hash.toHexString()}-${event.logIndex.toString()}`;
+  let redeem = new Redeem(redeemId);
+  redeem.amount = amount;
+  redeem.timestamp = event.block.timestamp;
+  redeem.creator = account.toHexString();
+  redeem.pool = event.address.toHexString();
+  redeem.token = token.toHexString();
+  redeem.save();
+  log.info('redeming processed {} {} {} {} {} ', [
+    `redeemId: ${redeemId}`,
+    `amount: ${amount.toString()}`,
+    `timestamp: ${event.block.timestamp.toString()}`,
+    `creator: ${account.toHexString()}`,
+    `pool: ${event.address.toHexString()}`,
+    `token: ${token.toHexString()}`,
+  ]);
 }
 export function handleDeposited(event: DepositedEvent): void {
   log.info('Deposited: {}', [`${event.transaction.hash.toHexString()}`]);

@@ -294,6 +294,13 @@ contract Pool is
 		}
 	}
 
+    function redeemOutMany (
+        address[] memory tco2s,
+        uint256[] memory amounts
+    ) external returns (uint256 poolAmountSpent) {
+        return _redeemOutMany(tco2s, amounts);
+    }
+
 	/// @dev Implemented in order to disable transfers when paused
 	function _beforeTokenTransfer(
 		address from,

@@ -14,7 +14,7 @@ import {
 } from "../typechain-types";
 import { ProjectDataStruct } from "../typechain-types/contracts/CarbonProjects";
 import { VintageDataStruct } from "../typechain-types/contracts/CarbonProjectVintages";
-import { BigNumberish, Contract } from "ethers";
+import { AddressLike, BigNumberish, Contract } from "ethers";
 import { CreateRetirementRequestParamsStruct } from "../typechain-types/contracts/RetirementCertificates";
 
 const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
@@ -270,11 +270,14 @@ const initialSetup: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     console.log(token, "token1:", token1, "token2:", token2);
     const carbonOffsetToken = (await ethers.getContractAt("KyklosCarbonOffsets", token)) as Contract &
       KyklosCarbonOffsets;
-    const approveTx = await carbonOffsetToken.approve(poolAddress, 1000000000000000000n);
+    const approveTx = await carbonOffsetToken.approve(poolAddress, 2000000000000000000n);
     await approveTx.wait();
-    const depositTx = await pool.deposit(token, 1000000000000000000n);
+    const depositTx = await pool.deposit(token, 2000000000000000000n);
     await depositTx.wait();
     console.log("Tokens deposited into the pool successfully");
+    // retire the deposited token
+    const retireTx = await pool.redeemOutMany([token as AddressLike], [1000000000000000000n]);
+    await retireTx.wait();
   } catch (error) {
     console.error("Failed to deposit tokens into the pool:", error);
     throw new Error("Deployment failed during token deposit.");
