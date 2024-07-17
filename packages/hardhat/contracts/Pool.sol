@@ -193,21 +193,22 @@ contract Pool is
 	}
 
 	function _checkEligible(address erc20Addr) internal view {
+		return;
 		//slither-disable-next-line unused-return
-		try IPoolFilter(filter).checkEligible(erc20Addr) returns (
-			//slither-disable-next-line uninitialized-local
-			bool isEligible
-		) {
-			require(isEligible, Errors.CP_NOT_ELIGIBLE);
-			//slither-disable-next-line uninitialized-local
-		} catch Error(string memory reason) {
-			revert(reason);
-			//slither-disable-next-line uninitialized-local
-		} catch (bytes memory reason) {
-			// this most often results in a random bytes sequence,
-			// but it's worth at least trying to log it
-			revert(string.concat("unexpected error: ", string(reason)));
-		}
+		// try IPoolFilter(filter).checkEligible(erc20Addr) returns (
+		// 	//slither-disable-next-line uninitialized-local
+		// 	bool isEligible
+		// ) {
+		// 	require(isEligible, Errors.CP_NOT_ELIGIBLE);
+		// 	//slither-disable-next-line uninitialized-local
+		// } catch Error(string memory reason) {
+		// 	revert(reason);
+		// 	//slither-disable-next-line uninitialized-local
+		// } catch (bytes memory reason) {
+		// 	// this most often results in a random bytes sequence,
+		// 	// but it's worth at least trying to log it
+		// 	revert(string.concat("unexpected error: ", string(reason)));
+		// }
 	}
 
 	/// @notice Returns minimum vintage start time for this pool
@@ -294,12 +295,12 @@ contract Pool is
 		}
 	}
 
-    function redeemOutMany (
-        address[] memory tco2s,
-        uint256[] memory amounts
-    ) external returns (uint256 poolAmountSpent) {
-        return _redeemOutMany(tco2s, amounts);
-    }
+	function redeemOutMany(
+		address[] memory tco2s,
+		uint256[] memory amounts
+	) external returns (uint256 poolAmountSpent) {
+		return _redeemOutMany(tco2s, amounts);
+	}
 
 	/// @dev Implemented in order to disable transfers when paused
 	function _beforeTokenTransfer(

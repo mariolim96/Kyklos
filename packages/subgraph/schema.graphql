@@ -7,7 +7,7 @@ type User @entity {
   vintagesOwned: [ProjectVintage!]! @derivedFrom(field: "owner")
   vintagesCreated: [ProjectVintage!]! @derivedFrom(field: "creator")
   retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
-  #   redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
+  redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
   tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
   poolBalances: [UserPoolBalance!]! @derivedFrom(field: "user")
 }
@@ -106,7 +106,7 @@ type Retirement @entity {
 type PooledKCO2Token @entity {
   id: ID!
   token: KCO2Token!
-  poolAddress: String!
+  poolAddress: Pool!
   amount: BigInt!
 }
 
@@ -139,7 +139,8 @@ type Pool @entity {
   id: ID! # address
   name: String
   totalCarbonLocked: BigInt!
-#   filters: [String!]
+  #   filters: [String!]
+  pooledTokens: [PooledKCO2Token!]! @derivedFrom(field: "poolAddress")
   poolBalances: [UserPoolBalance!]! @derivedFrom(field: "pool")
   deposits: [Deposit!]! @derivedFrom(field: "pool")
   redeems: [Redeem!]! @derivedFrom(field: "pool")

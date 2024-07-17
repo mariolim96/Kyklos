@@ -23,7 +23,6 @@ contract RetirementCertificates is
     ERC721Upgradeable,
     OwnableUpgradeable,
     UUPSUpgradeable,
-    RetirementCertificatesStorageV1,
     ReentrancyGuardUpgradeable,
     RetirementCertificatesStorage
 {

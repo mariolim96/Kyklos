@@ -269,6 +269,53 @@ type getPoolType = {
     pool: pool;
 };
 ////////////////////////////////////////////////////
+
+const getPoolPooledTokens = gql`
+    query GetPoolData($poolId: ID!, $userId: ID!) {
+        pool(id: $poolId) {
+            id
+            name
+            totalCarbonLocked
+            pooledTokens(where: { amount_gt: 0 }) {
+                id
+                token {
+                    id
+                    name
+                    symbol
+                }
+                amount
+            }
+            poolBalances(where: { user: $userId }) {
+                id
+                balance
+            }
+        }
+    }
+`;
+
+type pooledTokens = {
+    id: string;
+    amount: number;
+    token: {
+        id: string;
+        name: string;
+        symbol: string;
+    };
+};
+
+type userPoolBalancee = {
+    id: string;
+    balance: number;
+};
+type getPoolPooledTokensType = {
+    pool: {
+        id: string;
+        name: string;
+        pooledTokens: pooledTokens[];
+        poolBalances: userPoolBalancee[];
+    };
+};
+
 export {
     getUserTokens,
     getProjects,
@@ -278,6 +325,7 @@ export {
     getAllUserRetirementCategoryAndAmount,
     getUserPoolBalance,
     getPool,
+    getPoolPooledTokens,
 };
 export type {
     getUserTokensResponse,
@@ -292,4 +340,6 @@ export type {
     getUserPoolBalanceType,
     pool,
     getPoolType,
+    pooledTokens,
+    getPoolPooledTokensType,
 };

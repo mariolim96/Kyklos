@@ -1,0 +1,133 @@
+class CarbonProjects {
+    ' -- inheritance --
+	{abstract}ICarbonProjects
+	{abstract}CarbonProjectsStorage
+	{abstract}ERC721Upgradeable
+	{abstract}OwnableUpgradeable
+	{abstract}PausableUpgradeable
+	{abstract}Modifiers
+	{abstract}AccessControlUpgradeable
+	{abstract}UUPSUpgradeable
+
+    ' -- usingFor --
+	{abstract}📚Strings for [[string]]
+
+    ' -- vars --
+	+{static}[[string]] VERSION
+	+{static}[[uint256]] VERSION_RELEASE_CANDIDATE
+	+{static}[[bytes32]] MANAGER_ROLE
+
+    ' -- methods --
+	+**__constructor__**()
+	+initialize()
+	#_authorizeUpgrade()
+	+pause()
+	+unpause()
+	+setKyklosContractRegistry()
+	+addNewProject()
+	+updateProject()
+	+updateProjectId()
+	+updateBeneficiary()
+	+removeProject()
+	+🔍isValidProjectTokenId()
+	+🔍getProjectDataByTokenId()
+	+🔍supportsInterface()
+	#🔍_baseURI()
+	+setBaseURI()
+	+🔍tokenURI()
+
+}
+' -- inheritance / usingFor --
+CarbonProjects --[#DarkGoldenRod]|> ICarbonProjects
+CarbonProjects --[#DarkGoldenRod]|> CarbonProjectsStorage
+CarbonProjects --[#DarkGoldenRod]|> ERC721Upgradeable
+CarbonProjects --[#DarkGoldenRod]|> OwnableUpgradeable
+CarbonProjects --[#DarkGoldenRod]|> PausableUpgradeable
+CarbonProjects --[#DarkGoldenRod]|> Modifiers
+CarbonProjects --[#DarkGoldenRod]|> AccessControlUpgradeable
+CarbonProjects --[#DarkGoldenRod]|> UUPSUpgradeable
+CarbonProjects ..[#DarkOliveGreen]|> Strings : //for string//
+class CarbonProjectsStorage {
+    ' -- inheritance --
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[uint128]] projectTokenCounter
+	+[[uint128]] totalSupply
+	+[[address]] contractRegistry
+	+[[string]] baseURI
+	+[[mapping uint256=>ProjectData ]] projectData
+	+[[mapping string=>bool ]] projectIds
+	+[[mapping uint256=>bool ]] validProjectTokenIds
+	+[[mapping string=>uint256 ]] pidToTokenId
+
+    ' -- methods --
+
+}
+class CarbonProjectVintagesStorage {
+    ' -- inheritance --
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[uint128]] projectVintageTokenCounter
+	+[[uint128]] totalSupply
+	+[[address]] contractRegistry
+	+[[string]] baseURI
+	+[[mapping uint256=>VintageData ]] vintageData
+	+[[mapping uint256=>bool ]] validProjectVintageIds
+	+[[mapping uint256=>mapping uint64=>uint256  ]] pvToTokenId
+
+    ' -- methods --
+
+}
+class CarbonProjectVintages {
+    ' -- inheritance --
+	{abstract}CarbonProjectVintagesStorage
+	{abstract}ICarbonProjectVintages
+	{abstract}ERC721Upgradeable
+	{abstract}OwnableUpgradeable
+	{abstract}PausableUpgradeable
+	{abstract}AccessControlUpgradeable
+	{abstract}UUPSUpgradeable
+	{abstract}Modifiers
+	{abstract}ProjectUtils
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+{static}[[string]] VERSION
+	+{static}[[uint256]] VERSION_RELEASE_CANDIDATE
+	+{static}[[bytes32]] MANAGER_ROLE
+
+    ' -- methods --
+	+**__constructor__**()
+	+initialize()
+	#_authorizeUpgrade()
+	+pause()
+	+unpause()
+	+setKyklosContractRegistry()
+	+addNewVintage()
+	+🔍exists()
+	+updateProjectVintage()
+	+removeVintage()
+	+🔍getProjectVintageDataByTokenId()
+	+🔍supportsInterface()
+	#🔍_baseURI()
+	+setBaseURI()
+	+🔍tokenURI()
+
+}
+' -- inheritance / usingFor --
+CarbonProjectVintages --[#DarkGoldenRod]|> CarbonProjectVintagesStorage
+CarbonProjectVintages --[#DarkGoldenRod]|> ICarbonProjectVintages
+CarbonProjectVintages --[#DarkGoldenRod]|> ERC721Upgradeable
+CarbonProjectVintages --[#DarkGoldenRod]|> OwnableUpgradeable
+CarbonProjectVintages --[#DarkGoldenRod]|> PausableUpgradeable
+CarbonProjectVintages --[#DarkGoldenRod]|> AccessControlUpgradeable
+CarbonProjectVintages --[#DarkGoldenRod]|> UUPSUpgradeable
+CarbonProjectVintages --[#DarkGoldenRod]|> Modifiers
+CarbonProjectVintages --[#DarkGoldenRod]|> ProjectUtils
+
+@enduml

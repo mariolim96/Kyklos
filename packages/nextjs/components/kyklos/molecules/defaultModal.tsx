@@ -2,11 +2,9 @@
 
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-// import { Cross2Icon } from "@radix-ui/react-icons";
 import { modalSelectors, modalsKeys } from "~~/services/store/modals";
 
 const DefaultModal = ({ id, children }: { id: modalsKeys; children?: React.ReactNode }) => {
-    console.log("id:", id);
     const isOpen = modalSelectors.use.modals()[id]?.open;
     const closeModal = modalSelectors.use.closeModal();
     return (

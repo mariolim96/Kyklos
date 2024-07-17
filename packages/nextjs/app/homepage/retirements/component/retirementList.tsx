@@ -21,7 +21,6 @@ const RetirementList = () => {
         // pollInterval: 1000,
     });
     const navigate = useNavigate();
-    console.log("data:", data);
     const columns: ColumnDef<userRetirements>[] = [
         {
             id: "retirementImage",
@@ -96,7 +95,6 @@ const RetirementList = () => {
                         <Button
                             onClick={e => {
                                 e.stopPropagation();
-                                console.log(cell);
                                 navigate.push(`/homepage/retirements/${cell.row.original.id}`);
                             }}
                         >

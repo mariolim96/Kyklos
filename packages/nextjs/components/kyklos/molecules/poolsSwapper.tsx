@@ -13,12 +13,12 @@ type props = {
         name: string;
         balance: number;
     }[];
-    inputString: string;
+    secondInput: string;
     value: string;
     setValue: (value: string) => void;
     selectedValue: number;
 };
-function PoolSwapper({ list, inputString, selectedValue, setValue, value }: props) {
+function PoolSwapper({ list, secondInput, selectedValue, setValue, value }: props) {
     return (
         <Card className="flex items-center justify-start p-2 px-4 bg-base z-20">
             <TokenSwapper list={list} placeholder="select the token" />
@@ -42,7 +42,7 @@ function PoolSwapper({ list, inputString, selectedValue, setValue, value }: prop
                         value={value}
                     ></Input>
                     <Text as="h5" element="h5" className="text-sm whitespace-nowrap text-gray-500">
-                        {inputString ?? "BCT to Redeem"}
+                        {secondInput ?? "BCT to Redeem"}
                     </Text>
                 </div>
             </div>

@@ -1,0 +1,77 @@
+@startuml MyDiagram
+class KyklosContractRegistryStorageV1 {
+    ' -- inheritance --
+
+    ' -- usingFor --
+
+    ' -- vars --
+	#[[address]] _VintageStatusAddress
+	#[[address]] _carbonProjectsAddress
+	#[[address]] _carbonProjectVintagesAddress
+	#[[address]] _retirementCertificatesAddress
+	#[[string]] standardRegistries
+	+[[mapping address=>bool ]] projectVintageERC20Registry
+	+[[mapping string=>address ]] kyklosCarbonOffsetFactories
+
+    ' -- methods --
+
+}
+class KyklosContractRegistryStorage {
+    ' -- inheritance --
+	{abstract}KyklosContractRegistryStorageV1
+
+    ' -- usingFor --
+
+    ' -- vars --
+
+    ' -- methods --
+
+}
+' -- inheritance / usingFor --
+KyklosContractRegistryStorage --[#DarkGoldenRod]|> KyklosContractRegistryStorageV1
+
+class KyklosContractRegistry {
+    ' -- inheritance --
+	{abstract}OwnableUpgradeable
+	{abstract}AccessControlUpgradeable
+	{abstract}IKyklosContractRegistry
+	{abstract}UUPSUpgradeable
+	{abstract}KyklosContractRegistryStorage
+
+    ' -- usingFor --
+	{abstract}📚Strings for [[string]]
+
+    ' -- vars --
+	+{static}[[string]] VERSION
+	+{static}[[bytes32]] PAUSER_ROLE
+
+    ' -- methods --
+	+**__constructor__**()
+	+pauseSystem()
+	+unpauseSystem()
+	+initialize()
+	#_authorizeUpgrade()
+	+setVintageStatusAddress()
+	+setCarbonProjectsAddress()
+	+setCarbonProjectVintagesAddress()
+	+setKyklosCarbonOffsetsFactoryAddress()
+	-🔍standardRegistryExists()
+	+setRetirementCertificatesAddress()
+	+addERC20()
+	+🔍VintageStatusAddress()
+	+🔍carbonProjectsAddress()
+	+🔍carbonProjectVintagesAddress()
+	+🔍kyklosCarbonOffsetsFactoryAddress()
+	+🔍retirementCertificatesAddress()
+	+🔍isValidERC20()
+	+🔍supportedStandardRegistries()
+
+}
+' -- inheritance / usingFor --
+KyklosContractRegistry --[#DarkGoldenRod]|> OwnableUpgradeable
+KyklosContractRegistry --[#DarkGoldenRod]|> AccessControlUpgradeable
+KyklosContractRegistry --[#DarkGoldenRod]|> IKyklosContractRegistry
+KyklosContractRegistry --[#DarkGoldenRod]|> UUPSUpgradeable
+KyklosContractRegistry --[#DarkGoldenRod]|> KyklosContractRegistryStorage
+KyklosContractRegistry ..[#DarkOliveGreen]|> Strings : //for string//
+@enduml

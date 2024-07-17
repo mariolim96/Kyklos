@@ -1,0 +1,212 @@
+@startuml
+class KyklosCarbonOffsets {
+    ' -- inheritance --
+	{abstract}KyklosCarbonOffsetsWithBatchBase
+	{abstract}KyklosCarbonOffsetsDirectRetirements
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+{static}[[string]] VERSION
+	+{static}[[uint256]] VERSION_RELEASE_CANDIDATE
+
+    ' -- methods --
+	+initialize()
+	+🔍standardRegistry()
+	+🔍standardRegistryDecimals()
+
+}
+' -- inheritance / usingFor --
+KyklosCarbonOffsets --[#DarkGoldenRod]|> KyklosCarbonOffsetsWithBatchBase
+KyklosCarbonOffsets --[#DarkGoldenRod]|> KyklosCarbonOffsetsDirectRetirements
+
+
+class KyklosCarbonOffsetsFactory {
+    ' -- inheritance --
+	{abstract}KyklosCarbonOffsetsFactoryBase
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+{static}[[string]] VERSION
+	+{static}[[uint256]] VERSION_RELEASE_CANDIDATE
+
+    ' -- methods --
+	+initialize()
+	+setAdmin()
+	+🔍standardRegistry()
+	+🔍supportedStandards()
+
+}
+' -- inheritance / usingFor --
+KyklosCarbonOffsetsFactory --[#DarkGoldenRod]|> KyklosCarbonOffsetsFactoryBase
+class KyklosCarbonOffsetsWithBatchBase {
+    ' -- inheritance --
+	{abstract}IERC721Receiver
+	{abstract}KyklosCarbonOffsetsBase
+
+    ' -- usingFor --
+
+    ' -- vars --
+
+    ' -- methods --
+	+defractionalize()
+	+onERC721Received()
+	#🔍_getNormalizedDataFromBatch()
+	#🔍_batchAmountToTCO2Amount()
+	#🔍checkWhiteListed()
+
+}
+' -- inheritance / usingFor --
+KyklosCarbonOffsetsWithBatchBase --[#DarkGoldenRod]|> IERC721Receiver
+KyklosCarbonOffsetsWithBatchBase --[#DarkGoldenRod]|> KyklosCarbonOffsetsBase
+
+class KyklosCarbonOffsetsBase {
+    ' -- inheritance --
+	{abstract}ERC20Upgradeable
+	{abstract}KyklosCarbonOffsetsStorage
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+{static}[[bytes32]] DETOKENIZER_ROLE
+	+{static}[[bytes32]] TOKENIZER_ROLE
+	+{static}[[bytes32]] RETIREMENT_ROLE
+
+    ' -- methods --
+	+**__constructor__**()
+	+🔍projectVintageTokenId()
+	+🔍name()
+	+🔍symbol()
+	+🔍getGlobalProjectVintageIdentifiers()
+	+🔍getAttributes()
+	+🔍getVintageData()
+	+🔍getRemaining()
+	+🔍getDepositCap()
+	+burnFrom()
+	#_retire()
+	#_retireAndMintCertificate()
+	+transfer()
+	+transferFrom()
+	+standardRegistry()
+	+standardRegistryDecimals()
+
+}
+' -- inheritance / usingFor --
+KyklosCarbonOffsetsBase --[#DarkGoldenRod]|> ERC20Upgradeable
+KyklosCarbonOffsetsBase --[#DarkGoldenRod]|> KyklosCarbonOffsetsStorage
+class KyklosCarbonOffsetsStorage {
+    ' -- inheritance --
+
+    ' -- usingFor --
+
+    ' -- vars --
+	#[[uint256]] _projectVintageTokenId
+	+[[address]] contractRegistry
+	+[[mapping address=>uint256 ]] minterToId
+
+    ' -- methods --
+
+}
+class KyklosCarbonOffsetsDirectRetirements {
+    ' -- inheritance --
+	{abstract}KyklosCarbonOffsetsBase
+
+    ' -- usingFor --
+
+    ' -- vars --
+
+    ' -- methods --
+	+retire()
+	+retireFrom()
+	+retireAndMintCertificate()
+
+}
+' -- inheritance / usingFor --
+KyklosCarbonOffsetsDirectRetirements --[#DarkGoldenRod]|> KyklosCarbonOffsetsBase
+class KyklosCarbonOffsetsFactoryStorage {
+    ' -- inheritance --
+	{abstract}KyklosCarbonOffsetsFactoryStorageV1
+
+    ' -- usingFor --
+
+    ' -- vars --
+	-[[uint256]] __gap
+
+    ' -- methods --
+
+}
+class KyklosCarbonOffsetsFactoryStorageV1 {
+    ' -- inheritance --
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[address]] contractRegistry
+	+[[address]] deployedContracts
+	+[[mapping uint256=>address ]] pvIdtoERC20
+	+[[address]] beacon
+	+[[address]] bridgeFeeReceiver
+	+[[uint256]] bridgeFeePercentageInBase
+	+[[address]] bridgeFeeBurnAddress
+	+[[uint256]] bridgeFeeBurnPercentageInBase
+
+    ' -- methods --
+
+}
+' -- inheritance / usingFor --
+KyklosCarbonOffsetsFactoryStorage --[#DarkGoldenRod]|> KyklosCarbonOffsetsFactoryStorageV1
+class KyklosCarbonOffsetsFactoryBase {
+    ' -- inheritance --
+	{abstract}OwnableUpgradeable
+	{abstract}PausableUpgradeable
+	{abstract}UUPSUpgradeable
+	{abstract}ProjectUtils
+	{abstract}ProjectVintageUtils
+	{abstract}Modifiers
+	{abstract}KyklosCarbonOffsetsFactoryStorage
+	{abstract}AccessControlUpgradeable
+
+    ' -- usingFor --
+	{abstract}📚Strings for [[string]]
+
+    ' -- vars --
+	+{static}[[uint256]] bridgeFeeDivider
+	+{static}[[bytes32]] DETOKENIZER_ROLE
+	+{static}[[bytes32]] TOKENIZER_ROLE
+
+    ' -- methods --
+	+**__constructor__**()
+	#__KyklosCarbonOffsetsFactoryBase_init()
+	#_authorizeUpgrade()
+	+setBeacon()
+	+pause()
+	+unpause()
+	+setKyklosContractRegistry()
+	#deployNewProxy()
+	+deployFromVintage()
+	#🔍checkExistence()
+	#🔍hasValidStandard()
+	+🔍getContracts()
+	+🔍bridgeFeeReceiverAddress()
+	+🔍getBridgeFeeAndBurnAmount()
+	+setBridgeFeePercentage()
+	+setBridgeFeeReceiver()
+	+setBridgeFeeBurnPercentage()
+	+setBridgeFeeBurnAddress()
+	+🔍standardRegistry()
+	+🔍supportedStandards()
+
+}
+' -- inheritance / usingFor --
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> OwnableUpgradeable
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> PausableUpgradeable
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> UUPSUpgradeable
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> ProjectUtils
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> ProjectVintageUtils
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> Modifiers
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> KyklosCarbonOffsetsFactoryStorage
+KyklosCarbonOffsetsFactoryBase --[#DarkGoldenRod]|> AccessControlUpgradeable
+KyklosCarbonOffsetsFactoryBase ..[#DarkOliveGreen]|> Strings : //for string//
+
+@enduml

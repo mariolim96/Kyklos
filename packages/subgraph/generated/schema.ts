@@ -106,6 +106,14 @@ export class User extends Entity {
     );
   }
 
+  get redeemsCreated(): RedeemLoader {
+    return new RedeemLoader(
+      "User",
+      this.get("id")!.toString(),
+      "redeemsCreated"
+    );
+  }
+
   get tokensOwned(): KCO2BalanceLoader {
     return new KCO2BalanceLoader(
       "User",
@@ -1661,6 +1669,14 @@ export class Pool extends Entity {
     this.set("totalCarbonLocked", Value.fromBigInt(value));
   }
 
+  get pooledTokens(): PooledKCO2TokenLoader {
+    return new PooledKCO2TokenLoader(
+      "Pool",
+      this.get("id")!.toString(),
+      "pooledTokens"
+    );
+  }
+
   get poolBalances(): UserPoolBalanceLoader {
     return new UserPoolBalanceLoader(
       "Pool",
@@ -1750,6 +1766,24 @@ export class RetirementLoader extends Entity {
   }
 }
 
+export class RedeemLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): Redeem[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<Redeem[]>(value);
+  }
+}
+
 export class KCO2BalanceLoader extends Entity {
   _entity: string;
   _field: string;
@@ -1786,6 +1820,24 @@ export class UserPoolBalanceLoader extends Entity {
   }
 }
 
+export class PooledKCO2TokenLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): PooledKCO2Token[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<PooledKCO2Token[]>(value);
+  }
+}
+
 export class DepositLoader extends Entity {
   _entity: string;
   _field: string;
@@ -1801,23 +1853,5 @@ export class DepositLoader extends Entity {
   load(): Deposit[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
     return changetype<Deposit[]>(value);
-  }
-}
-
-export class RedeemLoader extends Entity {
-  _entity: string;
-  _field: string;
-  _id: string;
-
-  constructor(entity: string, id: string, field: string) {
-    super();
-    this._entity = entity;
-    this._id = id;
-    this._field = field;
-  }
-
-  load(): Redeem[] {
-    let value = store.loadRelated(this._entity, this._id, this._field);
-    return changetype<Redeem[]>(value);
   }
 }

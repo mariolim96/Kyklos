@@ -2,6 +2,8 @@
 
 import {
     getPool,
+    getPoolPooledTokens,
+    getPoolPooledTokensType,
     getPoolType,
     getUserPoolBalance,
     getUserPoolBalanceType,
@@ -10,6 +12,8 @@ import {
 } from "./query";
 import { useQuery } from "@apollo/client";
 import { useAccount } from "wagmi";
+
+const pool = "0x0B306BF915C4d645ff596e518fAf3F9669b97016".toLowerCase();
 
 const useUserTokensAndBalance = () => {
     const account = useAccount();
@@ -21,7 +25,6 @@ const useUserTokensAndBalance = () => {
 };
 
 const usePoolInfo = () => {
-    const pool = "0x0B306BF915C4d645ff596e518fAf3F9669b97016".toLowerCase();
     const query = useQuery<getPoolType>(getPool, {
         variables: { id: pool },
     });
@@ -30,11 +33,22 @@ const usePoolInfo = () => {
 
 const useUserPoolBalance = () => {
     const account = useAccount();
-    const pool = "0x0B306BF915C4d645ff596e518fAf3F9669b97016";
     const query = useQuery<getUserPoolBalanceType>(getUserPoolBalance, {
         variables: { id: `${account.address}-${pool}`.toLowerCase() },
         skip: !account.address,
     });
     return query;
 };
-export { useUserTokensAndBalance, usePoolInfo, useUserPoolBalance };
+
+const usePoolPooledTokens = () => {
+    // const pool = "0x0B306BF915C4d645ff596e518fAf3F9669b97016".toLowerCase();
+    const account = useAccount();
+    const query = useQuery<getPoolPooledTokensType>(getPoolPooledTokens, {
+        variables: {
+            userId: account.address?.toLowerCase(),
+            poolId: pool,
+        },
+    });
+    return query;
+};
+export { useUserTokensAndBalance, usePoolInfo, useUserPoolBalance, usePoolPooledTokens };

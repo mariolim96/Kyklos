@@ -87,7 +87,6 @@ function PoolList(): ReactElement {
                         <Button
                             onClick={e => {
                                 e.stopPropagation();
-                                console.log(cell);
                                 openModal("deposit", { token: cell.row.original });
                             }}
                         >
@@ -96,7 +95,6 @@ function PoolList(): ReactElement {
                         <Button
                             onClick={e => {
                                 e.stopPropagation();
-                                console.log(cell);
                                 openModal("redeem", { token: cell.row.original });
                             }}
                         >

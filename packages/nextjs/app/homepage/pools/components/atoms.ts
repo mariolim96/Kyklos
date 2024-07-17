@@ -4,6 +4,7 @@ const price = atom("");
 const selectedToken = atom(0);
 const poolPrice = atom("");
 const selectedPool = atom(0);
+const selectedTokenValue = atom("0");
 
 const info = atom<{
     name: string;
@@ -17,4 +18,4 @@ const info = atom<{
     message: "fedeli autori",
 });
 
-export { price, poolPrice, selectedToken, selectedPool, info };
+export { price, poolPrice, selectedToken, selectedPool, info, selectedTokenValue };

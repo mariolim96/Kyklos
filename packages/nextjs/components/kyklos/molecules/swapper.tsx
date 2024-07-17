@@ -16,9 +16,11 @@ type props = {
         name: string;
         balance: number;
     }[];
-    inputString?: string;
+    type?: "deposit" | "redeem" | "retire";
+    secondInput?: string;
 };
-function CarbonTonneCard({ list, inputString }: props) {
+
+function CarbonTonneCard({ list, secondInput }: props) {
     const [tokenPrice, setPrice] = useAtom(price);
     const [selectedValue] = useAtom(selectedToken);
     return (
@@ -30,7 +32,7 @@ function CarbonTonneCard({ list, inputString }: props) {
                     {list[selectedValue].balance} KCO
                 </Text>
                 <Text as="h5" element="h5" className="text-sm text-gray-500">
-                    Balance in wallet
+                    {}
                 </Text>
             </div>
             <Separator orientation="vertical" className="h-16 m-2" />
@@ -44,7 +46,7 @@ function CarbonTonneCard({ list, inputString }: props) {
                         value={tokenPrice}
                     ></Input>
                     <Text as="h5" element="h5" className="text-sm whitespace-nowrap text-gray-500">
-                        {inputString ?? "BCT to Redeem"}
+                        {secondInput ?? "BCT to Redeem"}
                     </Text>
                 </div>
                 <Button

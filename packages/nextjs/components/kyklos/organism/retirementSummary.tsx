@@ -80,7 +80,6 @@ const RetirementSummary = () => {
         initialCategories,
         data?.user?.retirementsCreated,
     );
-    console.log("updatedCategories:", updatedCategories);
     return (
         <Suspense
             fallback={

@@ -16,7 +16,6 @@ type Props = {
     placeholder?: string;
 };
 const TokenSwapper = ({ list, placeholder }: Props) => {
-    console.log("list:", list);
     const [selectedValue, setSelectedValue] = useAtom(selectedToken);
 
     return (

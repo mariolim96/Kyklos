@@ -9,10 +9,9 @@ import Text from "~~/components/kyklos/ui/text";
 import { getProject } from "~~/services/graphql/query";
 
 export default function Page({ params }: { params: { projectId: string } }) {
-    const { loading, error, data } = useQuery(getProject(params.projectId));
+    const { data } = useQuery(getProject(params.projectId));
     const project = data?.project as Project;
 
-    console.log("{ loading, error, data }:", { loading, error, data });
     return (
         <div className="flex  p-4 gap-6">
             <div className="flex  flex-col gap-6">

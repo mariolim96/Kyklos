@@ -21,7 +21,6 @@ const steps = [{ label: "", id: "1", icon: () => <div>120</div> }] satisfies Ste
 const Modal = ({ id }: { id: modalsKeys; children?: React.ReactNode }) => {
     // const modalData = useModalStore(state => state.modals[id].meta);
     const { data } = useUserTokensAndBalance();
-    console.log("data:", data);
     const dataTokens = data?.user?.tokensOwned.map(userToken => {
         return {
             id: userToken.token.id,
@@ -37,7 +36,6 @@ const Modal = ({ id }: { id: modalsKeys; children?: React.ReactNode }) => {
             balance: (poolInfo?.pool?.totalCarbonLocked ?? 1) / 1e18,
         },
     ];
-    console.log("data:", dataTokens);
     const [tokenPrice, setPrice] = useAtom(price);
     const criterias = ["kyklos", "2021+"];
 
@@ -60,7 +58,7 @@ const Modal = ({ id }: { id: modalsKeys; children?: React.ReactNode }) => {
                             <Text as="h5" element="h5" className=" pl-[2px] text-base-content-2/45 mb-4">
                                 select the KCO2 token and the amount you want to deposit into the pool.
                             </Text>
-                            <CarbonTonneCard list={dataTokens ?? []} inputString="Deposit KCO" />
+                            <CarbonTonneCard list={dataTokens ?? []} secondInput="Deposit KCO" />
                             <Text as="h5" element="h5" className="pl-[2px] text-base-content  mt-4 font-semibold">
                                 Carbon pool
                             </Text>
@@ -70,7 +68,7 @@ const Modal = ({ id }: { id: modalsKeys; children?: React.ReactNode }) => {
                             <div className=" z-50 ">
                                 <PoolSwapper
                                     list={poolList ?? []}
-                                    inputString="Receiving KCT"
+                                    secondInput="Receiving KCT"
                                     value={tokenPrice}
                                     setValue={setPrice}
                                     selectedValue={selectedPoolValue}
@@ -97,7 +95,6 @@ const Modal = ({ id }: { id: modalsKeys; children?: React.ReactNode }) => {
 const Footer = ({ id }: { id: modalsKeys }) => {
     const { nextStep, prevStep, resetSteps, isDisabledStep, hasCompletedAllSteps, isLastStep, isOptionalStep } =
         useStepper();
-    console.log("hasCompletedAllSteps:", hasCompletedAllSteps);
     // i need to setup the contract address here
     const [selectedPoolValue] = useAtom(selectedPool);
     const [tokenPrice] = useAtom(price);
@@ -127,7 +124,6 @@ const Footer = ({ id }: { id: modalsKeys }) => {
         contractAddress,
     );
     const poolAddress = poolList[selectedPoolValue].id as `0x${string}`;
-    console.log("poolAddress:", poolAddress);
     const nextStepHandler = async () => {
         if (isLastStep) {
             await writePool({

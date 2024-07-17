@@ -67,7 +67,6 @@ const TokenList = () => {
                         <Button
                             onClick={e => {
                                 e.stopPropagation();
-                                console.log(cell);
                                 openModal("retirement", { token: cell.row.original });
                             }}
                         >
