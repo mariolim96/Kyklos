@@ -36,7 +36,7 @@ contract KyklosContractRegistry is
 	//      Events
 	// ----------------------------------------
 
-	event TCO2FactoryAdded(address indexed factory, string indexed standard);
+	event KCO2FactoryAdded(address indexed factory, string indexed standard);
 
 	// ----------------------------------------
 	//      Modifiers
@@ -154,22 +154,22 @@ contract KyklosContractRegistry is
 	}
 
 	function setKyklosCarbonOffsetsFactoryAddress(
-		address tco2Factory
+		address KCO2Factory
 	) external virtual onlyOwner {
-		require(tco2Factory != address(0), "Zero address");
+		require(KCO2Factory != address(0), "Zero address");
 
 		// Get the standard registry from the factory
 		string memory standardRegistry = IKyklosCarbonOffsetsFactory(
-			tco2Factory
+			KCO2Factory
 		).standardRegistry();
 		require(bytes(standardRegistry).length != 0, "Empty standard registry");
 
 		if (!standardRegistryExists(standardRegistry)) {
 			standardRegistries.push(standardRegistry);
 		}
-		kyklosCarbonOffsetFactories[standardRegistry] = tco2Factory;
+		kyklosCarbonOffsetFactories[standardRegistry] = KCO2Factory;
 
-		emit TCO2FactoryAdded(tco2Factory, standardRegistry);
+		emit KCO2FactoryAdded(KCO2Factory, standardRegistry);
 	}
 
 	function standardRegistryExists(
@@ -196,7 +196,7 @@ contract KyklosContractRegistry is
 		_retirementCertificatesAddress = _address;
 	}
 
-	/// @notice Keep track of TCO2s per standard
+	/// @notice Keep track of KCO2s per standard
 	function addERC20(
 		address erc20,
 		string calldata standardRegistry
@@ -242,7 +242,7 @@ contract KyklosContractRegistry is
 		return _carbonProjectVintagesAddress;
 	}
 
-	/// @dev return the TCO2 factory address for the provided standard
+	/// @dev return the KCO2 factory address for the provided standard
 	function kyklosCarbonOffsetsFactoryAddress(
 		string memory standardRegistry
 	) external view virtual override returns (address) {

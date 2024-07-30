@@ -1,0 +1,13 @@
+@startuml
+actor Admin as A
+participant System as S
+participant CarbonProjectVintagesContract as V
+
+A -> S: Initiate "Update project vintage"
+S -> A: Prompt for project ID and vintage update details
+A -> S: Provide project ID and vintage update details
+S -> S: Validate and process update details
+S -> V: Update vintage entry
+V -> S: Confirmation of vintage update
+S -> A: Confirmation sent back to Admin
+@enduml

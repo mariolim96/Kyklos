@@ -1,0 +1,235 @@
+@startuml
+class Pool {
+
+    uint256 totalKCO2Supply
+    mapping[uint256 => uint256 ] totalPerProjectKCO2Supply
+    uint256 supplyCap
+    address filter
+    +pause()
+    +unpause()
+    +setSupplyCap(uint256 newCap)
+    +setFilter(address _filter)
+    +deposit(address KCO2, uint256 amount) : uint256
+    +redeemOutMany(address[] KCO2s, uint256[] amounts) : uint256
+}
+
+class PoolFilter {
+
+    address contractRegistry
+    mapping[string => bool] regions
+    mapping[string => bool] standards
+    mapping[string => bool] methodologies
+    +checkEligible(address erc20Addr) : bool
+    +checkAttributeMatching(address erc20Addr) : bool
+    +setKyklosContractRegistry(address _address)
+    +switchmapping[string _mappingName, bool accepted)
+    +addAttributes(bool addToList, string[] _regions, string[] _standards, string[] _methodologies)
+    +addToExternalAllowlist(address[] erc20Addr)
+    +addToInternalAllowlist(address[] erc20Addr)
+    +addToInternalBlocklist(address[] erc20Addr)
+    +removeFromExternalAllowlist(address[] erc20Addr)
+    +removeFromInternalBlocklist(address[] erc20Addr)
+    +removeFromInternalAllowlist(address[] erc20Addr)
+    +setMinimumVintageStartTime(uint64 _minimumVintageStartTime)
+}
+
+class CarbonProject {
+    uint256 projectTokenCounter
+    mapping[uint256 => ProjectData] projectData
+    mapping[uint256 => bool] public validProjectTokenIds;
+    +addNewProject(address to, string projectId, string standard, string methodology, string region, string storageMethod, string method, string emissionType, string category, string uri, address beneficiary) : uint256
+    +updateProject(uint256 tokenId, string newStandard, string newMethodology, string newRegion, string newStorageMethod, string newMethod, string newEmissionType, string newCategory, string newUri, address beneficiary)
+    +updateProjectId(uint256 tokenId, string newProjectId)
+    +updateBeneficiary(uint256 tokenId, address beneficiary)
+    +removeProject(uint256 projectTokenId)
+    +getProjectDataByTokenId(uint256 tokenId) : ProjectData
+}
+
+class CarbonProjectVintages {
+    uint256 projectVintageTokenCounter
+    mapping[uint256 => VintageData] vintageData
+    +addNewVintage(address to, VintageData _vintageData) : uint256
+    +updateProjectVintage(uint256 tokenId, VintageData _vintageData)
+    +removeVintage(uint256 tokenId)
+    +getProjectVintageDataByTokenId(uint256 tokenId) : VintageData
+}
+struct VintageData {
+    string name
+    uint64 startTime
+    uint64 endTime
+    uint256 projectTokenId
+    uint64 totalVintageQuantity
+    bool isCorsiaCompliant
+    bool isCCPcompliant
+    string coBenefits
+    string correspAdjustment
+    string additionalCertification
+    string uri
+    string registry
+}
+struct ProjectData {
+    string projectId;
+    string standard;
+    string methodology;
+    string region;
+    string storageMethod;
+    string method;
+    string emissionType;
+    string category;
+    string uri;
+    address beneficiary;
+}
+CarbonProjectVintages --   VintageData
+CarbonProject --   ProjectData
+
+class Registry {
+    address _VintageStatusAddress
+    address _carbonProjectsAddress
+    address _carbonProjectVintagesAddress
+    address _retirementCertificatesAddress
+    +pauseSystem()
+    +unpauseSystem()
+    +setVintageStatusAddress(address _address)
+    +setCarbonProjectsAddress(address _address)
+    +setCarbonProjectVintagesAddress(address _address)
+    +setKyklosCarbonOffsetsFactoryAddress(address KCO2Factory)
+    +standardRegistryExists(string standard) : bool
+    +setRetirementCertificatesAddress(address _address)
+    +addERC20(address erc20, string standardRegistry)
+    +VintageStatusAddress() : address
+    +carbonProjectsAddress() : address
+    +carbonProjectVintagesAddress() : address
+    +kyklosCarbonOffsetsFactoryAddress(string standardRegistry) : address
+    +retirementCertificatesAddress() : address
+    +isValidERC20(address erc20) : bool
+    +supportedStandardRegistries() : string[]
+}
+
+class CarbonOffsetFactory {
+    address beacon
+    address[] deployedContracts;
+	mapping[uint256 => address] pvIdtoERC20;
+	address beacon;
+	address bridgeFeeReceiver;
+	uint256 bridgeFeePercentageInBase;
+	address bridgeFeeBurnAddress;
+	uint256 bridgeFeeBurnPercentageInBase;
+
+    +deployFromVintage(uint256 projectVintageTokenId)
+    +deployNewProxy(uint256 projectVintageTokenId)
+    +setBeacon(address _beacon)
+    +setKyklosContractRegistry(address _address)
+    +bridgeFeeReceiverAddress() : address
+    +getBridgeFeeAndBurnAmount(uint256 _quantity) : (uint256, uint256)
+    +setBridgeFeePercentage(uint256 _bridgeFeePercentageInBase)
+    +setBridgeFeeReceiver(address _bridgeFeeReceiver)
+    +setBridgeFeeBurnPercentage(uint256 _bridgeFeeBurnPercentageInBase)
+    +setBridgeFeeBurnAddress(address _bridgeFeeBurnAddress)
+    +standardRegistry() : string
+    +supportedStandards() : string[]
+}
+
+class CarbonOffsetToken {
+    uint256 _projectVintageTokenId
+    address contractRegistry
+     mapping[address => uint256] public minterToId;
+    +initialize(string name_, string symbol_, uint256 projectVintageTokenId_, address contractRegistry_)
+    +standardRegistry() : string
+    +standardRegistryDecimals() : uint8
+}
+
+	struct NFTData {
+		uint256 projectVintageTokenId;
+		uint256 quantity;
+		BatchStatus status;
+        string uri;
+	}
+class ProjectVintageStatus {
+    uint256 batchTokenCounter;
+	string baseURI;
+	address contractRegistry;
+	mapping[uint256 => NFTData] nftList;
+    uint256 batchTokenCounter
+    mapping[uint256 => NFTData] nftList
+    +pause()
+    +unpause()
+    +setKyklosContractRegistry(address _address)
+    +mintBatch(address to, uint256 projectVintageTokenId, uint256 quantity) : uint256
+    +getConfirmationStatus(uint256 tokenId) : BatchStatus
+    +getBatchNFTData(uint256 tokenId) : (uint256, uint256, BatchStatus)
+    +fractionalize(uint256 tokenId)
+    +split(uint256 tokenId, uint256 newTokenIdQuantity) : uint256
+}
+NFTData -- ProjectVintageStatus
+
+    struct Data {
+		uint256[] retirementEventIds;
+		uint256 createdAt;
+		address retiringEntity;
+		address beneficiary;
+		string retiringEntityString;
+		string beneficiaryString;
+		string retirementMessage;
+		string beneficiaryLocation;
+		string consumptionCountryCode;
+		uint256 consumptionPeriodStart;
+		uint256 consumptionPeriodEnd;
+	}
+	struct RetirementEvent {
+		uint256 createdAt;
+		address retiringEntity;
+		uint256 amount;
+		uint256 projectVintageTokenId;
+	}
+class RetirementCertificates {
+    uint256 retireEventCounter
+	uint256 public retireEventCounter;
+	mapping[uint256 => RetirementEvent] public retirements;
+	uint256 internal _tokenIds;
+	mapping[uint256 => Data] public certificates;
+	mapping[uint256 => bool] public claimedEvents;
+	mapping[address => uint256[]] eventsOfUser;
+	address public contractRegistry;
+	string public baseURI;
+    mapping[uint256 => RetirementEvent] retirements
+
+    +initialize(address _contractRegistry, string _baseURI)
+    +registerEvent(address retiringEntity, uint256 projectVintageTokenId, uint256 amount, bool isLegacy) : uint256
+    +attachRetirementEvents(uint256 tokenId, uint256[] retirementEventIds)
+    +mintCertificate(address retiringEntity, string retiringEntityString, address beneficiary, string beneficiaryString, string retirementMessage, uint256[] retirementEventIds) : uint256
+    +mintCertificateWithExtraData(address retiringEntity, CreateRetirementRequestParams params, uint256[] retirementEventIds) : uint256
+    +tokenURI(uint256 tokenId) : string
+    +updateCertificate(uint256 tokenId, string retiringEntityString, address beneficiary, string beneficiaryString, string retirementMessage)
+    +isCertificateForRegistry(uint256 tokenId, string[] registries) : bool
+    +getData(uint256 tokenId) : Data
+    +getUserEvents(address user) : uint256[]
+    +getRetiredAmount(uint256 tokenId) : uint256
+    +getRetiredAmountInTonnes(uint256 tokenId) : uint256
+    +getRetiredAmountInKilos(uint256 tokenId) : uint256
+}
+
+RetirementCertificates -- RetirementEvent
+RetirementCertificates -- Data
+
+
+Pool --> PoolFilter : "filters deposits"
+Pool <--> CarbonOffsetToken : "contain deposited tokens"
+PoolFilter --> CarbonProject : "checks attributes"
+PoolFilter --> CarbonProjectVintages : "checks vintages"
+CarbonProject --> CarbonProjectVintages : "contains vintages"
+CarbonProjectVintages --> ProjectVintageStatus : "has a"
+CarbonOffsetFactory --> CarbonOffsetToken : "deploys tokens"
+CarbonOffsetFactory <-- ProjectVintageStatus : "transform into tokens with"
+Registry --> Pool : "manages pool"
+Registry --> PoolFilter : "manages filter"
+Registry --> CarbonProject : "manages project"
+Registry --> CarbonProjectVintages : "manages vintages"
+Registry --> CarbonOffsetFactory : "manages factory"
+Registry --> CarbonOffsetToken : "manages tokens"
+Registry --> ProjectVintageStatus : "manages status"
+Registry --> RetirementCertificates : "manages certificates"
+RetirementCertificates <-- CarbonOffsetToken : "retire"
+
+
+@enduml
+

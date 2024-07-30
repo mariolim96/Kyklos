@@ -1,0 +1,13 @@
+@startuml
+actor Admin as A
+participant System as S
+participant CarbonProjectContract as C
+
+A -> S: Initiate "Update project"
+S -> A: Prompt for project ID and new details
+A -> S: Provide project ID and updated details
+S -> S: Validate data
+S -> C: Update project entry
+C -> S: Confirmation of project update
+S -> A: Confirmation sent back to Admin
+@enduml

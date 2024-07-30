@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: UNLICENSED
 
-// If you encounter a vulnerability or an issue, please contact <security@toucan.earth> or visit security.toucan.earth
+// If you encounter a vulnerability or an issue, please contact <security@kyklos.earth> or visit security.kyklos.earth
 
 pragma solidity 0.8.14;
 

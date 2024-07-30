@@ -239,7 +239,7 @@ deployYourContractContract.tags = ["Registry"];
 //     await Registry.setCarbonTokenizerAddress(carbonTokenizerAddress)
 
 //     await pool.setFilter(poolFilterAddress)
-//     await poolFilter.setToucanContractRegistry(registryAddress)
+//     await poolFilter.setKyklosContractRegistry(registryAddress)
 //     await carbonTokenizer.setCarbonRegistryAddress(registryAddress)
 //     await CarbonProject.setContractRegistry(registryAddress)
 //     await ProjectVintages.setRegistry(registryAddress)

@@ -7,7 +7,7 @@ import {Errors} from '../libraries/Errors.sol';
 import {BatchStatus} from '../types/VintageStatusTypes.sol';
 import 'hardhat/console.sol';
 
-/// @notice Base contract that can be reused between different TCO2
+/// @notice Base contract that can be reused between different KCO2
 /// implementations that need to work with batch NFTs
 abstract contract KyklosCarbonOffsetsWithBatchBase is
     IERC721Receiver,
@@ -18,10 +18,10 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
     // ----------------------------------------
 
     /// @notice Defractionalize batch NFT by burning the amount
-    /// of TCO2 from the sender and transfer the batch NFT that
+    /// of KCO2 from the sender and transfer the batch NFT that
     /// was selected to the sender.
-    /// The only valid sender currently is the TCO2 factory owner.
-    /// @param tokenId The batch NFT to defractionalize from the TCO2
+    /// The only valid sender currently is the KCO2 factory owner.
+    /// @param tokenId The batch NFT to defractionalize from the KCO2
     function defractionalize(uint256 tokenId)
         external
         whenNotPaused
@@ -38,7 +38,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
         // ) = _getNormalizedDataFromBatch(batchNFT, tokenId);
         // require(
         //     status == BatchStatus.Confirmed,
-        //     Errors.TCO2_BATCH_NOT_CONFIRMED
+        //     Errors.KCO2_BATCH_NOT_CONFIRMED
         // );
         // _burn(msg.sender, batchAmount);
 
@@ -59,7 +59,7 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
         // msg.sender is the VintageStatus contract
         require(
             checkWhiteListed(msg.sender),
-            Errors.TCO2_BATCH_NOT_WHITELISTED
+            Errors.KCO2_BATCH_NOT_WHITELISTED
         );
 
         (
@@ -69,33 +69,33 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
         ) = _getNormalizedDataFromBatch(msg.sender, tokenId);
         require(
             gotVintageTokenId == _projectVintageTokenId,
-            Errors.TCO2_NON_MATCHING_NFT
+            Errors.KCO2_NON_MATCHING_NFT
         );
 
-        // mint TCO2s for received batches that are in confirmed status
+        // mint KCO2s for received batches that are in confirmed status
         require(
             status == BatchStatus.Active,
-            Errors.TCO2_BATCH_NOT_CONFIRMED
+            Errors.KCO2_BATCH_NOT_CONFIRMED
         );
         console.log(quantity);
-        require(getRemaining() >= quantity, Errors.TCO2_QTY_HIGHER);
+        require(getRemaining() >= quantity, Errors.KCO2_QTY_HIGHER);
 
         minterToId[from] = tokenId;
-        IKyklosCarbonOffsetsFactory tco2Factory = IKyklosCarbonOffsetsFactory(
+        IKyklosCarbonOffsetsFactory KCO2Factory = IKyklosCarbonOffsetsFactory(
             IKyklosContractRegistry(contractRegistry)
                 .kyklosCarbonOffsetsFactoryAddress(standardRegistry())
         );
-        address bridgeFeeReceiver = tco2Factory.bridgeFeeReceiverAddress();
+        address bridgeFeeReceiver = KCO2Factory.bridgeFeeReceiverAddress();
 
         if (bridgeFeeReceiver == address(0x0)) {
             // if no bridge fee receiver address is set, mint without fees
             _mint(from, quantity);
         } else {
             // calculate bridge fees
-            (uint256 feeAmount, uint256 feeBurnAmount) = tco2Factory
+            (uint256 feeAmount, uint256 feeBurnAmount) = KCO2Factory
                 .getBridgeFeeAndBurnAmount(quantity);
             _mint(from, quantity - feeAmount);
-            address bridgeFeeBurnAddress = tco2Factory.bridgeFeeBurnAddress();
+            address bridgeFeeBurnAddress = KCO2Factory.bridgeFeeBurnAddress();
             // we mint the burn fee to the bridge fee burn address so it can be retired later.
             // if there is no address configured we just mint the full amount to the bridge fee receiver.
             if (bridgeFeeBurnAddress != address(0x0) && feeBurnAmount > 0) {
@@ -131,10 +131,10 @@ abstract contract KyklosCarbonOffsetsWithBatchBase is
             uint256 quantity,
             BatchStatus status
         ) = IVintageStatus(cob).getBatchNFTData(tokenId);
-        return (vintageTokenId, _batchAmountToTCO2Amount(quantity), status);
+        return (vintageTokenId, _batchAmountToKCO2Amount(quantity), status);
     }
 
-    function _batchAmountToTCO2Amount(uint256 batchAmount)
+    function _batchAmountToKCO2Amount(uint256 batchAmount)
         internal
         view
         returns (uint256)

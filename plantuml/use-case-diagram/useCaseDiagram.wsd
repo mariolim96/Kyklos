@@ -1,0 +1,54 @@
+@startuml use case tokenization carbon credit
+left to right direction
+actor Guest as g
+actor User as u
+actor Admin as a
+actor Verifier as v
+
+
+
+package BPM&Workflow {
+    usecase W1 as "Create project"
+    usecase W2 as "Update project"
+    usecase W3 as "Delete project"
+    usecase W4 as "Tokenize project"
+    usecase W5 as "Certify project generated carbon credits"
+}
+package Marketplace {
+    usecase UC1 as "Buy Carbon Credit"
+    usecase UC2 as "Sell Carbon Credit"
+    usecase UC3 as "View Carbon Credit"
+    usecase UC5 as "Connect to wallet"
+    usecase UC6 as "Visualize project vintages"
+    usecase UC7 as "View project details"
+    usecase UC8 as "Retire carbon credits"
+    usecase UC11 as "View retired projects"
+    usecase UC12 as "View Retired project details"
+    usecase UC9 as "View carbon credit transactions"
+    usecase UC10 as "View carbon credit balance"
+    usecase UC4 as "View carbon projects"
+}
+
+u <|-- g
+u -- UC1
+u -- UC2
+u -- UC3
+u -- UC8
+u -- UC9
+u -- UC10
+u -- UC11
+
+g -- UC4
+g -- UC5
+
+a -- W1
+a -- W2
+a -- W3
+a -- W4
+
+v -- W5
+
+UC4 --> UC7 #line.dotted : <<include>>
+UC7 --> UC6 #line.dotted : <<include>>
+UC11 --> UC12 #line.dotted : <<include>>
+@enduml

@@ -28,7 +28,7 @@ const InfoCards = () => {
         },
         {
             title: "Retirements",
-            description: "Create impact claims by retiring TCO2s and removing them permanently from circulation.",
+            description: "Create impact claims by retiring KCO2s and removing them permanently from circulation.",
             icon: <BsBoxArrowInDown className="w-full h-full text-secondary" />,
             href: "/retirements",
         },

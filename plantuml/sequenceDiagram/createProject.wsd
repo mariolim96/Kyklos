@@ -1,0 +1,13 @@
+@startuml
+actor Admin as A
+participant System as S
+participant CarbonProjectContract as C
+
+A -> S: Initiate "Create project"
+S -> A: Prompt for project details
+A -> S: Submit project details
+S -> S: Validate data
+S -> C: Create new project entry
+C -> S: Confirmation of project creation
+S -> A: Confirmation sent back to Admin
+@enduml

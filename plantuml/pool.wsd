@@ -114,17 +114,17 @@ class PoolStorageV1 {
 
     ' -- vars --
 	+[[uint256]] supplyCap
-	+[[address]] scoredTCO2s
+	+[[address]] scoredKCO2s
 	#[[address]] _feeRedeemReceiver
 	#[[uint256]] _feeRedeemPercentageInBase
 	#[[address]] _feeRedeemBurnAddress
 	#[[uint256]] _feeRedeemBurnPercentageInBase
 	+[[mapping address=>bool ]] redeemFeeExemptedAddresses
-	+[[mapping address=>bool ]] redeemFeeExemptedTCO2s
+	+[[mapping address=>bool ]] redeemFeeExemptedKCO2s
 	#[[uint256]] _feeRedeemRetirePercentageInBase
 	+[[address]] filter
-	+[[uint256]] totalTCO2Supply
-	+[[mapping uint256=>uint256 ]] totalPerProjectTCO2Supply
+	+[[uint256]] totalKCO2Supply
+	+[[mapping uint256=>uint256 ]] totalPerProjectKCO2Supply
 
     ' -- methods --
 
@@ -142,5 +142,39 @@ class PoolStorage {
 }
 ' -- inheritance / usingFor --
 PoolStorage --[#DarkGoldenRod]|> PoolStorageV1
+class PoolFilterStorageV1 {
+    ' -- inheritance --
 
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[mapping string=>bool ]] regions
+	+[[mapping string=>bool ]] standards
+	+[[mapping string=>bool ]] methodologies
+	+[[mapping address=>bool ]] externalAllowlist
+	+[[mapping address=>bool ]] internalAllowlist
+	+[[mapping address=>bool ]] internalBlocklist
+	+[[address]] contractRegistry
+	+[[uint64]] minimumVintageStartTime
+	+[[bool]] regionsIsAcceptedMapping
+	+[[bool]] standardsIsAcceptedMapping
+	+[[bool]] methodologiesIsAcceptedMapping
+
+    ' -- methods --
+
+}
+
+class PoolFilterStorage {
+    ' -- inheritance --
+	{abstract}PoolFilterStorageV1
+
+    ' -- usingFor --
+
+    ' -- vars --
+
+    ' -- methods --
+
+}
+' -- inheritance / usingFor --
+PoolFilterStorage --[#DarkGoldenRod]|> PoolFilterStorageV1
 @enduml

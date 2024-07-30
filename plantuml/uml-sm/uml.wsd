@@ -1,0 +1,136 @@
+@startuml
+left to right direction
+entity Admin {
+    +id: ID
+    +Address: String
+    +manageProject()
+}
+
+entity Pool {
+    +id: ID
+    +name: String
+    +filter: Address
+    +totalCarbonLocked: BigInt
+    +initialize()
+    +setSupplyCap()
+    +setFilter()
+    +deposit()
+    +🔍checkEligible()
+    +🔍minimumVintageStartTime()
+    +🔍regions()
+    +🔍standards()
+    +🔍methodologies()
+    +redeemOutMany()
+    +🔍getRemaining()
+    +🔍tokenBalances()
+}
+
+entity Token {
+    +id: ID
+    +name: String
+    +symbol: String
+    +balance: BigInt
+    +🔍projectVintageTokenId()
+    +🔍name()
+    +🔍symbol()
+    +🔍getGlobalProjectVintageIdentifiers()
+    +🔍getAttributes()
+    +🔍getVintageData()
+    +🔍getRemaining()
+    +🔍getDepositCap()
+    +burnFrom()
+    +retireAndMintCertificate()
+}
+
+entity User {
+    +id: ID
+    +address: String
+}
+
+entity PoolFilter {
+    +id: ID
+    +filterList: Object
+    +initialize()
+    +🔍checkEligible()
+    +🔍checkAttributeMatching()
+    +switchMapping()
+    +addAttributes()
+    +addToExternalAllowlist()
+    +addToInternalAllowlist()
+    +addToInternalBlocklist()
+    +removeFromExternalAllowlist()
+    +removeFromInternalBlocklist()
+    +removeFromInternalAllowlist()
+    +setMinimumVintageStartTime()
+
+
+}
+
+entity TokenFactory {
+    +deployedContracts: [Address]
+    +deployFromVintage()
+    #🔍checkExistence()
+    +🔍getContracts()
+}
+
+entity Project {
+    +id: ID
+    +projectId: String
+    +creator: User
+    +owner: User
+    +initialize()
+    +addNewProject()
+    +updateProject()
+    +updateProjectId()
+    +updateBeneficiary()
+    +removeProject()
+}
+
+entity ProjectVintage {
+    +id: ID
+    +name: String
+    +startTime: BigInt
+    +endTime: BigInt
+    +totalVintageQuantity: BigInt
+    +initialize()
+    +addNewVintage()
+    +updateProjectVintage()
+    +removeVintage()
+}
+
+entity VintageStatus {
+    +id: ID
+    +status: String
+    +initialize()
+    +mintBatch()
+    +fractionalize()
+    +beforeFractionalize()
+    +split()
+}
+
+entity RetirementCertificate {
+    +RetireEventCounter: BigInt
+    +certificates: [BigInt]
+    +minValidRetirementAmount: BigInt
+
+    +setMinValidRetirementAmount()
+    +mintCertificate()
+    +🔍tokenURI()
+    +updateCertificate()
+    +🔍getData()
+    +🔍getRetiredAmount()
+}
+
+
+Admin "1" -- "0..*" Project : manages >
+Project "1" *-- "0..*" ProjectVintage : has >
+ProjectVintage "1" -- "1" VintageStatus : tracks >
+TokenFactory "1" -- "0..*" Token : creates >
+VintageStatus "1" -- "1" TokenFactory : usedBy >
+Token "1" -- "0..*" Pool : Putted into  >
+Pool "1" *-- "0..*" PoolFilter : filteredBy >
+Token "0..*" -- "0..*" RetirementCertificate : generates >
+User "1" -- "0..*" Project : owns >
+User "1" -- "0..*" Token : owns >
+
+@enduml

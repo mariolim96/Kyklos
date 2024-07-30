@@ -53,7 +53,7 @@ class KyklosCarbonOffsetsWithBatchBase {
 	+defractionalize()
 	+onERC721Received()
 	#🔍_getNormalizedDataFromBatch()
-	#🔍_batchAmountToTCO2Amount()
+	#🔍_batchAmountToKCO2Amount()
 	#🔍checkWhiteListed()
 
 }

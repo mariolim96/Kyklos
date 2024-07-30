@@ -468,7 +468,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "tco2",
+        "name": "KCO2",
         "type": "address"
       },
       {
@@ -724,7 +724,7 @@
         "type": "address"
       }
     ],
-    "name": "redeemFeeExemptedTCO2s",
+    "name": "redeemFeeExemptedKCO2s",
     "outputs": [
       {
         "internalType": "bool",
@@ -739,7 +739,7 @@
     "inputs": [
       {
         "internalType": "address[]",
-        "name": "tco2s",
+        "name": "KCO2s",
         "type": "address[]"
       },
       {
@@ -829,7 +829,7 @@
         "type": "uint256"
       }
     ],
-    "name": "scoredTCO2s",
+    "name": "scoredKCO2s",
     "outputs": [
       {
         "internalType": "address",
@@ -934,7 +934,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "tco2",
+        "name": "KCO2",
         "type": "address"
       }
     ],
@@ -957,7 +957,7 @@
         "type": "uint256"
       }
     ],
-    "name": "totalPerProjectTCO2Supply",
+    "name": "totalPerProjectKCO2Supply",
     "outputs": [
       {
         "internalType": "uint256",
@@ -983,7 +983,7 @@
   },
   {
     "inputs": [],
-    "name": "totalTCO2Supply",
+    "name": "totalKCO2Supply",
     "outputs": [
       {
         "internalType": "uint256",

@@ -1,0 +1,13 @@
+@startuml
+actor Admin as A
+participant System as S
+participant VintageStatusContract as V
+
+A -> S: Initiate "Add vintage status"
+S -> A: Prompt for vintage ID and status details
+A -> S: Provide vintage ID and status details
+S -> S: Validate status details
+S -> V: Add status to vintage entry
+V -> S: Confirmation of status addition
+S -> A: Confirmation sent back to Admin
+@enduml

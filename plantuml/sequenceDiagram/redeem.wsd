@@ -1,0 +1,15 @@
+@startuml
+actor User as U
+participant Pool as P
+participant CarbonOffsetToken as T
+participant RetirementCertificates as RC
+
+U -> P: Request to redeem carbon credits
+P -> U: Prompt for token address and amount
+U -> P: Provide token address and amount
+P -> T: Verify token balance and eligibility
+T -> P: Balance and eligibility confirmed
+P -> U: Transfer carbon credits to User
+P -> RC: Update redemption records
+RC -> U: Confirm redemption and update certificate (if applicable)
+@enduml

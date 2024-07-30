@@ -16,7 +16,7 @@ import './libraries/Strings.sol';
 import './storages/RetirementCertificatesStorage.sol';
 
 /// @notice The `RetirementCertificates` contract lets users mint NFTs that act as proof-of-retirement.
-/// These Retirement Certificate NFTs display how many TCO2s a user has burnt
+/// These Retirement Certificate NFTs display how many KCO2s a user has burnt
 /// @dev The amount of RetirementEvents is denominated in the 18-decimal form
 /// @dev Getters in this contract return the corresponding amount in tonnes or kilos
 contract RetirementCertificates is
@@ -124,12 +124,12 @@ contract RetirementCertificates is
 
     /// @notice Register retirement events. This function can only be called by a TC02 contract
     /// to register retirement events so they can be directly linked to an NFT mint.
-    /// @param retiringEntity The entity that has retired TCO2 and is eligible to mint an NFT.
-    /// @param projectVintageTokenId The vintage id of the TCO2 that is retired.
-    /// @param amount The amount of the TCO2 that is retired.
+    /// @param retiringEntity The entity that has retired KCO2 and is eligible to mint an NFT.
+    /// @param projectVintageTokenId The vintage id of the KCO2 that is retired.
+    /// @param amount The amount of the KCO2 that is retired.
     /// @param isLegacy Whether this event registration was executed by using the legacy retired
-    /// amount in the TCO2 contract or utilizes the new retirement event design.
-    /// @dev    The function can either be only called by a valid TCO2 contract.
+    /// amount in the KCO2 contract or utilizes the new retirement event design.
+    /// @dev    The function can either be only called by a valid KCO2 contract.
     function registerEvent(
         address retiringEntity,
         uint256 projectVintageTokenId,
@@ -139,7 +139,7 @@ contract RetirementCertificates is
         // Logic requires that minting can only originate from a project-vintage ERC20 contract
         require(
             IKyklosContractRegistry(contractRegistry).isValidERC20(msg.sender),
-            'Caller not a TCO2'
+            'Caller not a KCO2'
         );
         require(
             amount != 0 && amount >= minValidRetirementAmount,
@@ -185,7 +185,7 @@ contract RetirementCertificates is
 
     /// @notice Attach retirement events to an NFT.
     /// @param tokenId The id of the NFT to attach events to.
-    /// @param retiringEntity The entity that has retired TCO2 and is eligible to mint an NFT.
+    /// @param retiringEntity The entity that has retired KCO2 and is eligible to mint an NFT.
     /// @param retirementEventIds An array of event ids to associate with the NFT.
     function _attachRetirementEvents(
         uint256 tokenId,
@@ -210,15 +210,15 @@ contract RetirementCertificates is
         emit EventsAttached(tokenId, retirementEventIds);
     }
 
-    /// @notice Mint new Retirement Certificate NFT that shows how many TCO2s have been retired.
-    /// @param retiringEntity The entity that has retired TCO2 and is eligible to mint an NFT.
+    /// @notice Mint new Retirement Certificate NFT that shows how many KCO2s have been retired.
+    /// @param retiringEntity The entity that has retired KCO2 and is eligible to mint an NFT.
     /// @param retiringEntityString An identifiable string for the retiring entity, eg. their name.
-    /// @param beneficiary The beneficiary address for whom the TCO2 amount was retired.
+    /// @param beneficiary The beneficiary address for whom the KCO2 amount was retired.
     /// @param beneficiaryString An identifiable string for the beneficiary, eg. their name.
     /// @param retirementMessage A message to accompany the retirement.
     /// @param retirementEventIds An array of event ids to associate with the NFT.
     /// @return The token id of the newly minted NFT.
-    /// @dev    The function can either be called by a valid TCO2 contract or by someone who
+    /// @dev    The function can either be called by a valid KCO2 contract or by someone who
     ///         owns retirement events.
     function mintCertificate(
         address retiringEntity,
@@ -250,8 +250,8 @@ contract RetirementCertificates is
         uint256[] calldata retirementEventIds
     ) internal returns (uint256) {
         // If the provided retiring entity is not the caller, then
-        // ensure the caller is at least a TCO2 contract. This is to
-        // allow TCO2 contracts to call retireAndMintCertificate.
+        // ensure the caller is at least a KCO2 contract. This is to
+        // allow KCO2 contracts to call retireAndMintCertificate.
         require(
             retiringEntity == msg.sender ||
                 IKyklosContractRegistry(contractRegistry).isValidERC20(
@@ -292,12 +292,12 @@ contract RetirementCertificates is
         return newItemId;
     }
 
-    /// @notice Mint new Retirement Certificate NFT that shows how many TCO2s have been retired.
-    /// @param retiringEntity The entity that has retired TCO2 and is eligible to mint an NFT.
+    /// @notice Mint new Retirement Certificate NFT that shows how many KCO2s have been retired.
+    /// @param retiringEntity The entity that has retired KCO2 and is eligible to mint an NFT.
     /// @param params Retirement params
     /// @param retirementEventIds An array of event ids to associate with the NFT.
     /// @return The token id of the newly minted NFT.
-    /// @dev    The function can either be called by a valid TCO2 contract or by someone who
+    /// @dev    The function can either be called by a valid KCO2 contract or by someone who
     ///         owns retirement events.
     function mintCertificateWithExtraData(
         address retiringEntity,
@@ -410,7 +410,7 @@ contract RetirementCertificates is
     /// @param tokenId The id of the NFT to update.
     /// @return amount Total retired amount for an NFT.
     /// @dev The return amount is denominated in 18 decimals, similar to amounts
-    /// as they are read in TCO2 contracts.
+    /// as they are read in KCO2 contracts.
     /// For example, 1000000000000000000 means 1 tonne.
     function getRetiredAmount(uint256 tokenId)
         external

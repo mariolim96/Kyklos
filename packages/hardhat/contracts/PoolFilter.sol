@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: UNLICENSED
 
-// If you encounter a vulnerability or an issue, please contact <security@toucan.earth> or visit security.toucan.earth
+// If you encounter a vulnerability or an issue, please contact <security@kyklos.earth> or visit security.kyklos.earth
 pragma solidity 0.8.14;
 
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
@@ -218,7 +218,7 @@ contract PoolFilter is
 		}
 	}
 
-	/// @notice Function to allowlist selected external non-TCO2 contracts by their address
+	/// @notice Function to allowlist selected external non-KCO2 contracts by their address
 	/// @param erc20Addr accepts an array of contract addresses
 	function addToExternalAllowlist(address[] memory erc20Addr) external {
 		onlyPoolOwner();
@@ -229,7 +229,7 @@ contract PoolFilter is
 		}
 	}
 
-	/// @notice Function to allowlist certain TCO2 contracts by their address
+	/// @notice Function to allowlist certain KCO2 contracts by their address
 	/// @param erc20Addr accepts an array of contract addresses
 	function addToInternalAllowlist(address[] memory erc20Addr) external {
 		onlyPoolOwner();
@@ -240,7 +240,7 @@ contract PoolFilter is
 		}
 	}
 
-	/// @notice Function to blocklist certain TCO2 contracts by their address
+	/// @notice Function to blocklist certain KCO2 contracts by their address
 	/// @param erc20Addr accepts an array of contract addresses
 	function addToInternalBlocklist(address[] memory erc20Addr) external {
 		onlyPoolOwner();
@@ -262,7 +262,7 @@ contract PoolFilter is
 		}
 	}
 
-	/// @notice Function to remove TCO2 addresses from internal blocklist
+	/// @notice Function to remove KCO2 addresses from internal blocklist
 	/// @param erc20Addr accepts an array of contract addresses
 	function removeFromInternalBlocklist(address[] memory erc20Addr) external {
 		onlyPoolOwner();
@@ -273,7 +273,7 @@ contract PoolFilter is
 		}
 	}
 
-	/// @notice Function to remove TCO2 addresses from internal allowlist
+	/// @notice Function to remove KCO2 addresses from internal allowlist
 	/// @param erc20Addr accepts an array of contract addressesc
 	function removeFromInternalAllowlist(address[] memory erc20Addr) external {
 		onlyPoolOwner();

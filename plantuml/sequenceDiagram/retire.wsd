@@ -1,0 +1,15 @@
+@startuml 
+actor User as U
+participant RetirementCertificates as RC
+participant CarbonOffsetToken as T
+participant Pool as P
+
+U -> RC: Request to retire carbon credits
+RC -> U: Prompt for token and amount
+U -> RC: Provide token address and amount
+RC -> T: Verify token ownership and amount
+T -> RC: Verification successful
+RC -> P: Burn tokens from pool (if applicable)
+P -> RC: Tokens burned
+RC -> U: Issue retirement certificate
+@enduml

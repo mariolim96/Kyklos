@@ -46,7 +46,7 @@ contract VintageStatus is
 	event BatchMinted(address sender, uint256 tokenId);
 	event Tokenized(
 		uint256 tokenId,
-		address tco2,
+		address kco2,
 		address indexed recipient,
 		uint256 amount
 	);
@@ -74,7 +74,7 @@ contract VintageStatus is
 		__Context_init_unchained();
 		__ERC721_init_unchained(
 			"Kyklos Protocol: Carbon Offset Batches",
-			"TOUCAN-COB"
+			"KYKLOS-COB"
 		);
 		__Ownable_init_unchained();
 		__Pausable_init_unchained();
@@ -153,20 +153,20 @@ contract VintageStatus is
 		contractRegistry = _address;
 	}
 
-	/// @notice Admin function to set whether a registry is supported
-	/// @dev Callable only by the contract owner; executable only if the status can be changed
-	/// @param registry The registry to set supported status for
-	/// @param isSupported Whether the registry should be supported
-	function setSupportedRegistry(
-		string memory registry,
-		bool isSupported
-	) external onlyOwner {
-		if (supportedRegistries[registry] == isSupported)
-			revert(Errors.COB_ALREADY_SUPPORTED);
+	// /// @notice Admin function to set whether a registry is supported
+	// /// @dev Callable only by the contract owner; executable only if the status can be changed
+	// /// @param registry The registry to set supported status for
+	// /// @param isSupported Whether the registry should be supported
+	// function setSupportedRegistry(
+	// 	string memory registry,
+	// 	bool isSupported
+	// ) external onlyOwner {
+	// 	if (supportedRegistries[registry] == isSupported)
+	// 		revert(Errors.COB_ALREADY_SUPPORTED);
 
-		supportedRegistries[registry] = isSupported;
-		emit RegistrySupported(registry, isSupported);
-	}
+	// 	supportedRegistries[registry] = isSupported;
+	// 	emit RegistrySupported(registry, isSupported);
+	// }
 
 	function _updateStatus(
 		uint256 tokenId,
@@ -255,10 +255,10 @@ contract VintageStatus is
 	}
 
 	/// @notice Returns all data for Batch-NFT
-	/// @dev Used in TCO2 contract's receive hook `onERC721Received`
+	/// @dev Used in KCO2 contract's receive hook `onERC721Received`
 	/// @param tokenId The token ID of the batch
 	/// @return projectVintageTokenId The token ID of the vintage
-	/// @return quantity Quantity in tCO2e
+	/// @return quantity Quantity in KCO2e
 	/// @return status The status of the batch
 	function getBatchNFTData(
 		uint256 tokenId
@@ -280,8 +280,8 @@ contract VintageStatus is
 		safeTransferFrom(from, to, tokenId, "");
 	}
 
-	/// @dev returns the address of the TCO2 contract that corresponds to the batch-NFT
-	function _getTCO2ForBatchTokenId(
+	/// @dev returns the address of the KCO2 contract that corresponds to the batch-NFT
+	function _getKCO2ForBatchTokenId(
 		uint256 tokenId
 	) internal view returns (address) {
 		uint256 pvId = nftList[tokenId].projectVintageTokenId;
@@ -294,27 +294,27 @@ contract VintageStatus is
 		VintageData memory data = ICarbonProjectVintages(vintages)
 			.getProjectVintageDataByTokenId(pvId);
 
-		// Now we can fetch the TCO2 factory for the carbon registry
+		// Now we can fetch the KCO2 factory for the carbon registry
 		string memory carbonRegistry = data.registry;
 
-		address tco2Factory = tcnRegistry.kyklosCarbonOffsetsFactoryAddress(
+		address KCO2Factory = tcnRegistry.kyklosCarbonOffsetsFactoryAddress(
 			carbonRegistry
 		);
 
-		return IKyklosCarbonOffsetsFactory(tco2Factory).pvIdtoERC20(pvId);
+		return IKyklosCarbonOffsetsFactory(KCO2Factory).pvIdtoERC20(pvId);
 	}
 
-	/// @notice Automatically converts Batch-NFT to TCO2s (ERC20)
+	/// @notice Automatically converts Batch-NFT to KCO2s (ERC20)
 	/// @dev Only by the batch-NFT owner or approved operator, only if batch is confirmed.
-	/// Batch-NFT is sent from the sender and TCO2s are transferred to the sender.
-	/// Queries the factory to find the corresponding TCO2 contract
+	/// Batch-NFT is sent from the sender and KCO2s are transferred to the sender.
+	/// Queries the factory to find the corresponding KCO2 contract
 	/// Fractionalization happens via receive hook on `safeTransferFrom`
 	/// @param tokenId The token ID of the batch
 	function fractionalize(uint256 tokenId) external virtual {
 		onlyApprovedOrOwner(tokenId);
 		safeTransferFrom(
 			_msgSender(),
-			_getTCO2ForBatchTokenId(tokenId),
+			_getKCO2ForBatchTokenId(tokenId),
 			tokenId,
 			""
 		);
@@ -322,7 +322,7 @@ contract VintageStatus is
 		_updateStatus(tokenId, BatchStatus.Tokenized);
 		emit Tokenized(
 			tokenId,
-			_getTCO2ForBatchTokenId(tokenId),
+			_getKCO2ForBatchTokenId(tokenId),
 			_msgSender(),
 			nftList[tokenId].quantity * 10 ** 18
 		);
@@ -335,7 +335,7 @@ contract VintageStatus is
 	/// @notice Split a batch-NFT into two batch-NFTs, by creating a new batch-NFT and updating the old one.
 	/// The old batch will have a new serial number and quantity will be reduced by the quantity of the new batch.
 	/// @dev Callable only by the escrow contract, only for batches with status
-	/// RetirementRequested or DetokenizationRequested. The TCO2 contract will also be the owner of the new batch and
+	/// RetirementRequested or DetokenizationRequested. The KCO2 contract will also be the owner of the new batch and
 	/// its status will be the same as the old batch.
 	/// @param tokenId The token ID of the batch to split
 	/// @param newTokenIdQuantity The quantity for the new batch, must be smaller than the old quantity and greater
@@ -346,8 +346,8 @@ contract VintageStatus is
 		uint256 newTokenIdQuantity
 	) external returns (uint256 newTokenId) {
 		onlyUnpaused();
-		// address tco2 = ownerOf(tokenId);
-		// if (!IKyklosContractRegistry(contractRegistry).isValidERC20(tco2))
+		// address KCO2 = ownerOf(tokenId);
+		// if (!IKyklosContractRegistry(contractRegistry).isValidERC20(KCO2))
 		// 	revert(Errors.COB_INVALID_BATCH_OWNER);
 		onlyActive(tokenId);
 		onlyUnpaused();

@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2022 Toucan Labs
+// SPDX-FileCopyrightText: 2022 Kyklos Labs
 //
 // SPDX-License-Identifier: UNLICENSED
 
-// If you encounter a vulnerability or an issue, please contact <security@toucan.earth> or visit security.toucan.earth
+// If you encounter a vulnerability or an issue, please contact <security@kyklos.earth> or visit security.kyklos.earth
 pragma solidity 0.8.14;
 
 import {VintageData} from '../types/CarbonProjectVintageTypes.sol';
 import {ProjectData} from '../types/CarbonProjectTypes.sol';
-// import {CreateRetirementRequestParams} from '../bases/ToucanCarbonOffsetsWithBatchBaseTypes.sol';
+// import {CreateRetirementRequestParams} from '../bases/KyklosCarbonOffsetsWithBatchBaseTypes.sol';
 
 interface IKyklosCarbonOffsets {
     function retireFrom(address account, uint256 amount)
@@ -21,7 +21,7 @@ interface IKyklosCarbonOffsets {
         view
         returns (ProjectData memory, VintageData memory);
 
-    /// @notice Get the vintage data of the TCO2
+    /// @notice Get the vintage data of the KCO2
     function getVintageData()
         external
         view

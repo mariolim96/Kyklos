@@ -1,0 +1,16 @@
+@startuml
+actor User as U
+participant System as S
+participant CarbonOffsetFactory as F
+participant CarbonOffsetToken as T
+
+U -> S: Request to tokenize vintage
+S -> U: Prompt for vintage ID
+U -> S: Provide vintage ID
+S -> S: Validate vintage details
+S -> F: Request to deploy token contract
+F -> S: Confirmation of token deployment
+S -> T: Initialize token with vintage details
+T -> S: Confirmation of token creation
+S -> U: Confirmation sent back to User
+@enduml

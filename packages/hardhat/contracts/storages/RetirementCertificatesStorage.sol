@@ -24,7 +24,7 @@ abstract contract RetirementCertificatesStorageV1 {
 		uint256 createdAt;
 		address retiringEntity;
 		/// @dev amount is denominated in 18 decimals, similar to amounts
-		/// in TCO2 contracts.
+		/// in KCO2 contracts.
 		uint256 amount;
 		uint256 projectVintageTokenId;
 	}

@@ -12,19 +12,19 @@ abstract contract PoolFilterStorageV1 {
     mapping(string => bool) public standards;
     mapping(string => bool) public methodologies;
 
-    /// @dev mapping to allowlist external non-TCO2 contracts by address
+    /// @dev mapping to allowlist external non-KCO2 contracts by address
     mapping(address => bool) public externalAllowlist;
 
-    /// @dev mapping to include certain TCO2 contracts by address,
+    /// @dev mapping to include certain KCO2 contracts by address,
     /// overriding attribute matching checks
     mapping(address => bool) public internalAllowlist;
 
-    /// @dev mapping to exclude certain TCO2 contracts by address,
+    /// @dev mapping to exclude certain KCO2 contracts by address,
     /// even if the attribute matching would pass
     mapping(address => bool) public internalBlocklist;
 
     /// @dev address of the registry contract that knows
-    /// the list of TCO2s
+    /// the list of KCO2s
     address public contractRegistry;
 
     uint64 public minimumVintageStartTime;

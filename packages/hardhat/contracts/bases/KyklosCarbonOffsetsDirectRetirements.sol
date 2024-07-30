@@ -6,7 +6,7 @@ pragma solidity ^0.8.14;
 
 import './KyklosCarbonOffsetBase.sol';
 
-/// @notice Base contract for any TCO2 token that can be retired
+/// @notice Base contract for any KCO2 token that can be retired
 /// directly on-chain.
 abstract contract KyklosCarbonOffsetsDirectRetirements is
     KyklosCarbonOffsetsBase
@@ -15,7 +15,7 @@ abstract contract KyklosCarbonOffsetsDirectRetirements is
     //              Functions
     // ----------------------------------------
 
-    /// @notice Retirement/Cancellation of TCO2 tokens (the actual offsetting),
+    /// @notice Retirement/Cancellation of KCO2 tokens (the actual offsetting),
     /// which results in the tokens being burnt
     function retire(uint256 amount)
         external
@@ -38,7 +38,7 @@ abstract contract KyklosCarbonOffsetsDirectRetirements is
         retirementEventId = _retire(account, amount, account);
     }
 
-    /// @notice Retire an amount of TCO2s, register an retirement event
+    /// @notice Retire an amount of KCO2s, register an retirement event
     /// then mint a certificate passing a single retirementEventId.
     /// @param retiringEntityString An identifiable string for the retiring entity, eg. their name.
     /// @param beneficiary The beneficiary to set in the NFT.

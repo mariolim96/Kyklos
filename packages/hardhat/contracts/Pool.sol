@@ -14,7 +14,7 @@ import { Errors } from "./libraries/Errors.sol";
 import "./storages/PoolStorage.sol";
 
 /// @notice Pool template contract
-/// ERC20 compliant token that acts as a pool for TCO2 tokens
+/// ERC20 compliant token that acts as a pool for KCO2 tokens
 contract Pool is
 	ContextUpgradeable,
 	ERC20Upgradeable,
@@ -128,17 +128,17 @@ contract Pool is
 	//   Permissionless functions
 	// ----------------------------
 
-	/// @notice Deposit function for pool that accepts TCO2s and mints pool token 1:1
-	/// @param tco2 TCO2 contract address to be deposited, requires approve
-	/// @param amount Amount of TCO2 to be deposited
+	/// @notice Deposit function for pool that accepts KCO2s and mints pool token 1:1
+	/// @param KCO2 KCO2 contract address to be deposited, requires approve
+	/// @param amount Amount of KCO2 to be deposited
 	/// @dev Eligibility is checked via `checkEligible`, balances are tracked
-	/// for each TCO2 separately
+	/// for each KCO2 separately
 	/// @return mintedPoolTokenAmount Amount of pool tokens minted to the caller
 	function deposit(
-		address tco2,
+		address KCO2,
 		uint256 amount
 	) external returns (uint256 mintedPoolTokenAmount) {
-		return _deposit(tco2, amount);
+		return _deposit(KCO2, amount);
 	}
 
 	function _deposit(
@@ -147,7 +147,7 @@ contract Pool is
 	) internal returns (uint256 mintedPoolTokenAmount) {
 		onlyUnpaused();
 
-		// Ensure the TCO2 is eligible to be deposited
+		// Ensure the KCO2 is eligible to be deposited
 		_checkEligible(erc20Addr);
 
 		// Ensure there is space in the pool
@@ -164,10 +164,10 @@ contract Pool is
 		// Update supply-related storage variables in the pool
 		VintageData memory vData = IKyklosCarbonOffsets(erc20Addr)
 			.getVintageData();
-		totalPerProjectTCO2Supply[vData.projectTokenId] += amount;
-		totalTCO2Supply += amount;
+		totalPerProjectKCO2Supply[vData.projectTokenId] += amount;
+		totalKCO2Supply += amount;
 
-		// Transfer the TCO2 to the pool
+		// Transfer the KCO2 to the pool
 		IERC20Upgradeable(erc20Addr).safeTransferFrom(
 			msg.sender,
 			address(this),
@@ -240,10 +240,10 @@ contract Pool is
 
 		// Update supply-related storage variables in the pool
 		VintageData memory vData = IKyklosCarbonOffsets(erc20).getVintageData();
-		totalPerProjectTCO2Supply[vData.projectTokenId] -= amount;
-		totalTCO2Supply -= amount;
+		totalPerProjectKCO2Supply[vData.projectTokenId] -= amount;
+		totalKCO2Supply -= amount;
 
-		// Transfer TCO2 tokens to the caller
+		// Transfer KCO2 tokens to the caller
 		IERC20Upgradeable(erc20).safeTransfer(msg.sender, amount);
 
 		emit Redeemed(msg.sender, erc20, amount);
@@ -251,24 +251,24 @@ contract Pool is
 
 	/// @dev Internal function to redeem multiple underlying tokens
 	function _redeemInMany(
-		address[] memory tco2s,
+		address[] memory KCO2s,
 		uint256[] memory amounts
 	) internal returns (uint256[] memory redeemedAmounts) {
 		onlyUnpaused();
-		uint256 tco2Length = tco2s.length;
-		require(tco2Length == amounts.length, Errors.CP_LENGTH_MISMATCH);
+		uint256 KCO2Length = KCO2s.length;
+		require(KCO2Length == amounts.length, Errors.CP_LENGTH_MISMATCH);
 
 		// Initialize return arrays
-		redeemedAmounts = new uint256[](tco2Length);
+		redeemedAmounts = new uint256[](KCO2Length);
 
 		// Execute redemptions
-		for (uint256 i = 0; i < tco2Length; ++i) {
-			_checkEligible(tco2s[i]);
+		for (uint256 i = 0; i < KCO2Length; ++i) {
+			_checkEligible(KCO2s[i]);
 
 			uint256 amountToRedeem = amounts[i];
 
 			// Redeem the amount minus the fee
-			redeemSingle(tco2s[i], amountToRedeem);
+			redeemSingle(KCO2s[i], amountToRedeem);
 
 			// Keep track of redeemed amounts in return arguments
 			// to make the function composable.
@@ -277,29 +277,29 @@ contract Pool is
 	}
 
 	function _redeemOutMany(
-		address[] memory tco2s,
+		address[] memory KCO2s,
 		uint256[] memory amounts
 	) internal returns (uint256 poolAmountSpent) {
 		onlyUnpaused();
-		uint256 tco2Length = tco2s.length;
-		require(tco2Length == amounts.length, Errors.CP_LENGTH_MISMATCH);
+		uint256 KCO2Length = KCO2s.length;
+		require(KCO2Length == amounts.length, Errors.CP_LENGTH_MISMATCH);
 
 		// Execute redemptions
-		for (uint256 i = 0; i < tco2Length; ++i) {
-			_checkEligible(tco2s[i]);
+		for (uint256 i = 0; i < KCO2Length; ++i) {
+			_checkEligible(KCO2s[i]);
 
 			// Redeem the amount
 			uint256 amountToRedeem = amounts[i];
 			poolAmountSpent += amountToRedeem;
-			redeemSingle(tco2s[i], amountToRedeem);
+			redeemSingle(KCO2s[i], amountToRedeem);
 		}
 	}
 
 	function redeemOutMany(
-		address[] memory tco2s,
+		address[] memory KCO2s,
 		uint256[] memory amounts
 	) external returns (uint256 poolAmountSpent) {
-		return _redeemOutMany(tco2s, amounts);
+		return _redeemOutMany(KCO2s, amounts);
 	}
 
 	/// @dev Implemented in order to disable transfers when paused
@@ -317,9 +317,9 @@ contract Pool is
 		return (supplyCap - totalSupply());
 	}
 
-	/// @notice Returns the balance of the TCO2 found in the pool
-	function tokenBalances(address tco2) public view returns (uint256) {
-		return IERC20Upgradeable(tco2).balanceOf(address(this));
+	/// @notice Returns the balance of the KCO2 found in the pool
+	function tokenBalances(address KCO2) public view returns (uint256) {
+		return IERC20Upgradeable(KCO2).balanceOf(address(this));
 	}
 
 	// -----------------------------

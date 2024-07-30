@@ -18,7 +18,7 @@ import { CreateRetirementRequestParams } from "./KyklosCarbonOffsetsWithBatchBas
 
 import "../interfaces/IRetirementCertificates.sol";
 
-/// @notice Base contract for any specific contract implementation of the TCO2 tokens (ERC20)
+/// @notice Base contract for any specific contract implementation of the KCO2 tokens (ERC20)
 abstract contract KyklosCarbonOffsetsBase is
 	ERC20Upgradeable,
 	KyklosCarbonOffsetsStorage
@@ -45,19 +45,19 @@ abstract contract KyklosCarbonOffsetsBase is
 	// ----------------------------------------
 
 	/// @dev modifier checks whether the `KyklosCarbonOffsetsFactory` is paused
-	/// Since TCO2 contracts are permissionless, pausing does not function individually
+	/// Since KCO2 contracts are permissionless, pausing does not function individually
 	modifier whenNotPaused() {
-		address tco2Factory = IKyklosContractRegistry(contractRegistry)
+		address KCO2Factory = IKyklosContractRegistry(contractRegistry)
 			.kyklosCarbonOffsetsFactoryAddress(standardRegistry());
-		bool _paused = IPausable(tco2Factory).paused();
-		require(!_paused, "Paused TCO2");
+		bool _paused = IPausable(KCO2Factory).paused();
+		require(!_paused, "Paused KCO2");
 		_;
 	}
 
 	modifier onlyFactoryOwner() {
-		address tco2Factory = IKyklosContractRegistry(contractRegistry)
+		address KCO2Factory = IKyklosContractRegistry(contractRegistry)
 			.kyklosCarbonOffsetsFactoryAddress(standardRegistry());
-		address owner = IKyklosCarbonOffsetsFactory(tco2Factory).owner();
+		address owner = IKyklosCarbonOffsetsFactory(KCO2Factory).owner();
 		require(owner == msg.sender, "Not factory owner");
 		_;
 	}
@@ -108,7 +108,7 @@ abstract contract KyklosCarbonOffsetsBase is
 		string memory globalProjectId;
 		string memory vintageName;
 		(globalProjectId, vintageName) = getGlobalProjectVintageIdentifiers();
-		return string.concat("TCO2-", globalProjectId, "-", vintageName);
+		return string.concat("KCO2-", globalProjectId, "-", vintageName);
 	}
 
 	/// @dev Helper function to retrieve data fragments for `name()` and `symbol()`
@@ -158,13 +158,13 @@ abstract contract KyklosCarbonOffsetsBase is
 			);
 	}
 
-	/// @dev Returns the remaining space in TCO2 contract before hitting the cap
+	/// @dev Returns the remaining space in KCO2 contract before hitting the cap
 	function getRemaining() public view returns (uint256 remaining) {
 		uint256 cap = getDepositCap();
 		remaining = cap - totalSupply();
 	}
 
-	/// @dev Returns the cap for TCO2s based on `totalVintageQuantity`
+	/// @dev Returns the cap for KCO2s based on `totalVintageQuantity`
 	/// Returns `~unlimited` if the value for the vintage is not set
 	function getDepositCap() public view returns (uint256) {
 		VintageData memory vintageData;
@@ -180,10 +180,10 @@ abstract contract KyklosCarbonOffsetsBase is
 		return cap;
 	}
 
-	/// @notice Burn TCO2 on behalf of a user. msg.sender needs to be approved by
+	/// @notice Burn KCO2 on behalf of a user. msg.sender needs to be approved by
 	/// the account for the burn to be successfull. This function is exposed so it
 	/// can be utilized to burn credits without retiring them (eg. dispose HFC-23).
-	/// @param account The user for whom to burn TCO2
+	/// @param account The user for whom to burn KCO2
 	/// @param amount The amount to burn
 	function burnFrom(
 		address account,
@@ -193,7 +193,7 @@ abstract contract KyklosCarbonOffsetsBase is
 		_burn(account, amount);
 	}
 
-	// @dev Internal function for the burning of TCO2 tokens
+	// @dev Internal function for the burning of KCO2 tokens
 	// @dev retiringEntityAddress is a parameter to handle scenarios, when
 	// retirements are performed from the escrow contract and the retiring entity
 	// is different than the account.

@@ -1,0 +1,15 @@
+@startuml
+actor User as U
+participant Pool as P
+participant PoolFilter as PF
+participant CarbonOffsetToken as T
+
+U -> P: Request to deposit carbon credits
+P -> U: Prompt for token and amount
+U -> P: Provide token address and amount
+P -> PF: Check eligibility of token
+PF -> P: Token eligibility confirmed
+P -> T: Transfer tokens to Pool
+T -> P: Tokens transferred
+P -> U: Confirm deposit and issue pool tokens
+@enduml

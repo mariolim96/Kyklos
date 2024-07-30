@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Kyklos Labs
-//
+
 // SPDX-License-Identifier: UNLICENSED
 
 pragma solidity 0.8.14;
@@ -7,7 +6,7 @@ pragma solidity 0.8.14;
 // ============ External Imports ============
 import "./bases/KyklosCarbonOffsetsFactoryBase.sol";
 
-/// @notice This TCO2 factory creates project-vintage-specific ERC20 contracts for Batch-NFT fractionalization
+/// @notice This KCO2 factory creates project-vintage-specific ERC20 contracts for Batch-NFT fractionalization
 /// Locks in received ERC721 Batch-NFTs and can mint corresponding quantity of ERC20s
 /// Permissionless, anyone can deploy new ERC20s unless they do not yet exist and pid exists
 contract KyklosCarbonOffsetsFactory is KyklosCarbonOffsetsFactoryBase {

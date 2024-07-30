@@ -5,10 +5,10 @@ pragma solidity 0.8.14;
 import "./bases/KyklosCarbonOffsetsDirectRetirements.sol";
 import "./bases/KyklosCarbonOffsetsWithBatchBase.sol";
 
-/// @notice Implementation contract of the TCO2 tokens (ERC20)
+/// @notice Implementation contract of the KCO2 tokens (ERC20)
 /// These tokenized carbon offsets are specific to a vintage and its associated attributes
-/// In order to mint TCO2s a user must deposit a matching CarbonOffsetBatch
-/// @dev Each TCO2 contract is deployed via a Beacon Proxy in `KyklosCarbonOffsetsFactory`
+/// In order to mint KCO2s a user must deposit a matching CarbonOffsetBatch
+/// @dev Each KCO2 contract is deployed via a Beacon Proxy in `KyklosCarbonOffsetsFactory`
 contract KyklosCarbonOffsets is
 	KyklosCarbonOffsetsWithBatchBase,
 	KyklosCarbonOffsetsDirectRetirements

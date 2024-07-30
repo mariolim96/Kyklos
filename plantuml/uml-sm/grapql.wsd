@@ -1,0 +1,200 @@
+@startuml
+
+' Define classes
+class User {
+  id: ID!
+  batchesOwned: [BatchToken!]! @derivedFrom(field: "owner")
+  batchesCreated: [BatchToken!]! @derivedFrom(field: "creator")
+  projectsOwned: [Project!]! @derivedFrom(field: "owner")
+  projectsCreated: [Project!]! @derivedFrom(field: "creator")
+  vintagesOwned: [ProjectVintage!]! @derivedFrom(field: "owner")
+  vintagesCreated: [ProjectVintage!]! @derivedFrom(field: "creator")
+  retirementsCreated: [Retirement!]! @derivedFrom(field: "creator")
+  redeemsCreated: [Redeem!]! @derivedFrom(field: "creator")
+  tokensOwned: [KCO2Balance!]! @derivedFrom(field: "user")
+  poolBalances: [UserPoolBalance!]! @derivedFrom(field: "user")
+}
+
+class Project {
+  id: ID!
+  creator: User!
+  owner: User!
+  timestamp: BigInt!
+  tx: String
+  projectId: String!
+  vintages: [ProjectVintage!]! @derivedFrom(field: "project")
+  standard: String!
+  methodology: String!
+  region: String!
+  storageMethod: String!
+  method: String!
+  emissionType: String!
+  category: String!
+  uri: String!
+}
+
+class ProjectVintage {
+  id: ID!
+  creator: User!
+  owner: User!
+  timestamp: BigInt!
+  tx: String!
+  name: String!
+  startTime: BigInt!
+  endTime: BigInt!
+  project: Project
+  batches: [BatchToken!]! @derivedFrom(field: "vintage")
+  totalVintageQuantity: BigInt!
+  isCorsiaCompliant: Boolean!
+  isCCCompliant: Boolean!
+  coBenefits: String!
+  corresAdjustment: String!
+  additionalCertification: String!
+  kco2Token: KCO2Token
+}
+
+class BatchToken {
+  id: ID!
+  creator: User!
+  owner: User!
+  timestamp: BigInt!
+  vintage: ProjectVintage!
+  status: String!
+  tx: String!
+}
+
+class KCO2Token {
+  id: ID!
+  creator: User!
+  createdAt: BigInt!
+  creationTx: String!
+  projectVintage: ProjectVintage!
+  name: String!
+  symbol: String!
+  retirements: [Retirement!]! @derivedFrom(field: "token")
+}
+
+class KCO2Balance {
+  id: ID!
+  user: User!
+  token: KCO2Token!
+  balance: BigInt!
+}
+
+class RetirementCertificate {
+  id: ID!
+  creationTx: String!
+  updateTxs: [String!]!
+  createdAt: BigInt!
+  retiringEntity: User!
+  beneficiary: User!
+  retiringEntityString: String!
+  beneficiaryString: String!
+  retirementMessage: String!
+  retirements: [Retirement!]! @derivedFrom(field: "certificate")
+}
+
+class Retirement {
+  id: ID!
+  creationTx: String!
+  amount: BigInt!
+  timestamp: BigInt!
+  token: KCO2Token!
+  creator: User!
+  eventId: BigInt
+  certificate: RetirementCertificate
+}
+
+class PooledKCO2Token {
+  id: ID!
+  token: KCO2Token!
+  poolAddress: Pool!
+  amount: BigInt!
+}
+
+class Deposit {
+  id: ID!
+  amount: BigInt!
+  timestamp: BigInt!
+  token: KCO2Token!
+  pool: Pool!
+  creator: User!
+}
+
+class Redeem {
+  id: ID!
+  amount: BigInt!
+  timestamp: BigInt!
+  token: KCO2Token!
+  pool: Pool!
+  creator: User!
+}
+
+class UserPoolBalance {
+  id: ID!
+  user: User!
+  pool: Pool!
+  balance: BigInt!
+}
+
+class Pool {
+  id: ID!
+  name: String
+  totalCarbonLocked: BigInt!
+  pooledTokens: [PooledKCO2Token!]! @derivedFrom(field: "poolAddress")
+  poolBalances: [UserPoolBalance!]! @derivedFrom(field: "pool")
+  deposits: [Deposit!]! @derivedFrom(field: "pool")
+  redeems: [Redeem!]! @derivedFrom(field: "pool")
+}
+
+' Define relationships
+User --> BatchToken : owns > batchesOwned
+User --> BatchToken : creates > batchesCreated
+User --> Project : owns > projectsOwned
+User --> Project : creates > projectsCreated
+User --> ProjectVintage : owns > vintagesOwned
+User --> ProjectVintage : creates > vintagesCreated
+User --> Retirement : creates > retirementsCreated
+User --> Redeem : creates > redeemsCreated
+User --> KCO2Balance : owns > tokensOwned
+User --> UserPoolBalance : has > poolBalances
+
+Project --> ProjectVintage : has > vintages
+
+ProjectVintage --> Project : belongsTo > project
+ProjectVintage --> BatchToken : has > batches
+ProjectVintage --> KCO2Token : has > kco2Token
+
+BatchToken --> ProjectVintage : belongsTo > vintage
+
+KCO2Token --> ProjectVintage : createdFrom > projectVintage
+KCO2Token --> Retirement : has > retirements
+
+KCO2Balance --> User : belongsTo > user
+KCO2Balance --> KCO2Token : for > token
+
+RetirementCertificate --> Retirement : has > retirements
+RetirementCertificate --> User : retiringEntity
+RetirementCertificate --> User : beneficiary
+
+Retirement --> KCO2Token : of > token
+Retirement --> RetirementCertificate : uses > certificate
+
+PooledKCO2Token --> KCO2Token : contains > token
+PooledKCO2Token --> Pool : storedIn > poolAddress
+
+Deposit --> KCO2Token : of > token
+Deposit --> Pool : into > pool
+
+Redeem --> KCO2Token : of > token
+Redeem --> Pool : from > pool
+
+UserPoolBalance --> User : belongsTo > user
+UserPoolBalance --> Pool : from > pool
+
+Pool --> PooledKCO2Token : contains > pooledTokens
+Pool --> UserPoolBalance : has > poolBalances
+Pool --> Deposit : records > deposits
+Pool --> Redeem : records > redeems
+
+@enduml

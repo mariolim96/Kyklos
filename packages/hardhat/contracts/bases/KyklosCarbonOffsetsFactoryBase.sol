@@ -20,7 +20,7 @@ import "../libraries/Modifiers.sol";
 import "../storages/KyklosCarbonOffsetsFactoryStorage.sol";
 import "hardhat/console.sol";
 
-/// @notice This TCO2 factory base should be used for any logic specific implementation
+
 abstract contract KyklosCarbonOffsetsFactoryBase is
 	OwnableUpgradeable,
 	PausableUpgradeable,
@@ -80,7 +80,7 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 		address newImplementation
 	) internal virtual override onlyOwner {}
 
-	/// @dev sets the Beacon that tracks the current implementation logic of the TCO2s
+	/// @dev sets the Beacon that tracks the current implementation logic of the KCO2s
 	function setBeacon(address _beacon) external virtual onlyOwner {
 		beacon = _beacon;
 	}
@@ -107,9 +107,9 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 	//       Permissionless functions
 	// ----------------------------------------
 
-	/// @notice internal factory function to deploy new TCO2 (ERC20) contracts
-	/// @dev the function creates a new BeaconProxy for each TCO2
-	/// @param projectVintageTokenId links the vintage-specific data to the TCO2 contract
+	/// @notice internal factory function to deploy new KCO2 (ERC20) contracts
+	/// @dev the function creates a new BeaconProxy for each KCO2
+	/// @param projectVintageTokenId links the vintage-specific data to the KCO2 contract
 	function deployNewProxy(
 		uint256 projectVintageTokenId
 	) internal virtual whenNotPaused {
@@ -120,7 +120,7 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 		);
 		checkProjectVintageTokenExists(contractRegistry, projectVintageTokenId);
 
-		/// Ensure that the TCO2 to be deployed is for a standard that is supported
+		/// Ensure that the KCO2 to be deployed is for a standard that is supported
 		/// by the standard registry.
 		require(hasValidStandard(projectVintageTokenId), "Invalid standard");
 
@@ -135,20 +135,20 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 		);
 
 		//slither-disable-next-line reentrancy-no-eth
-		BeaconProxy proxyTCO2 = new BeaconProxy(beacon, payload);
+		BeaconProxy proxyKCO2 = new BeaconProxy(beacon, payload);
 
 		IKyklosContractRegistry(contractRegistry).addERC20(
-			address(proxyTCO2),
+			address(proxyKCO2),
 			standardRegistry()
 		);
 
-		deployedContracts.push(address(proxyTCO2));
-		pvIdtoERC20[projectVintageTokenId] = address(proxyTCO2);
+		deployedContracts.push(address(proxyKCO2));
+		pvIdtoERC20[projectVintageTokenId] = address(proxyKCO2);
 
-		emit TokenCreated(projectVintageTokenId, address(proxyTCO2));
+		emit TokenCreated(projectVintageTokenId, address(proxyKCO2));
 	}
 
-	/// @dev Deploys a TCO2 contract based on a project vintage
+	/// @dev Deploys a KCO2 contract based on a project vintage
 	/// @param projectVintageTokenId numeric tokenId from vintage in `CarbonProjectVintages`
 	function deployFromVintage(
 		uint256 projectVintageTokenId
@@ -204,7 +204,7 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 		return false;
 	}
 
-	/// @dev Returns all addresses of deployed TCO2 contracts
+	/// @dev Returns all addresses of deployed KCO2 contracts
 	function getContracts() external view virtual returns (address[] memory) {
 		return deployedContracts;
 	}
@@ -278,7 +278,7 @@ abstract contract KyklosCarbonOffsetsFactoryBase is
 	/// @notice Return the standard(s) supported by the carbon
 	/// registry from where this factory tokenizes credits, eg., VCS
 	/// It's important to satisfy this interface in order to ensure
-	/// that TCO2 factories cannot create TCO2s for standards that
+	/// that KCO2 factories cannot create KCO2s for standards that
 	/// the standard registry does not support
 	function supportedStandards()
 		public

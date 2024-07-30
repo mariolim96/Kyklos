@@ -159,7 +159,7 @@
         "type": "string"
       }
     ],
-    "name": "TCO2FactoryAdded",
+    "name": "KCO2FactoryAdded",
     "type": "event"
   },
   {
@@ -534,7 +534,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "tco2Factory",
+        "name": "KCO2Factory",
         "type": "address"
       }
     ],

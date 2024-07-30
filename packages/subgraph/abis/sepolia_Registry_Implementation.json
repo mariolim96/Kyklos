@@ -159,7 +159,7 @@
         "type": "string"
       }
     ],
-    "name": "TCO2FactoryAdded",
+    "name": "KCO2FactoryAdded",
     "type": "event"
   },
   {

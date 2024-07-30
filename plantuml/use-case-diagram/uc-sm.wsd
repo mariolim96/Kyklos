@@ -1,0 +1,30 @@
+@startuml use case tokenization carbon credit
+left to right direction
+
+actor User as u
+actor Admin as a
+
+
+package TokenizationProcess {
+    usecase TP1 as "Create project"
+    usecase TP2 as "Update project"
+    usecase TP3 as "Add project vintage"
+    usecase TP4 as "Update project vintage"
+    usecase TP7 as "Add vintage status"
+    usecase TP4 as "Tokenize vintage"
+    usecase TP5 as "Deposits carbon credits"
+    usecase TP6 as "Retire carbon credits"
+    usecase TP7 as "Redeem carbon credits"
+}
+
+u --> TP4
+u --> TP5
+u --> TP6
+u --> TP7
+
+a --> TP1
+a --> TP2
+a --> TP3
+a --> TP7
+
+@enduml

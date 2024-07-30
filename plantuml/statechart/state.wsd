@@ -1,0 +1,29 @@
+
+@startuml statechart
+[*] --> ProjectSetup : Start
+
+state ProjectSetup {
+    [*] --> CreateProject
+    CreateProject : Project creation initiated
+    CreateProject --> ProjectActive : Project is now active 
+}
+
+state ProjectActive {
+    [*] --> AddVintage : Add vintage to project
+    AddVintage --> AddBatch : Add batch to vintage
+    AddBatch --> ValidateBatch : Validate batch and updating status
+    ValidateBatch --> FractionalizeBatch : Fractionalize batch into tokens
+    ValidateBatch --> BatchDetokenized : can be detokenized
+    BatchDetokenized --> [*] : Batch is detokenized and no longer active
+    FractionalizeBatch --> Token : Batch tokens are now active
+}
+
+state Token { 
+[*] --> AddBatch : it can be defractionalised
+     [*]--> SellToken: Tokens can be selled
+    [*] --> RetireTokens : Tokens can be retired
+    RetireTokens --> GenerateCertificate : Generate retirement certificate
+    GenerateCertificate --> [*] : Certificate is generated
+}
+
+@enduml
